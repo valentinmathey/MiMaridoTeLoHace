@@ -20,9 +20,21 @@ import java.util.List;
  */
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, String> {
-    @Query(value = "SELECT p FROM Provider p WHERE p.location = :location")
-    List<Provider> searchByLocation(@Param("location") Locations location);
 
-    @Query(value = "SELECT p FROM Provider p WHERE p.location = :location AND p.profession = :profession")
-    List<Provider> searchByLocationAndProfession(@Param("location") Locations location, @Param("profession") Professions profession);
+    @Query("SELECT p FROM Provider p WHERE p.mail = :mail")
+    List<Provider> searchByMail(
+            @Param("mail") Spring mail);
+
+    @Query("SELECT p FROM Provider p WHERE p.location = :location")
+    List<Provider> searchByLocation(
+            @Param("location") Locations location);
+
+    @Query("SELECT p FROM Provider p WHERE p.profession = :profession")
+    List<Provider> searchByProfession(
+            @Param("profession") Profession profession);
+
+    @Query("SELECT p FROM Provider p WHERE p.location = :location AND p.profession = :profession")
+    List<Provider> searchByLocationAndProfession(
+            @Param("location") Locations location,
+            @Param("profession") Professions profession);
 }
