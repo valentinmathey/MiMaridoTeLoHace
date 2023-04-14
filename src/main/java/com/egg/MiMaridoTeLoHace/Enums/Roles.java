@@ -1,6 +1,7 @@
 package com.egg.MiMaridoTeLoHace.Enums;
 
 
-public class Roles {
+public enum Roles {
+
     
 }

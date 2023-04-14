@@ -1,6 +1,5 @@
 package com.egg.MiMaridoTeLoHace.Enums;
 
-
-public class Professions {
-    
+public enum Professions {
+    GASISTA, ELECTRICISTA, PLOMERO, LIMPIEZA, CERRAJERO
 }
