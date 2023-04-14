@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, String> {
     @Query(value = "SELECT p FROM Provider p WHERE p.location = :location")
@@ -18,5 +17,4 @@ public interface ProviderRepository extends JpaRepository<Provider, String> {
 
     @Query(value = "SELECT p FROM Provider p WHERE p.location = :location AND p.profession = :profession")
     List<Provider> searchByLocationAndProfession(@Param("location") Locations location, @Param("profession") Professions profession);
-
 }

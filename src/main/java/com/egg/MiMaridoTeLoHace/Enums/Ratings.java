@@ -1,6 +1,4 @@
 package com.egg.MiMaridoTeLoHace.Enums;
 
-
-public enum Ratings {
-    
+public enum Ratings {   
 }
