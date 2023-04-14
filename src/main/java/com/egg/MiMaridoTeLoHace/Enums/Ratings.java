@@ -8,6 +8,6 @@ package com.egg.MiMaridoTeLoHace.Enums;
  *
  * @author mathe
  */
-public class Ratings {
+public enum Ratings {
     
 }

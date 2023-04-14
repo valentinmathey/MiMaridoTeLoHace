@@ -4,10 +4,13 @@
  */
 package com.egg.MiMaridoTeLoHace.Services;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
- * @author mathe
+ * @author math
  */
+@Service
 public class CustomerService {
     
 }
