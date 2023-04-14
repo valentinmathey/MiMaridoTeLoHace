@@ -1,7 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Entities;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

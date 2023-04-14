@@ -1,7 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Entities;
 
 import com.egg.MiMaridoTeLoHace.Enums.Ratings;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

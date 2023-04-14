@@ -3,7 +3,6 @@ package com.egg.MiMaridoTeLoHace.Entities;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
