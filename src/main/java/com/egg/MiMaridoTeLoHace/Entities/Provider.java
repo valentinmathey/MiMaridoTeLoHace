@@ -24,7 +24,7 @@ public class Provider {
     private int priceTime;
     
     @Enumerated(EnumType.STRING)
-    private Roles rol;
+    private Roles role;
 
     @Enumerated(EnumType.STRING)
     private Professions profession;
@@ -87,11 +87,11 @@ public class Provider {
     }
 
     public Roles getRol() {
-        return rol;
+        return role;
     }
 
-    public void setRol(Roles rol) {
-        this.rol = rol;
+    public void setRol(Roles role) {
+        this.role = role;
     }
 
     public Professions getProfession() {

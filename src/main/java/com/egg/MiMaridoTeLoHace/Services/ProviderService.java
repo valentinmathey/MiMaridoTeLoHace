@@ -5,6 +5,7 @@ import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Entities.Provider;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
+import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Repositories.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,11 @@ public class ProviderService {
     private ProviderRepository providerRepository;
 
     @Transactional
-    public void createProvider (String name, String email, String password, int priceTime, Professions profession) throws MiException {
+    public void createProvider(String name, String email, String password, int priceTime, Professions profession)
+            throws MiException {
 
         validateData(name, email, priceTime, profession);
-        
+
         Provider provider = new Provider();
 
         provider.setName(name);
@@ -27,7 +29,9 @@ public class ProviderService {
         provider.setPassword(password);
         provider.setProfession(profession);
         provider.setPriceTime(priceTime);
-        
+
+        provider.setRol(Roles.PROVIDER);
+
         providerRepository.save(provider);
     }
 
@@ -37,57 +41,72 @@ public class ProviderService {
             switch (profession) {
                 case "GASISTA":
                     if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
+                                Professions.GASISTA);
                     }
 
                 case "ELECTRICISTA":
                     if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
+                                Professions.GASISTA);
                     }
 
                 case "PLOMERO":
                     if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
+                                Professions.GASISTA);
                     }
 
                 case "LIMPIEZA":
                     if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
+                                Professions.GASISTA);
                     }
 
                 case "CERRAJERO":
                     if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
+                                Professions.GASISTA);
                     }
                     if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3, Professions.GASISTA);
+                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
+                                Professions.GASISTA);
                     }
             }
         } catch (Exception e) {
@@ -98,7 +117,7 @@ public class ProviderService {
 
     public List<Provider> searchLocation(String search) throws Exception {
         try {
-            switch (search){
+            switch (search) {
                 case "BARRIO_1":
                     return providerRepository.searchByLocation(Locations.BARRIO_1);
                 case "BARRIO_2":
@@ -109,7 +128,7 @@ public class ProviderService {
                     return null;
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
@@ -117,24 +136,24 @@ public class ProviderService {
     public List<Provider> getAll() throws Exception {
         try {
             return providerRepository.findAll();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public void save(Provider p){
+    public void save(Provider p) {
         providerRepository.save(p);
     }
-    
-     private void validateData (String name, String email, int priceTime, Professions profession) throws MiException {
-        if (name.isEmpty() || name==null) {
+
+    private void validateData(String name, String email, int priceTime, Professions profession) throws MiException {
+        if (name.isEmpty() || name == null) {
             throw new MiException("NOMBRE PROVIDER invalido o vacio");
-        } else if   (email.isEmpty() || email==null) {
+        } else if (email.isEmpty() || email == null) {
             throw new MiException("EMAIL invalido o vacio");
-        } else if   (priceTime==0) {
+        } else if (priceTime == 0) {
             throw new MiException("EL PRECIO es invalido o vacio");
-        } else if   (profession==null) {
+        } else if (profession == null) {
             throw new MiException("DEBE ELEGIR UNA PROFESION");
-        } 
+        }
     }
 }

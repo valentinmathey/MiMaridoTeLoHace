@@ -21,7 +21,7 @@ public class Admin {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Roles rol;
+    private Roles role;
 
     @OneToOne
     private Image image;
@@ -62,11 +62,11 @@ public class Admin {
     }
 
     public Roles getRol() {
-        return rol;
+        return role;
     }
 
-    public void setRol(Roles rol) {
-        this.rol = rol;
+    public void setRol(Roles role) {
+        this.role = role;
     }
 
     public Image getImage() {
