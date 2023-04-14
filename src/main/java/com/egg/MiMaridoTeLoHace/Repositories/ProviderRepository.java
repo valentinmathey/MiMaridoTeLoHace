@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.MiMaridoTeLoHace.Repositories;
 
-/**
- *
- * @author mathe
- */
-public class ProviderRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.egg.MiMaridoTeLoHace.Entities.Provider;
+ 
+
+@Repository
+public interface ProviderRepository extends JpaRepository <Provider, String> {
     
 }
