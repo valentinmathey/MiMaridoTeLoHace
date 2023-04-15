@@ -29,7 +29,7 @@ public class ProviderService {
         provider.setProfession(profession);
         provider.setPriceTime(priceTime);
 
-        provider.setRol(Roles.PROVIDER);
+        provider.setRole(Roles.PROVIDER);
 
         providerRepository.save(provider);
     }
