@@ -9,12 +9,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
+@Data
 @Entity
 public class Provider {
 
     @Id
     @GeneratedValue (generator = "uuid")
+    @GenericGenerator (name = "uuid", strategy = "uuid2")
     private String id;
 
     private String name;
@@ -34,90 +38,5 @@ public class Provider {
 
     @OneToOne
     private Image image;
-
-    public Provider() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPriceTime() {
-        return priceTime;
-    }
-
-    public void setPriceTime(int priceTime) {
-        this.priceTime = priceTime;
-    }
-
-    public Roles getRol() {
-        return role;
-    }
-
-    public void setRol(Roles role) {
-        this.role = role;
-    }
-
-    public Professions getProfession() {
-        return profession;
-    }
-
-    public void setProfession(Professions profession) {
-        this.profession = profession;
-    }
-
-    public Locations getLocation() {
-        return location;
-    }
-
-    public void setLocation(Locations location) {
-        this.location = location;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    
 
 }

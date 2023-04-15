@@ -17,8 +17,7 @@ public class ProviderService {
     private ProviderRepository providerRepository;
 
     @Transactional
-    public void createProvider(String name, String email, String password, int priceTime, Professions profession)
-            throws MiException {
+    public void createProvider(String name, String email, String password, int priceTime, Professions profession) throws MiException {
 
         validateData(name, email, priceTime, profession);
 
@@ -30,9 +29,22 @@ public class ProviderService {
         provider.setProfession(profession);
         provider.setPriceTime(priceTime);
 
-        provider.setRol(Roles.PROVIDER);
+        provider.setRole(Roles.PROVIDER);
 
         providerRepository.save(provider);
+    }
+    
+    @Transactional
+    public void deleteProvider(String id) throws Exception{ 
+        try {
+            Provider provider = providerRepository.getById(id);
+        
+            providerRepository.delete(provider);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        
+
     }
 
     public List<Provider> searchLocationAndProfession(String location, String profession) throws Exception {
