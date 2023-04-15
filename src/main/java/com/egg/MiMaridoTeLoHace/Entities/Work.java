@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.egg.MiMaridoTeLoHace.Entities;
 
-/**
- *
- * @author mathe
- */
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+@Data
+@Entity
 public class Work {
     
+    @Id
+    @GeneratedValue (generator = "uuid")
+    @GenericGenerator (name = "uuid", strategy = "uuid2")
+    private String id;
+    
+    private boolean allowProvider;
+    private String description;
+//    private Provider provider;
+//    private Customer customer;
+
 }
