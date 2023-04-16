@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class ProviderService {
+
     @Autowired
     private ProviderRepository providerRepository;
 
@@ -33,17 +34,16 @@ public class ProviderService {
 
         providerRepository.save(provider);
     }
-    
+
     @Transactional
-    public void deleteProvider(String id) throws Exception{ 
+    public void deleteProvider(String id) throws Exception {
         try {
             Provider provider = providerRepository.getById(id);
-        
+
             providerRepository.delete(provider);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        
 
     }
 
@@ -167,5 +167,28 @@ public class ProviderService {
         } else if (profession == null) {
             throw new MiException("DEBE ELEGIR UNA PROFESION");
         }
+    }
+
+    public void modifyProvider(String name, String email, int priceTime, Professions profession) throws MiException {
+        validateData(name, email, priceTime, profession);
+        Provider provider = findProviderByEmail(email);
+        if (provider == null) {
+            throw new MiException("Provider not found");
+        } else {
+            provider.setName(name);
+            provider.setEmail(email);
+            provider.setPriceTime(priceTime);
+            provider.setProfession(profession);
+        }
+    }
+
+    public Provider findProviderByEmail(String email) {
+        List<Provider> providerList = providerRepository.findAll();
+        for (Provider provider : providerList) {
+            if (provider.getEmail().equals(email)) {
+                return provider;
+            }
+        }
+        return null;
     }
 }
