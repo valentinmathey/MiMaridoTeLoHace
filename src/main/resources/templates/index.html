@@ -26,7 +26,8 @@
 
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <header th:replace="./fragments/navbar.html :: navbar_users">
+  <!--  eric: saque esto por que da el error 500 por que no encontraba la plantilla: th:replace="./fragments/navbar.html :: navbar_users"-->
+  <header >
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
@@ -57,32 +58,34 @@
                 aria-expanded="false">
                 🛠 Servicios
               </a>
+<!--              eric: ya lo arregle para que haga la busqueda por profecion-->
               <ul class="dropdown-menu">
+              
                 <li><a class="dropdown-item" href="./Providers.html">🔨 Carpintería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔑 Cerrajería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=CERRAJERO">🔑 Cerrajería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">💡 Electricidad</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=ELECTRICISTA">💡 Electricidad</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔥 Gas</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=GASISTA">🔥 Gas</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔩 Herrería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=HERRERO">🔩 Herrería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
@@ -97,6 +100,7 @@
                 📝 Registrate!
               </a>
               <ul class="dropdown-menu">
+
                 <li><a class="dropdown-item" href="./FormCustomer.html">Soy cliente</a></li>
 
                 <li>
@@ -104,6 +108,7 @@
                 </li>
 
                 <li><a class="dropdown-item" href="./FormProvider.html">Soy profesional</a></li>
+
                 <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
               </ul>
             </li>
