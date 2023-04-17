@@ -43,83 +43,17 @@ public class ProviderService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        
-
     }
-
     public List<Provider> searchLocationAndProfession(String location, String profession) throws Exception {
         try {
-
-            switch (profession) {
-                case "GASISTA":
-                    if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
-                                Professions.GASISTA);
+            for (Locations lo : Locations.values()) {
+                if (lo.name().equals(location)) {
+                    for (Professions pr : Professions.values()) {
+                        if (pr.name().equals(profession)) {
+                            return providerRepository.searchByLocationAndProfession(lo, pr);
+                        }
                     }
-                    if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
-                                Professions.GASISTA);
-                    }
-
-                case "ELECTRICISTA":
-                    if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
-                                Professions.GASISTA);
-                    }
-
-                case "PLOMERO":
-                    if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
-                                Professions.GASISTA);
-                    }
-
-                case "LIMPIEZA":
-                    if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
-                                Professions.GASISTA);
-                    }
-
-                case "CERRAJERO":
-                    if (location.equals("BARRIO_1")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_1,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_2")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_2,
-                                Professions.GASISTA);
-                    }
-                    if (location.equals("BARRIO_3")) {
-                        return providerRepository.searchByLocationAndProfession(Locations.BARRIO_3,
-                                Professions.GASISTA);
-                    }
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -127,22 +61,30 @@ public class ProviderService {
         return null;
     }
 
-    public List<Provider> searchLocation(String search) throws Exception {
+    public List<Provider> searchProfession(String search) throws Exception {
         try {
-            switch (search) {
-                case "BARRIO_1":
-                    return providerRepository.searchByLocation(Locations.BARRIO_1);
-                case "BARRIO_2":
-                    return providerRepository.searchByLocation(Locations.BARRIO_1);
-                case "BARRIO_3":
-                    return providerRepository.searchByLocation(Locations.BARRIO_1);
-                default:
-                    return null;
+            for (Professions pr : Professions.values()) {
+                if (pr.name().equals(search)) {
+                    return providerRepository.searchByProfession(pr);
+                }
             }
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+        return null;
+    }
+
+    public List<Provider> searchLocation(String search) throws Exception {
+        try {
+            for (Locations lo : Locations.values()) {
+                if (lo.name().equals(search)) {
+                    return providerRepository.searchByLocation(lo);
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return null;
     }
 
     public List<Provider> getAll() throws Exception {

@@ -27,10 +27,12 @@
 
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <header th:replace="./fragments/navbar.html :: navbar_users">
+<!--  eric: saque esto por que da el error 500 por que no encontraba la plantilla: th:replace="./fragments/navbar.html :: navbar_users"-->
+  <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <!--        eric: ya redirecciona al index.html cuando se le da click-->
+        <a class="navbar-brand" href="/">
           <img src="../img/home-repair.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
           Mi marido te lo hace
         </a>
@@ -58,38 +60,51 @@
                 aria-expanded="false">
                 🛠 Servicios
               </a>
+<!--              eric: ya lo arregle para que haga la busqueda por profecion-->
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="./Providers.html">🪚 Carpintería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=CARPINTERO">🪚 Carpintería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔑 Cerrajería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=CERRAJERO">🔑 Cerrajería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">💡 Electricidad</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=ELECTRICISTA">💡 Electricidad</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔥 Gas</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=GASISTA">🔥 Gas</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🔩 Herrería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=HERRERO">🔩 Herrería</a></li>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
 
-                <li><a class="dropdown-item" href="./Providers.html">🪠 Plomería</a></li>
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=PLOMERO">🪠 Plomería</a></li>
+
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=LIMPIEZA">🪠 Limpieza</a></li>
+
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+
+                <li><a class="dropdown-item" href="/Provider/search?location=&profession=ALBAÑIL">🪠 Albañil</a></li>
               </ul>
             </li>
 
@@ -137,104 +152,27 @@
     </div>
 
 
-    <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+      <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <section>
       <h3 class="title">👷🏻‍♀️👷🏻👷🏻‍♂️ a domicilio 🗺️</h3>
     </section>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This is a wider card with supporting text below as a natural lead-in to
-              additional
-              content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This card has supporting text below as a natural lead-in to additional
-              content.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
+      <div class="row row-cols-1 row-cols-md-3 g-4" >
+<!--       eric: aca se coloca el each para generar las targetas automaticamente segun la cantidad de resultados-->
+        <div class="col" th:each="tmpProvider : ${searchReturn}">
+          <div class="card h-100">
+            <img src="../img/worker1.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${tmpProvider.name}"></h5>
+              <p class="card-text" th:text="${tmpProvider.description}"></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This is a wider card with supporting text below as a natural lead-in to
-              additional
-              content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker4.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This is a wider card with supporting text below as a natural lead-in to
-              additional
-              content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker5.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This card has supporting text below as a natural lead-in to additional
-              content.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="../img/worker6.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">NAME</h5>
-            <p class="card-text">Description: This is a wider card with supporting text below as a natural lead-in to
-              additional
-              content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-          </div>
-        </div>
-      </div>
-    </div>
   </main>
-
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer class="text-muted py-5 footer">
     <div class="containerFooter">
