@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 }
 
+
 .title{
 	margin-top: 3rem;
 }
@@ -13,7 +14,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;	
-	height: 100vh;
+	height: 70vh;
 }
 
 
@@ -29,11 +30,20 @@
 	height: 200px;
 	border-radius: 5px;
 	padding: 0.5rem;
-	border: 1px solid #000;
+	border: 1px solid #3C486B;
 }
 
 
 .input-buttom-submit{
 	width: 150px;
 	margin: 1rem;
+	color: #F45050;
+	background-color: #3C486B;
+	cursor: pointer;
+}
+
+
+.input-buttom-submit:hover{
+	background-color: #F45050;
+	color: #3C486B;
 }
