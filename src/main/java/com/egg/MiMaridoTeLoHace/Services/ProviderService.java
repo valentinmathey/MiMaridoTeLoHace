@@ -44,6 +44,31 @@ public class ProviderService {
             throw new Exception(e.getMessage());
         }
     }
+    
+    @Transactional
+    public void modifyProvider(String name, String email, int priceTime, Professions profession) throws MiException {
+        validateData(name, email, priceTime, profession);
+        Provider provider = findProviderByEmail(email);
+        if (provider == null) {
+            throw new MiException("Provider not found");
+        } else {
+            provider.setName(name);
+            provider.setEmail(email);
+            provider.setPriceTime(priceTime);
+            provider.setProfession(profession);
+        }
+    }
+
+    public Provider findProviderByEmail(String email) {
+        List<Provider> providerList = providerRepository.findAll();
+        for (Provider provider : providerList) {
+            if (provider.getEmail().equals(email)) {
+                return provider;
+            }
+        }
+        return null;
+    }
+    
     public List<Provider> searchLocationAndProfession(String location, String profession) throws Exception {
         try {
             for (Locations lo : Locations.values()) {
