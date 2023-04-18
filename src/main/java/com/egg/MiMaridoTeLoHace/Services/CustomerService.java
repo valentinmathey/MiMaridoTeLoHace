@@ -16,19 +16,19 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     @Transactional
-    public void save(Customer customer) throws MiException {
+    public void createCustomer(Customer customer) throws MiException {
         validateData(customer.getName(), customer.getEmail(), customer.getLocation());
         customerRepository.save(customer);
     }
 
     @Transactional
-    public void delete(String id){
+    public void deleteCustomer(String id){
         Customer customer = customerRepository.findById(id).get();
         customerRepository.delete(customer);
     }
 
     @Transactional
-    public void modify(Customer customer) throws MiException {
+    public void modifyCustomer(Customer customer) throws MiException {
         validateData(customer.getName(), customer.getEmail(), customer.getLocation());
         customerRepository.save(customer);
     }
@@ -43,7 +43,7 @@ public class CustomerService {
         }
     }
 
-    public Customer searchId(String id){
+    public Customer searchBychId(String id){
         return customerRepository.findById(id).get();
     }
 }
