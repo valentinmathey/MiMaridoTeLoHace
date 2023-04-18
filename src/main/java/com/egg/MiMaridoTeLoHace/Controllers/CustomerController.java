@@ -16,27 +16,27 @@ public class CustomerController {
 
     @GetMapping("user/{id}")
     public String Perfil(@PathVariable("id") String id, ModelMap model){
-        model.addAttribute(customerServices.searchId(id));
+        model.addAttribute(customerServices.searchBychId(id));
         return "user";
     }
     @GetMapping("create")
     public String Create(@RequestBody Customer customer) throws MiException {
-        customerServices.save(customer);
+        customerServices.createCustomer(customer);
         return "index";
     }
     @DeleteMapping("delete/{id}")
     public String Delete(@PathVariable("id") String id){
-        customerServices.delete(id);
+        customerServices.deleteCustomer(id);
         return "index";
     }
     @PutMapping("modify/{id}")
     public String Modify(@PathVariable("id") String id, @RequestBody Customer customer) throws MiException {
-        Customer customerModify = customerServices.searchId(id);
+        Customer customerModify = customerServices.searchBychId(id);
         customerModify.setName(customer.getName());
         customerModify.setLocation(customer.getLocation());
         customerModify.setEmail(customer.getEmail());
 
-        customerServices.modify(customerModify);
+        customerServices.modifyCustomer(customerModify);
         return "index";
     }
 

@@ -50,7 +50,7 @@ public class ProviderService {
         validateData(name, email, priceTime, profession);
         Provider provider = findProviderByEmail(email);
         if (provider == null) {
-            throw new MiException("Provider not found");
+            throw new MiException("Provider no enocntrado");
         } else {
             provider.setName(name);
             provider.setEmail(email);
@@ -112,11 +112,11 @@ public class ProviderService {
         return null;
     }
 
-    public List<Provider> getAll() throws Exception {
+    public List<Provider> getAll() throws MiException {
         try {
             return providerRepository.findAll();
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new MiException("LISTA VACIA O NULA");
         }
     }
 
