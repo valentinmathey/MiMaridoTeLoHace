@@ -20,7 +20,7 @@ public class Customer {
     @GenericGenerator (name = "uuid", strategy = "uuid2")
     private String id;
     
-    /*
+
     private String name;
     private String email;
     private String password;
@@ -30,7 +30,7 @@ public class Customer {
 
     @Enumerated (EnumType.STRING)
     private Roles role;
-
+/*
     @OneToOne
     private Image image;
     */
