@@ -27,111 +27,7 @@
 
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<!--  eric: saque esto por que da el error 500 por que no encontraba la plantilla: th:replace="./fragments/navbar.html :: navbar_users"-->
-  <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <img src="../img/home-repair.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-          Mi marido te lo hace
-        </a>
-      </div>
-
-      <div class="container-fluid">
-        <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-
-            <!-- <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li> -->
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">¿Cómo funciona?</a>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                🛠 Servicios
-              </a>
-<!--              eric: ya lo arregle para que haga la busqueda por profecion-->
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=CARPINTERO">🪚 Carpintería</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=CERRAJERO">🔑 Cerrajería</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=ELECTRICISTA">💡 Electricidad</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=GASISTA">🔥 Gas</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=HERRERO">🔩 Herrería</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=PLOMERO">🪠 Plomería</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=LIMPIEZA">🪠 Limpieza</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="/Provider/search?location=&profession=ALBAÑIL">🪠 Albañil</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                📝 Registrate!
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Soy cliente</a></li>
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li><a class="dropdown-item" href="#">Soy profesional</a></li>
-                <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-              </ul>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">✅ Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+<header th:replace="th_templates/templates :: navbar"></header>
 
   <main class="main-providers">
 
@@ -155,35 +51,10 @@
     <section>
       <h3 class="title">👷🏻‍♀️👷🏻👷🏻‍♂️ a domicilio 🗺️</h3>
     </section>
-
-      <div class="row row-cols-1 row-cols-md-3 g-4" >
-<!--       eric: aca se coloca el each para generar las targetas automaticamente segun la cantidad de resultados-->
-        <div class="col" th:each="tmpProvider : ${searchReturn}">
-          <div class="card h-100">
-            <img src="../img/worker1.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title" th:text="${tmpProvider.name}"></h5>
-              <p class="card-text" th:text="${tmpProvider.description}"></p>
-            </div>
-            <div class="card-footer">
-              <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div th:replace="th_templates/templates :: cardProvider"></div>
   </main>
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <footer class="text-muted py-5 footer">
-    <div class="containerFooter">
-      <p class="mb-1">Copyright &copy; My husband does it to you,<br> all rights reserved</p>
-      <p class="mb-0">Visitanos en nuestras <a href="#" class="networks"><br>redes</a>
-      </p>
-      <p class="float-end mb-1">
-        <a href="#" class="up-sky" id="sky">⬆️ Ir al cielo</a>
-      </p>
-    </div>
-  </footer>
-
+  <footer th:replace="th_templates/templates :: footer"></footer>
   <!-- Script / Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

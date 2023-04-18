@@ -54,25 +54,6 @@ public class ProviderController {
         return "Providers";
     }
 
-    /*codigo original de eric sin uso de IA*/
-//    @GetMapping("/search")
-//    public String search(@RequestParam String location, @RequestParam String profession, ModelMap model) {
-//        try {
-//            if (!location.isEmpty() && !profession.isEmpty()) {
-//                model.addAttribute("searchReturn", providerService.searchLocationAndProfession(location, profession));
-//            }else if (!location.isEmpty()) {
-//                model.addAttribute("searchReturn", providerService.searchLocation(location));
-//            }else if (!profession.isEmpty()) {
-//                model.addAttribute("searchReturn", providerService.searchProfession(profession));
-//            } else {
-//                model.addAttribute("searchReturn", providerService.getAll());
-//            }
-//        } catch (Exception e) {
-//            return "index";
-//        }
-//        return "Providers";
-//    }
-    
     @DeleteMapping("{id}")
     public String eliminar(@PathVariable("id") String id, ModelMap modelo) throws MiException{
         try {
