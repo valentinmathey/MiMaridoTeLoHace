@@ -9,7 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("/Customer")
 public class CustomerController {
     @Autowired
     CustomerService customerServices;
@@ -20,7 +20,7 @@ public class CustomerController {
         return "user.html";
     }
     
-    @GetMapping("create")
+    @PostMapping("/create")
     public String create(@RequestBody Customer customer) throws MiException {
         customerServices.createCustomer(customer);
         return "index.html";

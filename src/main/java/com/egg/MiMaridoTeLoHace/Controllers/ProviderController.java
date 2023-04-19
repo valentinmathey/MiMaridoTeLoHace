@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Provider")
+@RequestMapping("/Providers")
 public class ProviderController {
     @Autowired
     ProviderService providerService;
