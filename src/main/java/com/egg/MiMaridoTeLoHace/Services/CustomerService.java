@@ -54,9 +54,9 @@ public class CustomerService {
     }
 
     private void validateData(String name, String email, Locations location) throws MiException {
-        if (name.isEmpty() || name == null) {
+        if (name.isEmpty() ) {
             throw new MiException("NOMBRE Customer invalido o vacio");
-        } else if (email.isEmpty() || email == null) {
+        } else if (email.isEmpty()) {
             throw new MiException("EMAIL invalido o vacio");
         } else if (location == null) {
             throw new MiException("la LOCALIAD es invalido o vacio");
