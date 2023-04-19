@@ -42,7 +42,7 @@ public class ProviderService implements UserDetailsService {
     @Transactional
     public void deleteProvider(String id) throws Exception{ 
         try {
-            Provider provider = providerRepository.getById(id);
+            Provider provider = providerRepository.findById(id).get();
         
             providerRepository.delete(provider);
         } catch (Exception e) {
@@ -64,17 +64,14 @@ public class ProviderService implements UserDetailsService {
         }
     }
 
+    public Provider searchById(String id){
+        return providerRepository.findById(id).get();
+    }
     public Provider findProviderByEmail(String email) {
-        List<Provider> providerList = providerRepository.findAll();
-        for (Provider provider : providerList) {
-            if (provider.getEmail().equals(email)) {
-                return provider;
-            }
-        }
-        return null;
+        return providerRepository.searchByEmail(email);
     }
     
-    public List<Provider> searchLocationAndProfession(String location, String profession) throws Exception {
+    public List<Provider> searchLocationAndProfession(String location, String profession){
         try {
             for (Locations lo : Locations.values()) {
                 if (lo.name().equals(location)) {
@@ -125,14 +122,15 @@ public class ProviderService implements UserDetailsService {
         }
     }
 
+    @Transactional
     public void save(Provider p) {
         providerRepository.save(p);
     }
 
     private void validateData(String name, String email, int priceTime, Professions profession) throws MiException {
-        if (name.isEmpty() || name == null) {
+        if (name.isEmpty()) {
             throw new MiException("NOMBRE PROVIDER invalido o vacio");
-        } else if (email.isEmpty() || email == null) {
+        } else if (email.isEmpty()) {
             throw new MiException("EMAIL invalido o vacio");
         } else if (priceTime == 0) {
             throw new MiException("EL PRECIO es invalido o vacio");

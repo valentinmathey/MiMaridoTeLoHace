@@ -16,7 +16,7 @@ public class CustomerController {
 
     @GetMapping("user/{id}")
     public String Perfil(@PathVariable("id") String id, ModelMap model){
-        model.addAttribute(customerServices.searchBychId(id));
+        model.addAttribute(customerServices.searchById(id));
         return "user";
     }
     
@@ -34,7 +34,7 @@ public class CustomerController {
     
     @PutMapping("modify/{id}")
     public String Modify(@PathVariable("id") String id, @RequestBody Customer customer) throws MiException {
-        Customer customerModify = customerServices.searchBychId(id);
+        Customer customerModify = customerServices.searchById(id);
         customerModify.setName(customer.getName());
         customerModify.setLocation(customer.getLocation());
         customerModify.setEmail(customer.getEmail());

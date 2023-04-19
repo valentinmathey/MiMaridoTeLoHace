@@ -30,8 +30,8 @@ public class Customer {
 
     @Enumerated (EnumType.STRING)
     private Roles role;
-/*
+
     @OneToOne
     private Image image;
-    */
+
 }

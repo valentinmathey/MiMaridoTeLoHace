@@ -25,5 +25,5 @@ public interface ProviderRepository extends JpaRepository<Provider, String> {
             @Param("profession") Professions profession);
     
     @Query("SELECT p FROM Provider p WHERE p.email = :email")
-    public Provider searchByEmail(@Param("email") String email);
+    Provider searchByEmail(@Param("email") String email);
 }
