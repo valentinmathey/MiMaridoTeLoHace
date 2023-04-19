@@ -42,7 +42,7 @@ public class CustomerService {
             throw new MiException("la LOCALIAD es invalido o vacio");
         }
     }
-
+    
     public Customer searchBychId(String id){
         return customerRepository.findById(id).get();
     }

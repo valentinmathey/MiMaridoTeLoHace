@@ -10,9 +10,14 @@ import com.egg.MiMaridoTeLoHace.Repositories.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
-public class ProviderService {
+public class ProviderService implements UserDetailsService {
+    
     @Autowired
     private ProviderRepository providerRepository;
 
@@ -25,7 +30,7 @@ public class ProviderService {
 
         provider.setName(name);
         provider.setEmail(email);
-        provider.setPassword(password);
+        provider.setPassword(new BCryptPasswordEncoder().encode(password));
         provider.setProfession(profession);
         provider.setPriceTime(priceTime);
 
@@ -134,5 +139,10 @@ public class ProviderService {
         } else if (profession == null) {
             throw new MiException("DEBE ELEGIR UNA PROFESION");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
