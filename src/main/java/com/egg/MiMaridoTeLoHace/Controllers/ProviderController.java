@@ -9,8 +9,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,13 +53,13 @@ public class ProviderController {
     }
 
     @DeleteMapping("{id}")
-    public String eliminar(@PathVariable("id") String id, ModelMap modelo) throws MiException{
+    public String delete(@PathVariable("id") String id, ModelMap model) throws MiException{
         try {
             providerService.deleteProvider(id);
         
             return "index.html";
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new MiException("Provider no encontrado!");
         }
         
     }

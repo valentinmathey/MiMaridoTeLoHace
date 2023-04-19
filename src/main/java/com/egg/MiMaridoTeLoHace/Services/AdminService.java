@@ -1,5 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,38 +21,32 @@ public class AdminService {
     AdminRepository adminRepository;
 
     @Transactional
-    public void createAdmin (String name, String email, String password) throws MiException{
+    public void createAdmin (Admin admin) throws MiException{
 
-        validateData(name, email);
+        validateData(admin);
 
-        Admin admin = new Admin();
+        try {
+            
+            admin.setRole(Roles.ADMIN);
 
-        admin.setName(name);
-        admin.setEmail(password);
-        admin.setPassword(password);
-        
-        admin.setRole(Roles.ADMIN);
+            adminRepository.save(admin);
 
-        adminRepository.save(admin);
+        } catch (Exception e) {
+            throw new MiException("ERROR al cerar nuevo perfil de Administrador");
+        }
 
     }
     
     @Transactional
-    public void modifyAdmin(String email) throws MiException {
+    public void modifyAdmin(Admin admin) throws MiException {
 
-        validateData(email, email);
+        validateData(admin);
 
         try {
 
-            Optional<Admin> adminEmail = adminRepository.findByEmail(email);
+            validateData(admin);
 
-            if (adminEmail.isPresent()) {
-
-                Admin admin = adminEmail.get();
-                admin.setEmail(email);
-                admin.setName(email);
-                adminRepository.save(admin);
-            }
+            adminRepository.save(admin);
 
         } catch (Exception e) {
             throw new MiException("ningun EMAIL coincide en base de datos");
@@ -59,20 +54,20 @@ public class AdminService {
     }
 
    @Transactional 
-    public void deleteAdmin(String email) throws MiException{
+    public void deleteAdmin(String id) throws MiException{
 
         try {
 
-            Optional<Admin> adminEmail = adminRepository.findByEmail(email);    
+            Optional<Admin> adminId = adminRepository.findById(id);    
             
-            if (adminEmail.isPresent()) {
+            if (adminId.isPresent()) {
             
-                Admin admin = adminEmail.get();
+                Admin admin = adminId.get();
                 adminRepository.delete(admin);
             }
 
         } catch (Exception e) {
-            throw new MiException("Ningun EMAIL encontrado");
+            throw new MiException("Ningun ADMIN encontrado");
         }
     }
     
@@ -84,10 +79,36 @@ public class AdminService {
         }
     }
 
-    private void validateData(String name, String email) throws MiException {
-        if (name.isEmpty() || name == null) {
+    public Admin searchById(String id) throws MiException{
+        
+        try {
+            
+            Optional<Admin> adminIdConsult = adminRepository.findById(id);
+
+            if (adminIdConsult.isPresent()) {
+                Admin newAdmin = adminRepository.findById(id).get();
+                return newAdmin;
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new MiException("ID de Administrador no encontrada");
+        }
+
+    }
+
+    public List<Admin> listAdmins(){
+
+        List<Admin> admins = new ArrayList<>();
+        admins = adminRepository.findAll();
+        return admins;
+    }
+
+    private void validateData(Admin admin) throws MiException {
+        if (admin.getName().isEmpty() || admin.getName() == null) {
             throw new MiException("NOMBRE PROVIDER invalido o vacio");
-        } else if (email.isEmpty() || email == null) {
+        } else if (admin.getName().isEmpty() || admin.getName() == null) {
             throw new MiException("EMAIL invalido o vacio");
         }
     }
