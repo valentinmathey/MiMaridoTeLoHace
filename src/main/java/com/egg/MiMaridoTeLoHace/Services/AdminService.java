@@ -35,7 +35,8 @@ public class AdminService {
         adminRepository.save(admin);
 
     }
-
+    
+    @Transactional
     public void modifyAdmin(String email) throws MiException {
 
         validateData(email, email);
@@ -57,6 +58,7 @@ public class AdminService {
         }
     }
 
+   @Transactional 
     public void deleteAdmin(String email) throws MiException{
 
         try {
@@ -73,7 +75,7 @@ public class AdminService {
             throw new MiException("Ningun EMAIL encontrado");
         }
     }
-
+    
     public List<Admin> getAll() throws MiException {
         try {
             return adminRepository.findAll();

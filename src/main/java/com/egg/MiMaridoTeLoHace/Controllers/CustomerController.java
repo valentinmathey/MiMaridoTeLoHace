@@ -1,4 +1,4 @@
-package com.egg.MiMaridoTeLoHace.Controllers;
+ package com.egg.MiMaridoTeLoHace.Controllers;
 
 import com.egg.MiMaridoTeLoHace.Entities.Customer;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
@@ -19,16 +19,19 @@ public class CustomerController {
         model.addAttribute(customerServices.searchBychId(id));
         return "user";
     }
+    
     @GetMapping("create")
     public String Create(@RequestBody Customer customer) throws MiException {
         customerServices.createCustomer(customer);
         return "index";
     }
+    
     @DeleteMapping("delete/{id}")
     public String Delete(@PathVariable("id") String id){
         customerServices.deleteCustomer(id);
         return "index";
     }
+    
     @PutMapping("modify/{id}")
     public String Modify(@PathVariable("id") String id, @RequestBody Customer customer) throws MiException {
         Customer customerModify = customerServices.searchBychId(id);
