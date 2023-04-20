@@ -3,18 +3,10 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 import com.egg.MiMaridoTeLoHace.Entities.Admin;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.AdminService;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,10 +17,10 @@ public class AdminController {
     @GetMapping("/list")
     public String getAll(ModelMap model) throws Exception {
         model.addAttribute("searchReturn",adminService.getAll());
-        return "index.html";
+        return "index";
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public String create(@RequestBody Admin admin) throws MiException{
 
         try {
@@ -72,16 +64,6 @@ public class AdminController {
             throw new MiException("Admin no encontrado!");
         }
 
-    }
-    
-    @GetMapping("/list")
-    public String list(ModelMap model) {
-        
-        List<Admin> adminList = adminService.listAdmins();
-        model.addAttribute("admins", adminList);
-
-        return "autor_list.hmtl";
-        //el nombre este ultimo HTML se puede cambiar, asi como podemos prescindir de este bloque de codigo si es que no queremos listar admins
     }
 
 }

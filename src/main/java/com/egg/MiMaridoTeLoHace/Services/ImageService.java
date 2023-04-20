@@ -16,26 +16,27 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    @Transactional
-    public Image Save(MultipartFile archivo){
+    public Image convertMultipartToImage(MultipartFile archivo) throws MiException {
         if (archivo != null) {
             try {
 
                 Image imagen = new Image();
-
                 imagen.setMime(archivo.getContentType());
-
-                imagen.setName(archivo.getName());
-
+                imagen.setName(archivo.getOriginalFilename());
                 imagen.setContent(archivo.getBytes());
 
-                return imageRepository.save(imagen);
+                return imagen;
 
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                throw new MiException("No se pudo convertir la imagen ("+ e +")");
             }
         }
         return null;
+    }
+
+    @Transactional
+    public void Save(Image image){
+       imageRepository.save(image);
     }
 
     @Transactional
