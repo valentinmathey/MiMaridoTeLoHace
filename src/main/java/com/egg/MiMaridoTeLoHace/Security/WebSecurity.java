@@ -29,7 +29,7 @@ public class WebSecurity extends  WebSecurityConfigurerAdapter{
     public AdminService adminService;
 
     @Autowired
-    @Qualifier("providerService") //VALENTIN - Solusion temporal para el tema de los BEAN (Se puede modificar entre admin o provider o customer)
+    @Qualifier("customerService") //VALENTIN - Solusion temporal para el tema de los BEAN (Se puede modificar entre admin o provider o customer)
     private UserDetailsService userDetailsService;
     
     @Autowired

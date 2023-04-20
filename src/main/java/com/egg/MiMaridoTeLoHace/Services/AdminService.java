@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -36,7 +37,7 @@ public class AdminService implements UserDetailsService{
         try {
             
             admin.setRole(Roles.ADMIN);
-
+            admin.setPassword(new BCryptPasswordEncoder().encode(admin.getPassword()));
             adminRepository.save(admin);
 
         } catch (Exception e) {
