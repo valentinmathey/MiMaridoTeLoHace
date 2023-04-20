@@ -15,7 +15,6 @@
 	<description>This is a project of a web app so that people from the provider&apos;s side can offer their services or clients can contract the services of each provider.</description>
 	<properties>
 		<java.version>17</java.version>
-
 	</properties>
 	<dependencies>
 		<dependency>
