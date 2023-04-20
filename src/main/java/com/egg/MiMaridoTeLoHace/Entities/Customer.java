@@ -22,6 +22,8 @@ public class Customer {
     
 
     private String name;
+    //agregado lastname
+    private String lastname;
     private String email;
     private String password;
 

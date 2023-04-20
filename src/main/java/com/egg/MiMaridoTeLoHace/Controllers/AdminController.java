@@ -17,7 +17,7 @@ public class AdminController {
     @GetMapping("/list")
     public String getAll(ModelMap model) throws Exception {
         model.addAttribute("searchReturn",adminService.getAll());
-        return "index.html";
+        return "index";
     }
 
     @PostMapping("/create")
@@ -65,15 +65,5 @@ public class AdminController {
         }
 
     }
-    
-//    @GetMapping("/list")
-//    public String list(ModelMap model) {
-//
-//        List<Admin> adminList = adminService.listAdmins();
-//        model.addAttribute("admins", adminList);
-//
-//        return "autor_list.hmtl";
-//        //el nombre este ultimo HTML se puede cambiar, asi como podemos prescindir de este bloque de codigo si es que no queremos listar admins
-//    }
 
 }

@@ -5,7 +5,6 @@ import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +20,11 @@ public class ProviderController {
     @Autowired
     ProviderService providerService;
 
+    @GetMapping("user/{id}")
+    public String perfil(@PathVariable("id") String id, ModelMap model){
+        model.addAttribute("entityReturn", providerService.getById(id));
+        return "User";
+    }
     @GetMapping("/list")
     public String getAll(ModelMap model) throws Exception {
         model.addAttribute("searchReturn",providerService.getAll());
@@ -30,10 +34,10 @@ public class ProviderController {
     @GetMapping("/search")
     public String search(@RequestParam String location, @RequestParam String profession, ModelMap model) throws Exception {
         List<Provider> searchReturn;
-        if (!StringUtils.isEmpty(location) && !StringUtils.isEmpty(profession)) {
+        if (!location.isEmpty() && !profession.isEmpty()) {
             searchReturn = providerService.searchLocationAndProfession(location, profession);
         } else {
-            switch (!StringUtils.isEmpty(location) ? 1 : !StringUtils.isEmpty(profession) ? 2 : 0) {
+            switch (!location.isEmpty() ? 1 : !profession.isEmpty() ? 2 : 0) {
                 case 1:
                     searchReturn = providerService.searchLocation(location);
                     break;
@@ -63,5 +67,5 @@ public class ProviderController {
         }
         
     }
-    
+
 }

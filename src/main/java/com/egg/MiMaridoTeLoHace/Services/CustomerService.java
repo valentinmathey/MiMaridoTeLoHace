@@ -1,6 +1,7 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import com.egg.MiMaridoTeLoHace.Entities.Customer;
+import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
@@ -16,13 +17,17 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    ImageService imageService;
+
     @Transactional
-    public void createCustomer(Customer customer) throws MiException {
+    public void createCustomer(Customer customer, Image image) throws MiException {
         
         validateData(customer.getName(), customer.getEmail(), customer.getLocation());
-        
+
         try {
-            
+            imageService.Save(image);
+            customer.setImage(image);
             customer.setRole(Roles.CUSTOMER);
             customerRepository.save(customer);
 
@@ -63,7 +68,7 @@ public class CustomerService {
         }
     }
     
-    public Customer searchById(String id){
+    public Customer getById(String id){
         return customerRepository.findById(id).get();
     }
 }

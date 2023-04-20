@@ -1,6 +1,8 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import javax.transaction.Transactional;
+
+import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Entities.Provider;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
@@ -14,30 +16,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProviderService implements UserDetailsService {
     
     @Autowired
-    private ProviderRepository providerRepository;
+    ProviderRepository providerRepository;
+    @Autowired
+    ImageService imageService;
 
     @Transactional
-    public void createProvider(String name, String email, String password, int priceTime, Professions profession) throws MiException {
+    public void createProvider(Provider provider) throws MiException {
 
-        validateData(name, email, priceTime, profession);
+        validateData(provider.getName(), provider.getEmail(), provider.getPriceTime(), provider.getProfession());
 
-        Provider provider = new Provider();
 
-        provider.setName(name);
-        provider.setEmail(email);
-        provider.setPassword(new BCryptPasswordEncoder().encode(password));
-        provider.setProfession(profession);
-        provider.setPriceTime(priceTime);
+        //eric: lo cambie para que sea mas compacto, en ves de estar igualando
+        // los valores que recibe solo modifica el que necesita ser modificado
+        Provider providerSave = provider;
+
+        providerSave.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
 
         provider.setRole(Roles.PROVIDER);
 
+        //eric: se le asigna de forma random una calificacion del 1 al 5 con random (Temporal)
+        provider.setRaiting((int) (Math.random() * 5 + 1));
+
         providerRepository.save(provider);
     }
+
+
     
     @Transactional
     public void deleteProvider(String id) throws Exception{ 
@@ -64,7 +73,7 @@ public class ProviderService implements UserDetailsService {
         }
     }
 
-    public Provider searchById(String id){
+    public Provider getById(String id){
         return providerRepository.findById(id).get();
     }
     public Provider findProviderByEmail(String email) {
