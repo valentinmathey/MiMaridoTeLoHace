@@ -6,13 +6,23 @@ import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.CustomerRepository;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class CustomerService {
+public class CustomerService implements UserDetailsService {
 
     @Autowired
     CustomerRepository customerRepository;
@@ -70,5 +80,29 @@ public class CustomerService {
     
     public Customer getById(String id){
         return customerRepository.findById(id).get();
+    }
+    
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Customer customer = customerRepository.searchByEmail(email);
+
+        if (customer != null) {
+
+            List<GrantedAuthority> authorities = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + customer.getRole().toString());
+
+            authorities.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("customersession", customer);
+
+            return (UserDetails) new User(customer.getEmail(), customer.getPassword(), authorities);
+        } else {
+            return null;
+        }
     }
 }

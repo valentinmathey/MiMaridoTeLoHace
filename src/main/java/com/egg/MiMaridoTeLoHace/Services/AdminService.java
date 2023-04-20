@@ -8,14 +8,22 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.egg.MiMaridoTeLoHace.Entities.Admin;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.AdminRepository;
+import javax.servlet.http.HttpSession;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class AdminService {
+public class AdminService implements UserDetailsService{
     
     @Autowired
     AdminRepository adminRepository;
@@ -112,5 +120,28 @@ public class AdminService {
             throw new MiException("EMAIL invalido o vacio");
         }
     }
+    
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Admin admin = adminRepository.searchByEmail(email);
 
+        if (admin != null) {
+
+            List<GrantedAuthority> authorities = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + admin.getRole().toString());
+
+            authorities.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("adminsession", admin);
+
+            return (UserDetails) new User(admin.getEmail(), admin.getPassword(), authorities);
+        } else {
+            return null;
+        }
+    }
 }
