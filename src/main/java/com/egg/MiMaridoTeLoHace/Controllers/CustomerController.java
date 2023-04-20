@@ -38,17 +38,14 @@ public class CustomerController {
     @Transactional
     @PostMapping(value = "/register", consumes = "multipart/form-data")
     public String create(@ModelAttribute Customer customer, @RequestParam("image") MultipartFile archivo) throws MiException {
-        //eric: si el tamaño del archivo es mayor a 5MB se le asigna por defecto customer.png
-        System.out.println(archivo.getSize());
 
-//        if (archivo.getSize() > 1000000){
-//            Image image = imageService.GetByName("customer.png");
-//            customerServices.createCustomer(customer, image);
-//        } else {
-            //eric: caso de que el archivo sea menor a 5MB se convierte y se agrega al customer
+        try {
             Image image = imageService.convertMultipartToImage(archivo);
+            System.out.println(image.toString());
             customerServices.createCustomer(customer, image);
-//        }
+        } catch (Exception e){
+            throw new MiException("EL ERROR SE ENCUENTRA EN EL POST" + e);
+        }
 
         return "index";
     }

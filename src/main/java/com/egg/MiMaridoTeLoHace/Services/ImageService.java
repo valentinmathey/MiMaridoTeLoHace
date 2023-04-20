@@ -20,12 +20,12 @@ public class ImageService {
         if (archivo != null) {
             try {
 
-                Image imagen = new Image();
-                imagen.setMime(archivo.getContentType());
-                imagen.setName(archivo.getOriginalFilename());
-                imagen.setContent(archivo.getBytes());
+                Image image = new Image();
+                image.setMime(archivo.getContentType());
+                image.setName(archivo.getOriginalFilename());
+                image.setContent(archivo.getBytes());
 
-                return imagen;
+                return image;
 
             } catch (Exception e) {
                 throw new MiException("No se pudo convertir la imagen ("+ e +")");
