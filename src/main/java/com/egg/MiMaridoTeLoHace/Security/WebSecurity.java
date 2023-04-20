@@ -4,6 +4,7 @@ import com.egg.MiMaridoTeLoHace.Services.AdminService;
 import com.egg.MiMaridoTeLoHace.Services.CustomerService;
 import com.egg.MiMaridoTeLoHace.Services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -28,6 +29,7 @@ public class WebSecurity extends  WebSecurityConfigurerAdapter{
     public AdminService adminService;
     
     @Autowired
+    @Qualifier("providerService") //VALENTIN - Solusion temporal para el tema de los BEAN (Se puede modificar entre admin o provider o customer)
     private UserDetailsService userDetailsService;
     
     @Autowired
