@@ -22,7 +22,6 @@ public class Customer {
     
 
     private String name;
-    //agregado lastname
     private String lastname;
     private String email;
     private String password;
@@ -32,8 +31,7 @@ public class Customer {
 
     @Enumerated (EnumType.STRING)
     private Roles role;
-
-    @OneToOne
-    private Image image;
+    //eric: cambie el valor para probar facilitar el html con th, no encontre como hacerlo con un objeto
+    private String image;
 
 }

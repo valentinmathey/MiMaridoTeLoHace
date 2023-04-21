@@ -9,7 +9,9 @@ import com.egg.MiMaridoTeLoHace.Repositories.CustomerRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,19 +28,15 @@ public class CustomerService implements UserDetailsService {
 
     @Autowired
     CustomerRepository customerRepository;
-
-    @Autowired
-    ImageService imageService;
-
     @Transactional
     public void createCustomer(Customer customer, Image image) throws MiException {
         
         validateData(customer.getName(), customer.getEmail(), customer.getLocation());
 
         try {
-            imageService.Save(image);
-            customer.setImage(image);
+            customer.setImage(image.getName());
             customer.setRole(Roles.CUSTOMER);
+            customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
             customerRepository.save(customer);
 
         } catch (Exception e) {

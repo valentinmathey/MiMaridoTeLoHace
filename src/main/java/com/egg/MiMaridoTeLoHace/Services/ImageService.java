@@ -15,25 +15,7 @@ public class ImageService {
     //eric: se creo el crud completo de las imagenes falta su prueba e implementacion
     @Autowired
     private ImageRepository imageRepository;
-
-    public Image convertMultipartToImage(MultipartFile archivo) throws MiException {
-        if (archivo != null) {
-            try {
-
-                Image image = new Image();
-                image.setMime(archivo.getContentType());
-                image.setName(archivo.getOriginalFilename());
-                image.setContent(archivo.getBytes());
-
-                return image;
-
-            } catch (Exception e) {
-                throw new MiException("No se pudo convertir la imagen ("+ e +")");
-            }
-        }
-        return null;
-    }
-
+    //se removio el convertMultipartToImage por que no se usaba
     @Transactional
     public void Save(Image image){
        imageRepository.save(image);

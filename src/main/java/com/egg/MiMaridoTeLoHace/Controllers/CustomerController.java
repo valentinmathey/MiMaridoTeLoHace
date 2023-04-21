@@ -5,6 +5,7 @@ import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.CustomerService;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
+import com.egg.MiMaridoTeLoHace.converters.MultipartToImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,8 @@ public class CustomerController {
     CustomerService customerServices;
     @Autowired
     ImageService imageService;
+     @Autowired
+     MultipartToImageConverter multipartToImageConverter;
 
     @GetMapping("user/{id}")
     public String perfil(@PathVariable("id") String id, ModelMap model){
@@ -37,11 +40,18 @@ public class CustomerController {
     //eric: el POST se reciben los datos enviados del html y los envia al services para que se ocupe de la creacion del customer
     @Transactional
     @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public String create(@ModelAttribute Customer customer, @RequestParam("image") MultipartFile archivo) throws MiException {
-
+    public String create(@ModelAttribute Customer customer, @RequestParam("img") MultipartFile archivo) throws MiException {
+        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
+        Image image;
         try {
-            Image image = imageService.convertMultipartToImage(archivo);
-            System.out.println(image.toString());
+            //eric: si el archivo no esta vacio y pesa menos que lo asignado se convierte y se guarda en la BD
+            if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
+                image = multipartToImageConverter.convert(archivo);
+                imageService.Save(image);
+            } else {
+                //eric: caso contrario busca en la BD la imagen del customer para dejarla de default
+                image = imageService.GetByName("customer.jpg");
+            }
             customerServices.createCustomer(customer, image);
         } catch (Exception e){
             throw new MiException("EL ERROR SE ENCUENTRA EN EL POST" + e);
