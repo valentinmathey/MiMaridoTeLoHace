@@ -1,0 +1,73 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/* Utilizar un selector universal para aplicar el reset a todos los elementos */
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box; /* Agregar box-sizing para que el ancho y alto sean consistentes */
+}
+
+/* HTML5 display-role reset para navegadores más antiguos */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* Añadir reset de quotes para blockquote y q */
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* Añadir reset de lista a dl, dt, dd, ol, ul, li */
+dl, dt, dd, ol, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Añadir reset de tabla a table, caption, tbody, tfoot, thead, tr, th, td */
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Añadir reset de línea de base y tamaño de fuente a body */
+body {
+	line-height: 1;
+	font-size: 100%; /* Añadir fuente porcentual para evitar herencia de tamaño de fuente */
+}
+
+/* Añadir reset de elementos en línea a a, abbr, acronym, b, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, u, var */
+a, abbr, acronym, b, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, u, var {
+	border: 0;
+	background: none;
+	text-decoration: none;
+	font-weight: inherit; /* Añadir herencia de peso de fuente */
+	font-style: inherit; /* Añadir herencia de estilo de fuente */
+}
+
+/* Añadir reset de elementos de formulario a fieldset, form, label, legend, select */
+fieldset, form, label, legend, select {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* Añadir reset de elementos de formulario a button, input, textarea */
+button, input, textarea {
+	border: none;
+	background-color: transparent;
+}
