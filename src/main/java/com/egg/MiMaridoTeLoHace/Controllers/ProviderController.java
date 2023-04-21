@@ -5,12 +5,9 @@ import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Provider")
+@RequestMapping("/Providers")
 public class ProviderController {
     @Autowired
     ProviderService providerService;
 
+    @GetMapping("user/{id}")
+    public String perfil(@PathVariable("id") String id, ModelMap model){
+        model.addAttribute("entityReturn", providerService.getById(id));
+        return "User";
+    }
     @GetMapping("/list")
     public String getAll(ModelMap model) throws Exception {
         model.addAttribute("searchReturn",providerService.getAll());
@@ -32,10 +34,10 @@ public class ProviderController {
     @GetMapping("/search")
     public String search(@RequestParam String location, @RequestParam String profession, ModelMap model) throws Exception {
         List<Provider> searchReturn;
-        if (!StringUtils.isEmpty(location) && !StringUtils.isEmpty(profession)) {
+        if (!location.isEmpty() && !profession.isEmpty()) {
             searchReturn = providerService.searchLocationAndProfession(location, profession);
         } else {
-            switch (!StringUtils.isEmpty(location) ? 1 : !StringUtils.isEmpty(profession) ? 2 : 0) {
+            switch (!location.isEmpty() ? 1 : !profession.isEmpty() ? 2 : 0) {
                 case 1:
                     searchReturn = providerService.searchLocation(location);
                     break;
@@ -55,15 +57,15 @@ public class ProviderController {
     }
 
     @DeleteMapping("{id}")
-    public String eliminar(@PathVariable("id") String id, ModelMap modelo) throws MiException{
+    public String delete(@PathVariable("id") String id, ModelMap model) throws MiException{
         try {
             providerService.deleteProvider(id);
         
             return "index.html";
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new MiException("Provider no encontrado!");
         }
         
     }
-    
+
 }

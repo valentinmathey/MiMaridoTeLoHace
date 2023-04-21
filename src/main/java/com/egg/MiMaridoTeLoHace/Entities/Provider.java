@@ -22,6 +22,8 @@ public class Provider {
     private String id;
 
     private String name;
+    //agregado el lastname
+    private String lastname;
     private String email;
     private String password;
     private String description;
@@ -35,6 +37,9 @@ public class Provider {
 
     @Enumerated(EnumType.STRING)
     private Locations location;
+
+    //agregado raiting
+    private int raiting;
 
     @OneToOne
     private Image image;

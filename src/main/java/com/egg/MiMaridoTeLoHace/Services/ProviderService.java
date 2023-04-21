@@ -1,43 +1,64 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import javax.transaction.Transactional;
+
+import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Entities.Provider;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Repositories.ProviderRepository;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class ProviderService {
+public class ProviderService implements UserDetailsService {
+    
     @Autowired
-    private ProviderRepository providerRepository;
+    ProviderRepository providerRepository;
+    @Autowired
+    ImageService imageService;
 
     @Transactional
-    public void createProvider(String name, String email, String password, int priceTime, Professions profession) throws MiException {
+    public void createProvider(Provider provider) throws MiException {
 
-        validateData(name, email, priceTime, profession);
+        validateData(provider.getName(), provider.getEmail(), provider.getPriceTime(), provider.getProfession());
 
-        Provider provider = new Provider();
 
-        provider.setName(name);
-        provider.setEmail(email);
-        provider.setPassword(password);
-        provider.setProfession(profession);
-        provider.setPriceTime(priceTime);
+        //eric: lo cambie para que sea mas compacto, en ves de estar igualando
+        // los valores que recibe solo modifica el que necesita ser modificado
+        Provider providerSave = provider;
+
+        providerSave.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
 
         provider.setRole(Roles.PROVIDER);
 
+        //eric: se le asigna de forma random una calificacion del 1 al 5 con random (Temporal)
+        provider.setRaiting((int) (Math.random() * 5 + 1));
+
         providerRepository.save(provider);
     }
+
+
     
     @Transactional
     public void deleteProvider(String id) throws Exception{ 
         try {
-            Provider provider = providerRepository.getById(id);
+            Provider provider = providerRepository.findById(id).get();
         
             providerRepository.delete(provider);
         } catch (Exception e) {
@@ -59,17 +80,14 @@ public class ProviderService {
         }
     }
 
+    public Provider getById(String id){
+        return providerRepository.findById(id).get();
+    }
     public Provider findProviderByEmail(String email) {
-        List<Provider> providerList = providerRepository.findAll();
-        for (Provider provider : providerList) {
-            if (provider.getEmail().equals(email)) {
-                return provider;
-            }
-        }
-        return null;
+        return providerRepository.searchByEmail(email);
     }
     
-    public List<Provider> searchLocationAndProfession(String location, String profession) throws Exception {
+    public List<Provider> searchLocationAndProfession(String location, String profession){
         try {
             for (Locations lo : Locations.values()) {
                 if (lo.name().equals(location)) {
@@ -120,19 +138,44 @@ public class ProviderService {
         }
     }
 
+    @Transactional
     public void save(Provider p) {
         providerRepository.save(p);
     }
 
     private void validateData(String name, String email, int priceTime, Professions profession) throws MiException {
-        if (name.isEmpty() || name == null) {
+        if (name.isEmpty()) {
             throw new MiException("NOMBRE PROVIDER invalido o vacio");
-        } else if (email.isEmpty() || email == null) {
+        } else if (email.isEmpty()) {
             throw new MiException("EMAIL invalido o vacio");
         } else if (priceTime == 0) {
             throw new MiException("EL PRECIO es invalido o vacio");
         } else if (profession == null) {
             throw new MiException("DEBE ELEGIR UNA PROFESION");
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Provider provider = providerRepository.searchByEmail(email);
+
+        if (provider != null) {
+
+            List<GrantedAuthority> authorities = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + provider.getRole().toString());
+
+            authorities.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("providersession", provider);
+
+            return (UserDetails) new User(provider.getEmail(), provider.getPassword(), authorities);
+        } else {
+            return null;
         }
     }
 }
