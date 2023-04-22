@@ -1,9 +1,17 @@
-.big-title {
+.big-title, 
+.big-title2 {
   font-size: 57px;
-  text-align: left;
   margin: 0 0 0.5em 0;
-
   color: #9b3f94;
+}
+
+.big-title{
+  text-align: left;
+}
+
+.big-title2{
+  text-align: center;
+  margin: 0 0 2em 0;
 }
 
 .subtitle {
@@ -17,4 +25,9 @@
   margin: 3em 0 1.5em 0;
 
   color: #9b3f94;
+}
+
+.card-title{
+  font-size: 14,5px;
+  color: #4050e1;
 }
