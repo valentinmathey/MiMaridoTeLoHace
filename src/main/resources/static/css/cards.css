@@ -1,13 +1,40 @@
-/*  TARJETAS  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-.gridTarjetas {
-  text-align: justify;
-
-  padding: 200px 100px 100px 100px;
-
-  /* Alinear tarjetas en formato grilla */
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 40px;
-  grid-row-gap: 40px;
+.card {
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
+
+.card-img-top {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+
+  margin-top: 1em; /* Ajusta el margen superior para separar la imagen del título */
+  margin-bottom: 0.5em; /* Ajusta el margen inferior para separar la imagen del texto */
+}
+
+.card-title {
+  font-size: 14,5px;
+  color: #4050e1;
+
+  margin-bottom: 0.5em; /* Ajusta el margen inferior para separar el título del texto */
+}
+
+.card-text {
+  flex: 1;
+}
+
+.card{
+  border: none;
+
+  cursor: pointer;
+  
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+}
+
+.card:hover{
+  transform: scale(1.1);
+  transition: 1s;
+}
+
