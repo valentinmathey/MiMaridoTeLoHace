@@ -1,29 +1,61 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
+import com.egg.MiMaridoTeLoHace.Entities.Customer;
+import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.Provider;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
+import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.ProviderService;
+import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Providers")
+@RequestMapping("/provider")
 public class ProviderController {
     @Autowired
     ProviderService providerService;
+    @Autowired
+    ImageService imageService;
+    @Autowired
+    ImageConverter imageConverter;
 
     @GetMapping("user/{id}")
     public String perfil(@PathVariable("id") String id, ModelMap model){
         model.addAttribute("entityReturn", providerService.getById(id));
         return "User";
+    }
+    @GetMapping("/register")
+    public String form(ModelMap model){
+        model.addAttribute("provider", new Provider());
+        return "FormProvider";
+    }
+
+    @Transactional
+    @PostMapping(value = "/register", consumes = "multipart/form-data")
+    public String create(@ModelAttribute Provider provider, @RequestParam("img") MultipartFile archivo) throws MiException {
+        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
+        Image image;
+        try {
+            if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
+                image = imageConverter.convert(archivo);
+                imageService.Save(image);
+            } else {
+                image = imageService.GetByName("provider-avatar.png");
+                imageService.Save(image);
+            }
+            providerService.createProvider(provider, image);
+        } catch (Exception e){
+            throw new MiException("EL ERROR SE ENCUENTRA EN EL POST: " + e);
+        }
+
+        return "redirect:/home";
     }
     @GetMapping("/list")
     public String getAll(ModelMap model) throws Exception {
@@ -43,9 +75,6 @@ public class ProviderController {
                     break;
                 case 2:
                     searchReturn = providerService.searchProfession(profession);
-                    break;
-                case 3:
-                    searchReturn = providerService.getAll();
                     break;
                 default:
                     searchReturn = providerService.getAll();

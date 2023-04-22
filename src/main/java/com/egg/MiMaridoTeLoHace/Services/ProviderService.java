@@ -8,6 +8,7 @@ import com.egg.MiMaridoTeLoHace.Entities.Provider;
 import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
+import com.egg.MiMaridoTeLoHace.Repositories.ImageRepository;
 import com.egg.MiMaridoTeLoHace.Repositories.ProviderRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,38 +35,35 @@ public class ProviderService implements UserDetailsService {
     ImageService imageService;
 
     @Transactional
-    public void createProvider(Provider provider) throws MiException {
-
+    public void createProvider(Provider provider, Image image) throws MiException {
         validateData(provider.getName(), provider.getEmail(), provider.getPriceTime(), provider.getProfession());
+        try {
+            provider.setImage(image.getId());
+            provider.setRole(Roles.PROVIDER);
+            provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
 
+            provider.setRaiting((int) (Math.random() * 5 + 1));
 
-        //eric: lo cambie para que sea mas compacto, en ves de estar igualando
-        // los valores que recibe solo modifica el que necesita ser modificado
-        Provider providerSave = provider;
-
-        providerSave.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
-
-        provider.setRole(Roles.PROVIDER);
-
-        //eric: se le asigna de forma random una calificacion del 1 al 5 con random (Temporal)
-        provider.setRaiting((int) (Math.random() * 5 + 1));
-
-        providerRepository.save(provider);
+            providerRepository.save(provider);
+        } catch (Exception e) {
+            throw new MiException("ERROR al crear nuevo Usuario");
+        }
     }
-
-
     
     @Transactional
     public void deleteProvider(String id) throws Exception{ 
         try {
+
             Provider provider = providerRepository.findById(id).get();
-        
+            imageService.Delete(provider.getImage());
             providerRepository.delete(provider);
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-    
+
+    //eric: falta actualizarlo para cambiar la imagen
     @Transactional
     public void modifyProvider(String name, String email, int priceTime, Professions profession) throws MiException {
         validateData(name, email, priceTime, profession);
