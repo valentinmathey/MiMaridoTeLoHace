@@ -24,11 +24,17 @@ main {
 }
 
 .left-col {
-  margin: 15em 0 0 0;
+  margin: 10em 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
 }
 
-.handyman {
-  margin: 7em 0 0 0;
+.image {
+  margin: 10em 0 0 0;
+  transform: scale(1.1);
 }
 
 .services {
@@ -44,4 +50,8 @@ main {
 
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0,0,0,0);
+}
+
+.providers{
+  display: flex;
 }
