@@ -28,13 +28,15 @@ public class CustomerService implements UserDetailsService {
 
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    ImageService imageService;
     @Transactional
     public void createCustomer(Customer customer, Image image) throws MiException {
         
         validateData(customer.getName(), customer.getEmail(), customer.getLocation());
 
         try {
-            customer.setImage(image.getName());
+            customer.setImage(image.getId());
             customer.setRole(Roles.CUSTOMER);
             customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
             customerRepository.save(customer);
@@ -48,12 +50,14 @@ public class CustomerService implements UserDetailsService {
     public void deleteCustomer(String id) throws MiException{
         try {
             Customer customer = customerRepository.findById(id).get();
+            imageService.Delete(customer.getImage());
             customerRepository.delete(customer);
         } catch (Exception e) {
             throw new MiException("ERROR al borrar Usuario");
         }
     }
 
+    //eric: falta actualizarlo para cambiar la imagen
     @Transactional
     public void modifyCustomer(Customer customer) throws MiException {
         

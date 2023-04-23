@@ -11,33 +11,32 @@
 <!--  probado y funcionando-->
 
 <main class="main-form">
-  <form class="form-container" th:object="${Customer}" th:action="@{/Customer/register}" method="post" enctype="multipart/form-data">
+  <form class="form-container" th:object="${customer}" th:action="@{/customer/register}" method="post" enctype="multipart/form-data">
     <h1 class="title">📝 Registrate</h1>
     <div>
       <label class="label" for="nombre"></label>
       <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:field="*{name}" />
-  
+
       <label class="label" for="lastname"></label>
       <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:field="*{lastname}" />
-  
+
       <label class="label" for="email"></label>
       <input type="text" id="email" name="email" placeholder="E-mail" th:field="*{email}" />
-  
+
       <label class="label" for="location"></label>
       <input type="text" id="location" name="location" placeholder="Ubicación" th:field="*{location}" />
-  
+
       <label class="label" for="password"></label>
       <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" />
     </div>
     <div>
-  
-  <!--  eric: la imagen no tiene thymeleaf por que se envia por separado para realizar la convercion a Image
-      y así poder encontrar posibles errores-->
-  
       <label for="img" class="btn btn-warning button">
         📸 Subir foto de perfil
-        <input type="file" id="img" name="img" accept="image/*" capture="user" style="display:none;">
-    </label>
+        <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;">
+      </label>
+      <div>
+        <input type="submit" name="" class="inputs input-buttom-submit">
+      </div>
   </form>
 </main>
 
