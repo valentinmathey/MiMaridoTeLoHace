@@ -8,35 +8,28 @@
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <header th:replace="th_templates/navbar :: navbar"></header>
 
-    <main class="main-providers">
-
-      <div>
-        <img class="image" src="../static/img/handyman.png" alt="handyman">
-      </div>
+  <main class="main-providers">
 
 
-      <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-      <div class="container text-center">
-        <div class="row">
-          <div class="col left-col">
-            <h1 class="big-title">Encontrá los mejores profesionales de la zona</h1>
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container">
+      <img class="image2" src="../img/provider.svg" alt="providers">
+      <h1 class="big-title2">Encontrá los mejores profesionales de la zona</h1>
+    </div>
+    
 
-          </div>
-          <div class="col">
-            <img class="handyman" src="../img/handyman.png" alt="handyman">
-          </div>
-        </div>
-      </div>
+    <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
+
+    <!-- CARDS SÓLO PARA MOSTRARLAS TEMPORALMENTE -->
+
+    <div th:replace="th_templates/card :: card"></div>
 
 
-      <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-      <section>
-        <h3 class="title">👷🏻‍♀️👷🏻👷🏻‍♂️ a domicilio 🗺️</h3>
-      </section>
-      <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
-    </main>
 
-     <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>
 
   <!-- Script / Bootstrap -->

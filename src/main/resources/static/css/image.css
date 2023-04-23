@@ -1,0 +1,19 @@
+.image {
+  margin: 10em 0 0 0;
+  width: 150%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 7em;
+  width: 45%;
+}

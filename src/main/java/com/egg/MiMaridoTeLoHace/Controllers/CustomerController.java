@@ -5,7 +5,7 @@ import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.CustomerService;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
-import com.egg.MiMaridoTeLoHace.converters.MultipartToImageConverter;
+import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,15 +14,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
- @Controller
-@RequestMapping("/Customer")
+@Controller
+@RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     CustomerService customerServices;
     @Autowired
     ImageService imageService;
-     @Autowired
-     MultipartToImageConverter multipartToImageConverter;
+    @Autowired
+    ImageConverter imageConverter;
 
     @GetMapping("user/{id}")
     public String perfil(@PathVariable("id") String id, ModelMap model){
@@ -30,34 +30,32 @@ public class CustomerController {
         return "User";
     }
 
-    //eric: en el GET se envia el objeto donde se van a almacenar los datos del formCustomer.html
+
     @GetMapping("/register")
     public String form(ModelMap model){
-        model.addAttribute("Customer", new Customer());
+        model.addAttribute("customer", new Customer());
         return "FormCustomer";
     }
 
-    //eric: el POST se reciben los datos enviados del html y los envia al services para que se ocupe de la creacion del customer
     @Transactional
     @PostMapping(value = "/register", consumes = "multipart/form-data")
     public String create(@ModelAttribute Customer customer, @RequestParam("img") MultipartFile archivo) throws MiException {
         long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
         Image image;
         try {
-            //eric: si el archivo no esta vacio y pesa menos que lo asignado se convierte y se guarda en la BD
             if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
-                image = multipartToImageConverter.convert(archivo);
+                image = imageConverter.convert(archivo);
                 imageService.Save(image);
             } else {
-                //eric: caso contrario busca en la BD la imagen del customer para dejarla de default
-                image = imageService.GetByName("customer.jpg");
+                image = imageService.GetByName("customer-avatar.png");
+                imageService.Save(image);
             }
             customerServices.createCustomer(customer, image);
         } catch (Exception e){
-            throw new MiException("EL ERROR SE ENCUENTRA EN EL POST" + e);
+            throw new MiException("EL ERROR SE ENCUENTRA EN EL POST: " + e);
         }
 
-        return "index";
+        return "redirect:/home";
     }
     
     @DeleteMapping("delete/{id}")

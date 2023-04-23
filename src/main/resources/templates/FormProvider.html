@@ -7,35 +7,52 @@
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <header th:replace="th_templates/navbar :: navbar"></header>
-      <form class="form-container">
-        <h1 class="title">Form Provider</h1>
+  <form class="form-container" th:object="${provider}" th:action="@{/provider/register}" method="post" enctype="multipart/form-data">
+    <h1 class="title">📝 Registrate</h1>
+    <div>
+      <label class="label" for="nombre"></label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:field="*{name}" />
 
-        <label class="label">Name: </label>
-        <input type="text" name="" placeholder="name" class="inputs" />
+      <label class="label" for="lastname"></label>
+      <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:field="*{lastname}" />
 
-        <label class="label">Last name: </label>
-        <input type="text" name="" placeholder="last name" class="inputs" />
+      <label class="label" for="email"></label>
+      <input type="text" id="email" name="email" placeholder="E-mail" th:field="*{email}" />
 
-        <label class="label">Provider: </label>
-        <select class="inputs">
-          <option value="opcion1">Gasista</option>
-          <option value="opcion2">Electirsita</option>
-          <option value="opcion3">Albañil</option>
-          <option value="opcion3">Albañil</option>
-        </select>
+      <label class="label" for="description"></label>
+      <input type="text" id="description" name="description" placeholder="descripcion.." th:field="*{description}"/>
 
-        <label class="label">Gmail: </label>
-        <input type="email" name="" placeholder="email" class="inputs" />
+      <label class="label" for="priceTime"></label>
+      <input type="number" id="priceTime" name="priceTime" placeholder="priceTime" th:field="*{priceTime}"/>
 
-        <label class="label">Password: </label>
-        <input type="password" name="" placeholder="Password" class="inputs" />
+<!--      por alguna razon los select no envian el valor-->
+      <select class="inputs">
+        <option value="BARRIO_1" placeholder="BARRIO_1" th:field="*{location}">barrio_1</option>
+        <option value="BARRIO_2" placeholder="BARRIO_2" th:field="*{location}">barrio_2</option>
+        <option value="BARRIO_3" placeholder="BARRIO_3" th:field="*{location}">barrio_3</option>
+      </select>
 
-        <input type="submit" name="" class="inputs input-buttom-submit" />
-      </form>
+      <select class="inputs">
+        <option value="GASISTA" th:field="*{profession}">Gasista</option>
+        <option value="ELECTRISISTA" th:field="*{profession}">Electirsita</option>
+        <option value="ALBAÑIL" th:field="*{profession}">Albañil</option>
+        <option value="PLOMERO" th:field="*{profession}">Plomero</option>
+      </select>
 
-
+      <label class="label" for="password"></label>
+      <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" />
+    </div>
+    <div>
+      <label for="img" class="btn btn-warning button">
+        📸 Subir foto de perfil
+        <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;">
+      </label>
+      <div>
+        <input type="submit" name="" class="inputs input-buttom-submit">
+      </div>
+  </form>
     </body>
-  <footer th:replace="th_templates/templates :: footer"></footer>
+  <footer th:replace="th_templates/footer :: footer"></footer>
     <!-- Script / Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

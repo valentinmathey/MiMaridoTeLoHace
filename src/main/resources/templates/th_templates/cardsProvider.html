@@ -1,13 +1,20 @@
 <div th:fragment="cardProvider" class="row row-cols-1 row-cols-md-3 g-4">
   <div class="col" th:each="tmpProvider : ${searchReturn}">
       <div class="card h-100">
-          <img src="/img/person1.jpg" class="card-img-top" alt="...">
+        <img th:src="@{'/image/DB/' + ${searchReturn.image}}" class="card-img-top" alt="profile-provider">
           <div class="card-body">
               <h5 class="card-title" th:text="${tmpProvider.name}"></h5>
               <p class="card-text" th:text="${tmpProvider.description}"></p>
           </div>
           <div class="card-footer">
-              <small class="text-body-secondary">⭐⭐⭐⭐⭐️</small>
+              <div th:switch="${tmpProvider.raiting}">
+                  <small th:case="1" class="text-body-secondary">⭐️</small>
+                  <small th:case="2" class="text-body-secondary">⭐⭐️</small>
+                  <small th:case="3" class="text-body-secondary">⭐⭐⭐️️️</small>
+                  <small th:case="4" class="text-body-secondary">⭐⭐⭐️⭐️️</small>
+                  <small th:case="5" class="text-body-secondary">⭐⭐⭐️⭐️⭐️️</small>
+                  <small th:case="0" class="text-body-secondary">"Todavia sin contratar"️</small>
+              </div>
           </div>
       </div>
   </div>

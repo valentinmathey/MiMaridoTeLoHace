@@ -25,7 +25,7 @@
 }
 
 .button:active {
-  color: #333;
+  color: #fff;
   background: #f36500;
   border: none;
   border-radius: 50px;
