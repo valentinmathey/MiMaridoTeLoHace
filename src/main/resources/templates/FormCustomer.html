@@ -24,7 +24,9 @@
       <input type="text" id="email" name="email" placeholder="E-mail" th:field="*{email}" />
 
       <label class="label" for="location"></label>
-      <input type="text" id="location" name="location" placeholder="Ubicación" th:field="*{location}" />
+      <select id="location" class="inputs" th:field="*{location}">
+        <option th:each="locations : ${locations}" th:text="${locations.name}" th:value="${locations}"/>
+      </select>
 
       <label class="label" for="password"></label>
       <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" />
@@ -37,6 +39,7 @@
       <div>
         <input type="submit" name="" class="inputs input-buttom-submit">
       </div>
+    </div>
   </form>
 </main>
 

@@ -2,6 +2,7 @@
 
 import com.egg.MiMaridoTeLoHace.Entities.Customer;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
+import com.egg.MiMaridoTeLoHace.Enums.Locations;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.CustomerService;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
@@ -34,6 +35,7 @@ public class CustomerController {
     @GetMapping("/register")
     public String form(ModelMap model){
         model.addAttribute("customer", new Customer());
+        model.addAttribute("locations", Locations.values());
         return "FormCustomer";
     }
 
@@ -61,7 +63,7 @@ public class CustomerController {
     @DeleteMapping("delete/{id}")
     public String delete(@PathVariable("id") String id) throws MiException{
         customerServices.deleteCustomer(id);
-        return "index.html";
+        return "index";
     }
     
     @PutMapping("modify/{id}")
@@ -72,7 +74,7 @@ public class CustomerController {
         customerModify.setEmail(customer.getEmail());
 
         customerServices.modifyCustomer(customerModify);
-        return "index.html";
+        return "index";
     }
 
 
