@@ -25,18 +25,12 @@
       <label class="label" for="priceTime"></label>
       <input type="number" id="priceTime" name="priceTime" placeholder="priceTime" th:field="*{priceTime}"/>
 
-<!--      por alguna razon los select no envian el valor-->
-      <select class="inputs">
-        <option value="BARRIO_1" placeholder="BARRIO_1" th:field="*{location}">barrio_1</option>
-        <option value="BARRIO_2" placeholder="BARRIO_2" th:field="*{location}">barrio_2</option>
-        <option value="BARRIO_3" placeholder="BARRIO_3" th:field="*{location}">barrio_3</option>
+      <select id="location" class="inputs" th:field="*{location}">
+        <option th:each="locations : ${locations}" th:text="${locations.name}" th:value="${locations}"/>
       </select>
 
-      <select class="inputs">
-        <option value="GASISTA" th:field="*{profession}">Gasista</option>
-        <option value="ELECTRISISTA" th:field="*{profession}">Electirsita</option>
-        <option value="ALBAÑIL" th:field="*{profession}">Albañil</option>
-        <option value="PLOMERO" th:field="*{profession}">Plomero</option>
+      <select id="profession" class="inputs" th:field="*{profession}">
+        <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}"/>
       </select>
 
       <label class="label" for="password"></label>
@@ -50,6 +44,7 @@
       <div>
         <input type="submit" name="" class="inputs input-buttom-submit">
       </div>
+    </div>
   </form>
     </body>
   <footer th:replace="th_templates/footer :: footer"></footer>

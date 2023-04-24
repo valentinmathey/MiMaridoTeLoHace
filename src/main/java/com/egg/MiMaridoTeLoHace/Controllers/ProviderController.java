@@ -3,6 +3,8 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 import com.egg.MiMaridoTeLoHace.Entities.Customer;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.Provider;
+import com.egg.MiMaridoTeLoHace.Enums.Locations;
+import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.ProviderService;
@@ -34,6 +36,8 @@ public class ProviderController {
     @GetMapping("/register")
     public String form(ModelMap model){
         model.addAttribute("provider", new Provider());
+        model.addAttribute("locations", Locations.values());
+        model.addAttribute("professions", Professions.values());
         return "FormProvider";
     }
 
@@ -69,17 +73,11 @@ public class ProviderController {
         if (!location.isEmpty() && !profession.isEmpty()) {
             searchReturn = providerService.searchLocationAndProfession(location, profession);
         } else {
-            switch (!location.isEmpty() ? 1 : !profession.isEmpty() ? 2 : 0) {
-                case 1:
-                    searchReturn = providerService.searchLocation(location);
-                    break;
-                case 2:
-                    searchReturn = providerService.searchProfession(profession);
-                    break;
-                default:
-                    searchReturn = providerService.getAll();
-                    break;
-            }
+            searchReturn = switch (!location.isEmpty() ? 1 : !profession.isEmpty() ? 2 : 0) {
+                case 1 -> providerService.searchLocation(location);
+                case 2 -> providerService.searchProfession(profession);
+                default -> providerService.getAll();
+            };
         }
         model.addAttribute("searchReturn", searchReturn);
         return "Providers";

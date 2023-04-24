@@ -11,7 +11,7 @@
         <div th:object="${entityReturn}" method="get">
             <form class="form-container">
                 <div>
-                    <img class="image2" th:src="@{'/image/DB/' + ${entityReturn.image}}">
+                    <img th:src="@{'/image/DB/' + ${entityReturn.image}}">
                     <div>
                         <label>nombre:</label>
                         <input type="text" th:field="*{name}"/>
