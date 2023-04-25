@@ -11,7 +11,7 @@
 <!--  probado y funcionando-->
 
 <main class="main-form">
-  <form class="form-container" th:object="${customer}" th:action="@{/customer/register}" method="post" enctype="multipart/form-data">
+  <form class="form-container" th:object="${customer}" th:action="@{/customer/register}" method="post" enctype="multipart/form-data" onsubmit="return formValidation()">
     <h1 class="title">📝 Registrate</h1>
     <div>
       <label class="label" for="nombre"></label>
@@ -45,6 +45,10 @@
 
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- SCRIPT FormValidation -->
+  
+  <script src="/src/main/resources/static/js/formValidation.js"></script>
 
   <!-- Script / Bootstrap -->
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
