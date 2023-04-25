@@ -36,7 +36,6 @@ public class ProviderController {
     @GetMapping("/register")
     public String form(ModelMap model){
         model.addAttribute("provider", new Provider());
-        model.addAttribute("locations", Locations.values());
         model.addAttribute("professions", Professions.values());
         return "FormProvider";
     }

@@ -33,7 +33,7 @@ public class CustomerService implements UserDetailsService {
     @Transactional
     public void createCustomer(Customer customer, Image image) throws MiException {
         
-        validateData(customer.getName(), customer.getEmail(), customer.getLocation());
+        //validateData(customer.getName(), customer.getEmail(), customer.getLocation());
 
         try {
             customer.setImage(image.getId());
@@ -61,7 +61,7 @@ public class CustomerService implements UserDetailsService {
     @Transactional
     public void modifyCustomer(Customer customer) throws MiException {
         
-        validateData(customer.getName(), customer.getEmail(), customer.getLocation());
+        //validateData(customer.getName(), customer.getEmail(), customer.getLocation());
         
         try {
             customerRepository.save(customer);
