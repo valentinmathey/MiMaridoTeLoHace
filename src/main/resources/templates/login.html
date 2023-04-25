@@ -2,54 +2,36 @@
 <!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<!-- <etiqueta-Padre th:replace = "/Carpeta-Plantilla/etiqueta-hijo :: etiqueta-Padre"></etiqueta-Padre> -->
-<link rel="stylesheet" href="../css/login.css">
-<head th:replace="/fragments/head :: header_form"></head>
+<head th:replace="th_templates/head :: head"></head>
 
 <body>
-  <!-- NAVBAR LOGIN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <header th:replace="th_templates/templates :: navbar"></header>
+  <header th:replace="th_templates/navbar :: navbar"></header>
 
-  <main id="main2">
-    <!-- EXITO / ERROR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div th:replace="fragments/exitoError :: div"></div>
-    </div>
+  <main class="main-form">
+    <form class="form-container" th:action="@{/logincheck}" method="post">
+      <h1 class="title">📝 Ingresa! </h1>
+      
+      <div>
 
-    <!-- FORMULARIO INGRESAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-    <div class="container-fluid m-5 contenedor">
+        <label class="label" for="email"></label>
+        <input type="text" id="email" name="email" placeholder="E-MAIL" />
 
-      <form class="formulario" th:action="@{/logincheck}" method="POST">
 
-        <div class="form-group my-3">
-          <h3 class="card-title">📚 Accede a la Biblioteca!</h3>
-        </div>
+        <label class="label" for="password"></label>
+        <input type="password" id="password" name="password" placeholder="CONTRASEÑA" />
 
-        <!-- inicio nuevo form -->
-        <div class="mb-3 row">
-          <label for="inputEmail" class="col-sm-2">Email</label>
-          <div class="col-sm-10">
-            <input type="email"  class="form-control" id="inputEmail" placeholder="EMAIL">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword" placeholder="PASSWORD">
-          </div>
-        </div>
-        <!-- fin nuevo form -->
+      </div>
+      <br>
+      <div>
+        <button type="submit" class="inputs input-buttom-submit" href="/logincheck">INGRESAR</button>
+      </div>
 
-        <!-- BOTÓN INGRESAR  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <br>
-        <div class="divGuardar">
-          <button type="submit" class="btn btn-primary mt-3 botones" id="botonAmarillo">Ingresar</button>
-        </div>
-      </form>
-    </div>
+    </form>
 
   </main>
 
   <!-- PIE DE PÁGINA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+<<<<<<< HEAD
   <footer th:replace="th_templates/templates :: footer"></footer>
 
   <!-- SCRIPT FormValidation -->
@@ -58,9 +40,15 @@
 
   <!--	DARK MODE  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <script src="/js/toggle.js"></script>
+=======
+  <footer th:replace="th_templates/footer :: footer"></footer>
+>>>>>>> aed9f83c701af3f4ee5c2a5da03fc12e0af6eeb9
 
   <!--	SCRIP de BOOTSTRAP v5.3  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <script th:replace="fragments/bootstrap :: script"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
 
 </body>
+
 </html>
