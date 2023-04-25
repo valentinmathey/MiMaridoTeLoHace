@@ -70,7 +70,6 @@ public class CustomerController {
     public String modify(@PathVariable("id") String id, @RequestBody Customer customer) throws MiException {
         Customer customerModify = customerServices.getById(id);
         customerModify.setName(customer.getName());
-        customerModify.setLocation(customer.getLocation());
         customerModify.setEmail(customer.getEmail());
 
         customerServices.modifyCustomer(customerModify);

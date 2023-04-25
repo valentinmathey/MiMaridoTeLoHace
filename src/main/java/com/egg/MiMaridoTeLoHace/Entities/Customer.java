@@ -20,14 +20,10 @@ public class Customer {
     @GenericGenerator (name = "uuid", strategy = "uuid2")
     private String id;
     
-
     private String name;
     private String lastname;
     private String email;
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Locations location;
 
     @Enumerated (EnumType.STRING)
     private Roles role;

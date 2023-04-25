@@ -34,9 +34,6 @@ public class Provider {
     @Enumerated(EnumType.STRING)
     private Professions profession;
 
-    @Enumerated(EnumType.STRING)
-    private Locations location;
-
     private int raiting;
 
     private String image;
