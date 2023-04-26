@@ -1,6 +1,7 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -134,9 +135,10 @@ public class UserService implements UserDetailsService {
             provider.setImage(image.getId());
             provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
 
-            //TODOS LOS USER NACEN POR DEFECTO COMO UN CUSTOMER, DE FORMA MANUAL DEBERIAMOS DAR PRIVILEGIOS DE ADMIN
             provider.setRole(Roles.PROVIDER);
-
+            provider.setSubscription(new Date(System.currentTimeMillis()));
+            
+            //La descipcion, profesion y rating vienen dentro del objeto que llega por parametros
             userRepository.save(provider);
 
         } catch (Exception e) {
