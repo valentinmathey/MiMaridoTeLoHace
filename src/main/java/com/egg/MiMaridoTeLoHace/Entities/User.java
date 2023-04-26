@@ -8,9 +8,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @Entity
@@ -31,8 +31,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
-    @OneToOne
-    private Image image;
+    private String image;
     
     //Provider---------------------------
     
