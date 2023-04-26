@@ -10,29 +10,29 @@ import org.springframework.data.repository.query.Param;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
-    
+
     @Query("SELECT u FROM User u WHERE u.email = :email")
     User searchByEmail(@Param("email") String email);
-    
+
     @Query("SELECT u FROM User u WHERE u.role = :role")
     List<User> findByRole(@Param("role") Roles role);
-    
+
     @Query("SELECT u FROM User u WHERE u.profession = :profession")
     Optional<User> searchByProfession(@Param("profession") Professions profession);
-    
+
     @Query("SELECT u FROM User u WHERE u.name = :name")
     List<User> findByName(@Param("name") String name);
-    
+
     @Query("SELECT u FROM User u WHERE u.lastname = :lastname")
     List<User> findByNameAndLastName(@Param("lastname") String lastname);
-    
+
 //    @Query("SELECT u FROM User u WHERE u.name = :name AND u.lastname = :lastname")
 //    List<User> findByNameAndLastName(@Param("name") String name), @Param("lastname") String lastname);
-    
+
     @Query("SELECT u FROM User u WHERE u.raiting = :raiting")
     Optional<User> findByRaiting(@Param("raiting") Double raiting);
-    
-    
-    
-    
+
+
+
+
 }

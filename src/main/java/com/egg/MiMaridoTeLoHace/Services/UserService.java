@@ -34,9 +34,9 @@ public class UserService implements UserDetailsService {
     //---- CRUD USER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
     @Transactional
     public void createUser(User user, Image image) throws MiException{
-        
+
         try {
-            
+
             user.setAlta(true);
             user.setImage(image.getId());
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
@@ -51,33 +51,49 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Transactional
-    public void modifyUSer() throws MiException{
+    @Transactional//eric: añadido valores recibidos
+    public void modifyUSer(String id, User user) throws MiException{
 
         try {
-            
+
         } catch (Exception e) {
             throw new MiException("null");
         }
     }
 
-    @Transactional
-    public void deleteUser() throws MiException{
+    @Transactional//eric: añadido valores recibidos
+    public void deleteUser(String id) throws MiException{
 
         try {
-            
+
         } catch (Exception e) {
             throw new MiException("null");
         }
     }
-    
+
+    //eric: añadido los getBy
+    public User getById(String id) throws MiException {
+        try {
+            return userRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new MiException("Usuario no encontrado");
+        }
+    }
+    public User getByEmail(String email) throws MiException {
+        try {
+            return userRepository.searchByEmail(email);
+        } catch (Exception e) {
+            throw new MiException("Usuario no encontrado");
+        }
+    }
+
     //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
-    
+
     @Transactional
     public void createProvider() throws MiException{
 
         try {
-            
+
         } catch (Exception e) {
             throw new MiException("null");
         }
@@ -87,7 +103,7 @@ public class UserService implements UserDetailsService {
     public void modifyProvider() throws MiException{
 
         try {
-            
+
         } catch (Exception e) {
             throw new MiException("null");
         }
@@ -97,7 +113,7 @@ public class UserService implements UserDetailsService {
     public void deleteProvider() throws MiException{
 
         try {
-            
+
         } catch (Exception e) {
             throw new MiException("null");
         }
@@ -108,11 +124,11 @@ public class UserService implements UserDetailsService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
-    
-    
+
+
     /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        
+
         User user = userRepository.searchByEmail(email);
 
         if (user != null) {
