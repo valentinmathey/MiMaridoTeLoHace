@@ -51,8 +51,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Transactional
-    public void modifyUSer() throws MiException{
+    @Transactional//eric: añadido valores recibidos
+    public void modifyUSer(String id, User user) throws MiException{
 
         try {
 
@@ -61,13 +61,29 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Transactional
-    public void deleteUser() throws MiException{
+    @Transactional//eric: añadido valores recibidos
+    public void deleteUser(String id) throws MiException{
 
         try {
 
         } catch (Exception e) {
             throw new MiException("null");
+        }
+    }
+
+    //eric: añadido los getBy
+    public User getById(String id) throws MiException {
+        try {
+            return userRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new MiException("Usuario no encontrado");
+        }
+    }
+    public User getByEmail(String email) throws MiException {
+        try {
+            return userRepository.searchByEmail(email);
+        } catch (Exception e) {
+            throw new MiException("Usuario no encontrado");
         }
     }
 

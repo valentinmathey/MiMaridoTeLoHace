@@ -2,6 +2,7 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
+import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
 import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
@@ -30,52 +31,59 @@ public class UserController {
     }
     @Transactional
     @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public String createCheck(@RequestBody User user, @RequestParam("password2") String password, @RequestParam("img") MultipartFile archivo, ModelMap model) throws IOException {
+    public String createCheck(@RequestBody User user, @RequestParam("password2") String password, @RequestParam("img") MultipartFile archivo, ModelMap model) throws IOException, MiException {
         int confirmaciones = 0;
         User userModel = user;
+        String errorA = "", errorB = "", errorC = "";
 
         //si vamos a usar imagenes se descomenta esto
-//        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
-        Image image;
-//        if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
-//            image = imageConverter.convert(archivo);
-//            imageService.Save(image);
-//        } else {
-            //eric: si la imagen al crear la cuenta siempre es default con esto alcansa
-            image = imageService.GetByName("customer-avatar.png");
-            imageService.Save(image);
-//        }
+        Image image = null;
+        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
+        if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
+            image = imageConverter.convert(archivo);
+        }
+        else {
+            errorA = "Error la imagen es demaciada pesada limite 5MB, se le asignara una de default";
+            //si salta que solo dejamos registrar con default usar esto
+            // dependiendo el rol es la imagen de default
+            if(userModel.getRole().name().equals("PROVIDER")){
+                image = imageService.GetByName("provider-avatar.png");
+            } else if(userModel.getRole().name().equals("CUSTOMER")){
+                image = imageService.GetByName("customer-avatar.png");
+            }
+        }
+        imageService.Save(image);
 
 
-        String errorA = "", errorB = "";
         //validacion de email
-        if (userService.searchByEmail(user.getEmail()) == null){
+        if (userService.getByEmail(user.getEmail()) == null){
             confirmaciones++;
         } else {
-            errorA = "El Mail ya esta registrado";
+            errorB = "El Mail ya esta registrado";
             userModel.setEmail("");
         }
         //validacion de contraceña
         if(user.getPassword().equals(password)){
             confirmaciones++;
         } else {
-            errorB = "Las Contraseñas no coinciden";
+            errorC = "Las Contraseñas no coinciden";
             userModel.setPassword("");
         }
 
         if(confirmaciones == 2){
             // crear usuario (se envia con image para asignarsele el id en service)
-            userService.create(userModel, image);
+            userService.createUser(userModel, image);
+            model.addAttribute("OK", "Usuario creado con exito");
             return "redirect:/home";
         } else {
-            model.addAttribute("Exeption", errorA + "\n" + errorB);
+            model.addAttribute("Exeption", errorA + "\n" + errorB + "\n" + errorC);
         }
         model.addAttribute("newUser", userModel);
         return "redirect:/register";
     }
 
     @GetMapping("/perfil/id")
-    public String user(@PathVariable("id") String id, ModelMap model){
+    public String user(@PathVariable("id") String id, ModelMap model) throws MiException {
         User user = userService.getById(id);
         if(user != null){
             model.addAttribute("user", user);
@@ -92,7 +100,7 @@ public class UserController {
     public String edit(@PathVariable("id") String id, @RequestBody User user, ModelMap model){
         //hacer
         try {
-            userService.modify(id, user);
+            userService.modifyUSer(id, user);
             model.addAttribute("OK", "el usuario fue modificado con exito");
         } catch (Exception e) {
             model.addAttribute("Exeption", "Error al modificar el usuario");
@@ -102,9 +110,9 @@ public class UserController {
 
     @Transactional
     @DeleteMapping("/perfil/id")
-    public String delete(@PathVariable("id") String id, ModelMap model){
+    public String delete(@PathVariable("id") String id, ModelMap model) throws MiException {
         //se podrian agregar mas controles a futuro
-        userService.delete(id);
+        userService.deleteUser(id);
         model.addAttribute("OK", "el usuario fue eliminado con exito");
         return "redirect:/";
     }
