@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+  <!--  eric: agregado el thymeleaf al formulario para enviar los datos-->
+  <!--  probado y funcionando-->
+  <main class="main-form">
+    <form class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
+      enctype="multipart/form-data">
+      <h1 class="title">Bienvenido Usuario</h1>
+      <div>
+        <h1>como le gustaria registrarse?</h1>
+        <div id="user-role" th:field="*{role}">
+          <label><input type="radio" name="role" th:value="${customerRole}" required > Usuario </label>
+          <label><input type="radio" name="role" th:value="${providerRole}" required > Proveedor </label>
+        </div>
+
+      </div>
+      <div id="user-info" style="display: none;">
+        <label class="label" for="nombre"></label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:field="*{name}" required />
+
+        <label class="label" for="lastname"></label>
+        <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:field="*{lastname}" required />
+
+        <label class="label" for="email"></label>
+        <input type="text" id="email" name="email" placeholder="E-mail" th:field="*{email}" required />
+
+        <label class="label" for="password"></label>
+        <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" required />
+
+        <label class="label" for="password2"></label>
+        <input type="password" id="password2" name="password2" placeholder="Reingrese su contraseña" required />
+
+        <label for="img" class="btn btn-warning button">
+          📸 Subir foto de perfil
+          <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
+        </label>
+        <div>
+          <input type="submit" name="" class="inputs input-buttom-submit" />
+        </div>
+      </div>
+
+      <div id="user-info-provider" style="display: none;">
+        <label class="label" for="description"></label>
+<!--        hay que volverlo una caja para que se pueda leer lo que se escribe, ya esta limitado a 500 caracteres-->
+        <input type="text" maxlength="500" id="description" name="description" placeholder="description.." th:field="*{description}" />
+
+        <select id="profession" class="inputs" th:field="*{profession}">
+          <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}" required />
+        </select>
+      </div>
+    </form>
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+
+
+  <script>
+    const userRoleDiv = document.getElementById('user-role');
+    const userInfoDiv = document.getElementById('user-info');
+    const userInfoProviderDiv = document.getElementById('user-info-provider');
+
+    userRoleDiv.addEventListener('change', function(event) {
+      const value = event.target.value;
+      userInfoDiv.style.display = 'block';
+      if (value === "PROVIDER") {
+        userInfoProviderDiv.style.display = 'block';
+      } else {
+        userInfoProviderDiv.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
