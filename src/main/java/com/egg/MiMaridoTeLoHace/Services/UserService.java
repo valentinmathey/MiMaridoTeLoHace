@@ -75,6 +75,13 @@ public class UserService implements UserDetailsService {
                 newUser.setEmail(user.getEmail());
                 newUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
+                if(user.getRole().name().equals("PROVIDER")){
+                    newUser.setDescription(user.getDescription());
+                    newUser.setRating(Math.random() * 5 + 1); // uso hasta tener reviews
+                    newUser.setProfession(user.getProfession());
+                    newUser.setSubscription(new Date(System.currentTimeMillis()));
+                }
+
                 userRepository.save(newUser);
             }
 
@@ -84,7 +91,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Transactional//eric: añadido valores recibidos
+    @Transactional
     public void deleteUser(String id) throws MiException{
 
         try {
@@ -99,8 +106,6 @@ public class UserService implements UserDetailsService {
             throw new MiException("ERROR al borrar USUARIO!");
         }
     }
-
-    //eric: añadido los getBy
     public User getById(String id) throws MiException {
         try {
             return userRepository.findById(id).get();
@@ -125,54 +130,6 @@ public class UserService implements UserDetailsService {
         return usersList;
     }
 
-    //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
-
-    @Transactional
-    public void createProvider(User provider, Image image) throws MiException{
-
-        try {
-
-            provider.setAlta(true);
-            provider.setImage(image.getId());
-            provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
-
-            provider.setRole(Roles.PROVIDER);
-            provider.setSubscription(new Date(System.currentTimeMillis()));
-            
-            //La descipcion, profesion y rating vienen dentro del objeto que llega por parametros
-            userRepository.save(provider);
-
-        } catch (Exception e) {
-            throw new MiException("Error al crear USER!");
-        }
-    }
-
-    @Transactional
-    public void modifyProvider(String id, User provider) throws MiException{
-
-        try {
-
-            Optional<User> providerCheck = userRepository.findById(id);
-
-            if (providerCheck.isPresent()) {
-                
-                User newProvider = providerCheck.get();
-                newProvider.setAlta(true);
-                newProvider.setName(provider.getName());
-                newProvider.setLastname(provider.getLastname());
-                newProvider.setDescription(provider.getDescription());
-                newProvider.setProfession(provider.getProfession());
-                newProvider.setEmail(provider.getEmail());
-                newProvider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
-
-                userRepository.save(newProvider);
-            }
-
-        } catch (Exception e) {
-            throw new MiException("ERROR al modificar PROVEEDOR "+provider.getName()+" "+provider.getLastname());
-        }
-    }
-
     @Transactional
     public List <User> providerList() throws MiException{
 
@@ -182,22 +139,71 @@ public class UserService implements UserDetailsService {
 
         return providersList;
     }
+    //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
+//
+//    @Transactional
+//    public void createProvider(User provider, Image image) throws MiException{
+//
+//        try {
+//
+//            provider.setAlta(true);
+//            provider.setImage(image.getId());
+//            provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
+//
+//            provider.setRole(Roles.PROVIDER);
+//            provider.setSubscription(new Date(System.currentTimeMillis()));
+//
+//            //La descipcion, profesion y rating vienen dentro del objeto que llega por parametros
+//            userRepository.save(provider);
+//
+//        } catch (Exception e) {
+//            throw new MiException("Error al crear USER!");
+//        }
+//    }
+//
+//    @Transactional
+//    public void modifyProvider(String id, User provider) throws MiException{
+//
+//        try {
+//
+//            Optional<User> providerCheck = userRepository.findById(id);
+//
+//            if (providerCheck.isPresent()) {
+//
+//                User newProvider = providerCheck.get();
+//                newProvider.setAlta(true);
+//                newProvider.setName(provider.getName());
+//                newProvider.setLastname(provider.getLastname());
+//                newProvider.setDescription(provider.getDescription());
+//                newProvider.setProfession(provider.getProfession());
+//                newProvider.setEmail(provider.getEmail());
+//                newProvider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
+//
+//                userRepository.save(newProvider);
+//            }
+//
+//        } catch (Exception e) {
+//            throw new MiException("ERROR al modificar PROVEEDOR "+provider.getName()+" "+provider.getLastname());
+//        }
+//    }
 
-    @Transactional
-    public void deleteProvider(String id, User provider) throws MiException{
 
-        try {
-
-            Optional<User> providerCheck = userRepository.findById(id);
-
-            if (providerCheck.isPresent()) {
-                userRepository.delete(userRepository.getById(id));
-            }
-
-        } catch (Exception e) {
-            throw new MiException("ERROR al borrar PROVIDER!");
-        }
-    }
+//
+//    @Transactional
+//    public void deleteProvider(String id, User provider) throws MiException{
+//
+//        try {
+//
+//            Optional<User> providerCheck = userRepository.findById(id);
+//
+//            if (providerCheck.isPresent()) {
+//                userRepository.delete(userRepository.getById(id));
+//            }
+//
+//        } catch (Exception e) {
+//            throw new MiException("ERROR al borrar PROVIDER!");
+//        }
+//    }
 
 
     @Override

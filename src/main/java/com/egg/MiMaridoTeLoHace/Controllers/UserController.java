@@ -2,6 +2,8 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
+import com.egg.MiMaridoTeLoHace.Enums.Professions;
+import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
@@ -14,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,6 +32,9 @@ public class UserController {
     @GetMapping("/register")
     public String create(ModelMap model){
         model.addAttribute("user", new User());
+        model.addAttribute("customerRole", Roles.CUSTOMER);
+        model.addAttribute("providerRole", Roles.PROVIDER);
+        model.addAttribute("professions", Professions.values());
         return "formUser";
     }
     @Transactional
@@ -55,6 +62,10 @@ public class UserController {
         }
         imageService.Save(image);
 
+        //minusias para cada clase
+        if (user.getRole().name().equals("CUSTOMER")){
+            user.setProfession(null);
+        }
 
         //validacion de email
         if (userService.getByEmail(user.getEmail()) == null){
