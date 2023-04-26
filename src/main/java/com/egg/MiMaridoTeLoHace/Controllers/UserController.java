@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -26,12 +27,12 @@ public class UserController {
     ImageConverter imageConverter;
     @GetMapping("/register")
     public String create(ModelMap model){
-        model.addAttribute("newUser", new User());
-        return "FormCustomer";//nombre provicional
+        model.addAttribute("user", new User());
+        return "formUser";
     }
     @Transactional
     @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public String createCheck(@RequestBody User user, @RequestParam("password2") String password, @RequestParam("img") MultipartFile archivo, ModelMap model) throws IOException, MiException {
+    public String createCheck(@ModelAttribute User user, @RequestParam("password2") String password2, @RequestParam("img") MultipartFile archivo, ModelMap model) throws IOException, MiException {
         int confirmaciones = 0;
         User userModel = user;
         String errorA = "", errorB = "", errorC = "";
@@ -43,7 +44,7 @@ public class UserController {
             image = imageConverter.convert(archivo);
         }
         else {
-            errorA = "Error la imagen es demaciada pesada limite 5MB, se le asignara una de default";
+            errorA = "Error la imagen es demasiado pesada limite 5MB, se le asignara una de default";
             //si salta que solo dejamos registrar con default usar esto
             // dependiendo el rol es la imagen de default
             if(userModel.getRole().name().equals("PROVIDER")){
@@ -63,7 +64,7 @@ public class UserController {
             userModel.setEmail("");
         }
         //validacion de contraceña
-        if(user.getPassword().equals(password)){
+        if(user.getPassword().equals(password2)){
             confirmaciones++;
         } else {
             errorC = "Las Contraseñas no coinciden";
@@ -78,8 +79,8 @@ public class UserController {
         } else {
             model.addAttribute("Exeption", errorA + "\n" + errorB + "\n" + errorC);
         }
-        model.addAttribute("newUser", userModel);
-        return "redirect:/register";
+        model.addAttribute("user", userModel);
+        return "redirect:/user/register";
     }
 
     @GetMapping("/perfil/id")
@@ -97,10 +98,10 @@ public class UserController {
 
     @Transactional
     @PutMapping("/perfil/id")
-    public String edit(@PathVariable("id") String id, @RequestBody User user, ModelMap model){
+    public String edit(@PathVariable("id") String id, @ModelAttribute User user, ModelMap model){
         //hacer
         try {
-            userService.modifyUSer(id, user);
+            userService.modifyUser(id, user);
             model.addAttribute("OK", "el usuario fue modificado con exito");
         } catch (Exception e) {
             model.addAttribute("Exeption", "Error al modificar el usuario");
@@ -115,5 +116,15 @@ public class UserController {
         userService.deleteUser(id);
         model.addAttribute("OK", "el usuario fue eliminado con exito");
         return "redirect:/";
+    }
+
+    @GetMapping("/list")
+    public String listUsers(ModelMap modelo) throws MiException{
+        
+        List <User> users = userService.userList();
+        
+        modelo.addAttribute("users", users);
+        
+        return "userList";
     }
 }

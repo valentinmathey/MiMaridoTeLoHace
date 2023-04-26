@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @Entity
@@ -36,7 +35,7 @@ public class User {
     //Provider---------------------------
     
     private String description;
-    private Double raiting;
+    private Double rating;
     private Date subscription;
     //private int priceTime; (A futuro)
     

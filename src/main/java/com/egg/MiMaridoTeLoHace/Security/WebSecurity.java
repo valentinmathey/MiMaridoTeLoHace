@@ -1,8 +1,7 @@
 package com.egg.MiMaridoTeLoHace.Security;
 
-import com.egg.MiMaridoTeLoHace.Services.AdminService;
-import com.egg.MiMaridoTeLoHace.Services.CustomerService;
-import com.egg.MiMaridoTeLoHace.Services.ProviderService;
+import com.egg.MiMaridoTeLoHace.Services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -20,21 +19,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurity extends  WebSecurityConfigurerAdapter{
     
     @Autowired
-    public ProviderService providerService;
+    public UserService userService;    
     
-    @Autowired
-    public CustomerService customerService;
-    
-    @Autowired
-    public AdminService adminService;
 
     @Autowired
-    @Qualifier("customerService") //VALENTIN - Solusion temporal para el tema de los BEAN (Se puede modificar entre admin o provider o customer)
+    @Qualifier("userService") //VALENTIN - Solusion temporal para el tema de los BEAN (Se puede modificar entre admin o provider o customer)
     private UserDetailsService userDetailsService;
     
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(providerService)
+        auth.userDetailsService(userService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
     
