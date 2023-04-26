@@ -1,5 +1,5 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
-public class userService {
+public class UserService {
     
 }
