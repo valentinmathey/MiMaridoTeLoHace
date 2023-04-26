@@ -1,8 +1,12 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
@@ -47,17 +52,34 @@ public class UserService implements UserDetailsService {
             userRepository.save(user);
 
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("Error al crear USER!");
         }
     }
 
-    @Transactional//eric: añadido valores recibidos
-    public void modifyUSer(String id, User user) throws MiException{
+
+    //Este metodo se puede modificar para actualizar imagen, por ahora queda asi
+    @Transactional
+    public void modifyUser(String id, User user) throws MiException{
 
         try {
 
+            Optional<User> userCheck = userRepository.findById(id);
+
+            if (userCheck.isPresent()) {
+                
+                User newUser = userCheck.get();
+                newUser.setAlta(true);
+                newUser.setName(user.getName());
+                newUser.setLastname(user.getLastname());
+                newUser.setEmail(user.getEmail());
+                newUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
+                userRepository.save(newUser);
+            }
+
+
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("ERROR al modificar USUARIO "+user.getName()+" "+user.getLastname());
         }
     }
 
@@ -66,8 +88,14 @@ public class UserService implements UserDetailsService {
 
         try {
 
+            Optional<User> userCheck = userRepository.findById(id);
+
+            if (userCheck.isPresent()) {
+                userRepository.delete(userRepository.getById(id));;
+            }
+
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("ERROR al borrar USUARIO!");
         }
     }
 
@@ -87,15 +115,34 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public List <User> userList() throws MiException{
+        
+        List <User> usersList = new ArrayList<>();
+        
+        usersList = userRepository.findAll();
+
+        return usersList;
+    }
+
     //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
 
     @Transactional
-    public void createProvider() throws MiException{
+    public void createProvider(User provider, Image image) throws MiException{
 
         try {
 
+            provider.setAlta(true);
+            provider.setImage(image.getId());
+            provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
+
+            provider.setRole(Roles.PROVIDER);
+            provider.setSubscription(new Date(System.currentTimeMillis()));
+            
+            //La descipcion, profesion y rating vienen dentro del objeto que llega por parametros
+            userRepository.save(provider);
+
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("Error al crear USER!");
         }
     }
 
@@ -119,14 +166,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
-    }
-
-
-    /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         User user = userRepository.searchByEmail(email);
@@ -145,10 +186,10 @@ public class UserService implements UserDetailsService {
 
             session.setAttribute("usersession", user);
 
-            return (UserDetails) new User(user.getEmail(), user.getPassword(), authorities);
+            return (UserDetails) new org.springframework.security.core.userdetails.User(email, email, authorities);
 
         } else {
             return null;
         }
-    }*/
+    }
 }
