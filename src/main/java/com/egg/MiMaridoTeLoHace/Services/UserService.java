@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.relation.Role;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,22 +148,54 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void modifyProvider() throws MiException{
+    public void modifyProvider(String id, User provider) throws MiException{
 
         try {
 
+            Optional<User> providerCheck = userRepository.findById(id);
+
+            if (providerCheck.isPresent()) {
+                
+                User newProvider = providerCheck.get();
+                newProvider.setAlta(true);
+                newProvider.setName(provider.getName());
+                newProvider.setLastname(provider.getLastname());
+                newProvider.setDescription(provider.getDescription());
+                newProvider.setProfession(provider.getProfession());
+                newProvider.setEmail(provider.getEmail());
+                newProvider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
+
+                userRepository.save(newProvider);
+            }
+
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("ERROR al modificar PROVEEDOR "+provider.getName()+" "+provider.getLastname());
         }
     }
 
     @Transactional
-    public void deleteProvider() throws MiException{
+    public List <User> providerList() throws MiException{
+
+        List <User> providersList = new ArrayList<>();
+
+        providersList = userRepository.findByRole(Roles.PROVIDER);
+
+        return providersList;
+    }
+
+    @Transactional
+    public void deleteProvider(String id, User provider) throws MiException{
 
         try {
 
+            Optional<User> providerCheck = userRepository.findById(id);
+
+            if (providerCheck.isPresent()) {
+                userRepository.delete(userRepository.getById(id));
+            }
+
         } catch (Exception e) {
-            throw new MiException("null");
+            throw new MiException("ERROR al borrar PROVIDER!");
         }
     }
 
