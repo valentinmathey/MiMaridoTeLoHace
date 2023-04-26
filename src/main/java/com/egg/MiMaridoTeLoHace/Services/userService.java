@@ -2,9 +2,7 @@ package com.egg.MiMaridoTeLoHace.Services;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
@@ -111,14 +108,6 @@ public class UserService implements UserDetailsService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     /*@Override
