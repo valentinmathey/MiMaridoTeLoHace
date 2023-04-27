@@ -48,6 +48,8 @@
       </div>
     </div>
 
+    <br><br>
+
     <form id="formContainer" class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
       enctype="multipart/form-data">
 
@@ -87,6 +89,8 @@
         <textarea classs="description" maxlength="500" id="description" name="description"
           placeholder="Describí tu actividad" th:field="*{description}"></textarea>
       </div>
+
+      <br>
 
       <div>
         <button id="submit-btn" type="button" class="btn btn-warning button">📝 ¡Registrate!</button>
