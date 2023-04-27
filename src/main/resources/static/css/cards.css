@@ -38,3 +38,8 @@
   transition: 1s;
 }
 
+.card-services {
+  background: none;
+  box-shadow: none;
+  opacity: 1;
+  }

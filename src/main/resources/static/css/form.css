@@ -1,6 +1,6 @@
-.main-form {
+/* .main-form {
   background: #d0e4f500 url("../img/handyman.png") no-repeat scroll 75% 60%;
-}
+} */
 
 form {
   padding: 1.25% 30% 1.25% 0;
@@ -22,13 +22,14 @@ input:not([type="radio"],
   width: 100%;
 }
 
-
 input,
+textarea,
+select,
 input:not([type="file"]) {
   background: #fff;
 
   border: 3px solid #954090;
-  border-radius: 5px;
+  border-radius: 30px;
   padding: 8px 10px;
   color: #c63f81;
 }
@@ -36,6 +37,10 @@ input:not([type="file"]) {
 input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid #c63f81;
+}
+
+::placeholder{
+  color: #c63f81;
 }
 
 textarea {
@@ -49,8 +54,8 @@ textarea {
   align-content: center;
 } */
 
-.select {
-  border-radius: 5px;
+.hover {
+  border-radius: 30px;
 }
 
 .button {
@@ -68,4 +73,19 @@ textarea {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #eee;
 }

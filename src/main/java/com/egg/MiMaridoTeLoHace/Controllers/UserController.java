@@ -136,6 +136,6 @@ public class UserController {
         
         modelo.addAttribute("users", users);
         
-        return "userList";
+        return "dashboard";
     }
 }
