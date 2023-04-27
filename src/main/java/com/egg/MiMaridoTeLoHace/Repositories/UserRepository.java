@@ -20,6 +20,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.profession = :profession")
     Optional<User> searchByProfession(@Param("profession") Professions profession);
 
+
     @Query("SELECT u FROM User u WHERE u.name = :name")
     List<User> findByName(@Param("name") String name);
 
