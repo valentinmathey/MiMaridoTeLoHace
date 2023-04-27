@@ -7,54 +7,91 @@
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <header th:replace="th_templates/navbar :: navbar"></header>
-  <!--  eric: agregado el thymeleaf al formulario para enviar los datos-->
-  <!--  probado y funcionando-->
-  <main class="main-form">
-    <form class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
-      enctype="multipart/form-data">
-      <h1 class="title">Bienvenido Usuario</h1>
-      <div>
-        <h1>como le gustaria registrarse?</h1>
-        <div id="user-role" th:field="*{role}">
-          <label><input type="radio" name="role" th:value="${customerRole}" required > Usuario </label>
-          <label><input type="radio" name="role" th:value="${providerRole}" required > Proveedor </label>
-        </div>
 
+  <main class="main-form">
+
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col left-col">
+          <h1 class="big-title">📝 ¡Registrate!</h1>
+          <h4 class="subtitle">Pero antes contanos...</h4>
+
+          <!-- <button type="button" class="btn btn-warning button" href="#">📝Registrate</button> -->
+        </div>
+        <div class="col">
+          <img class="image" src="../img/homeRepair.svg" alt="home repair">
+        </div>
       </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col">
+        <div class="card">
+          <img src="../static/img/customer-avatar.png" class="card-img-top" alt="avatar">
+          <div class="card-body">
+            <h5 class="card-title">¿Sos cliente?</h5>
+            <p class="card-text">Selecciona esta opción si necesitás adquirir un servicio.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="../static/img/provider-avatar.png" class="card-img-top" alt="avatar">
+          <div class="card-body">
+            <h5 class="card-title">¿Sos profesional?</h5>
+            <p class="card-text">Selecciona esta opción si querés prestar un servicio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form id="formContainer" class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
+      enctype="multipart/form-data">
+
       <div id="user-info" style="display: none;">
         <label class="label" for="nombre"></label>
-        <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:field="*{name}" required />
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
 
         <label class="label" for="lastname"></label>
-        <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:field="*{lastname}" required />
+        <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
 
         <label class="label" for="email"></label>
-        <input type="text" id="email" name="email" placeholder="E-mail" th:field="*{email}" required />
+        <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
 
         <label class="label" for="password"></label>
         <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" required />
 
         <label class="label" for="password2"></label>
-        <input type="password" id="password2" name="password2" placeholder="Reingrese su contraseña" required />
+        <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
 
-        <label for="img" class="btn btn-warning button">
+
+
+        <!-- <label for="img" class="btn btn-warning button">
           📸 Subir foto de perfil
           <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
-        </label>
-        <div>
-          <input type="submit" name="" class="inputs input-buttom-submit" />
-        </div>
+        </label> -->
       </div>
+
 
       <div id="user-info-provider" style="display: none;">
-        <label class="label" for="description"></label>
-<!--        hay que volverlo una caja para que se pueda leer lo que se escribe, ya esta limitado a 500 caracteres-->
-        <input type="text" maxlength="500" id="description" name="description" placeholder="description.." th:field="*{description}" />
+        <!-- Aquí iría el formulario o información adicional para proveedores -->
 
+        <br>
         <select id="profession" class="inputs" th:field="*{profession}">
+          <option value="" selected>Elegí tu profesión</option>
           <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}" required />
-        </select>
+      </select>
+
+        <label class="label" for="description"></label>
+        <textarea classs="description" maxlength="500" id="description" name="description" placeholder="Describí lo que hacés"
+          th:field="*{description}"></textarea>
       </div>
+
+      <div>
+        <button id="submit-btn" type="button" class="btn btn-warning button">📝 ¡Registrate!</button>
+      </div>
+
     </form>
   </main>
 
@@ -65,13 +102,55 @@
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 
-
+  <!-- SCRIPT FOR CARDS -->
   <script>
+    const userCards = document.querySelectorAll('.card');
+    const userInfoDiv = document.getElementById('user-info');
+    const userInfoProviderDiv = document.getElementById('user-info-provider');
+
+    userCards.forEach(card => {
+      card.addEventListener('click', function () {
+        const title = card.querySelector('.card-title').textContent;
+        userInfoDiv.style.display = 'block';
+        if (title === "¿Sos profesional?") {
+          userInfoProviderDiv.style.display = 'block';
+        } else {
+          userInfoProviderDiv.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+  <!-- SCRIPT FOR BUTTON -->
+  <!-- <script>
+    const formContainer = document.querySelector('#user-info');
+    const submitBtn = document.querySelector('#submit-btn');
+    submitBtn.style.display = 'none';
+  
+    formContainer.addEventListener('change', function() {
+      if (formContainer.style.display === 'none') {
+        submitBtn.style.display = 'none';
+      } else {
+        submitBtn.style.display = 'block';
+      }
+    });
+  </script> -->
+</body>
+
+</html>
+
+
+<!-- <div id="user-role" th:field="*{role}">
+          <label><input type="radio" name="role" th:value="${customerRole}" required> Usuario </label>
+          <label><input type="radio" name="role" th:value="${providerRole}" required> Proveedor </label>
+        </div> -->
+
+<!-- <script>
     const userRoleDiv = document.getElementById('user-role');
     const userInfoDiv = document.getElementById('user-info');
     const userInfoProviderDiv = document.getElementById('user-info-provider');
 
-    userRoleDiv.addEventListener('change', function(event) {
+    userRoleDiv.addEventListener('change', function (event) {
       const value = event.target.value;
       userInfoDiv.style.display = 'block';
       if (value === "PROVIDER") {
@@ -80,7 +159,4 @@
         userInfoProviderDiv.style.display = 'none';
       }
     });
-  </script>
-
-</body>
-</html>
+  </script> -->

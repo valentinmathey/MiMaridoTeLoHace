@@ -18,7 +18,7 @@
           <h1 class="big-title">Mi marido<br>
             te lo hace</h1>
 
-          <button type="button" class="btn btn-warning button">🧰 Servicios</button>
+          <button href="#services-cards" type="button" class="btn btn-warning button">🧰 Servicios</button>
         </div>
         <div class="col">
           <img class="image" src="../img/homeRepair.svg" alt="home repair">
@@ -27,49 +27,10 @@
     </div>
 
     <!-- IMG / PROVIDERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <section>
+    <section id="services-cards" class="services-cards">
       <h3 class="title">Servicios</h3>
 
-      <div class="container text-center">
-        <div class="row align-items-center">
-          <div class="col">
-            <img src="../img/cement.svg" class="services" alt="cement">
-            <p class="service-description">Servicios confiables y duraderos para tus necesidades de construcción.</p>
-          </div>
-          <div class="col">
-            <img src="../img/carpenter.svg" class="services" alt="carpenter">
-            <p class="service-description">Soluciones a medida para tus proyectos de carpintería.</p>
-          </div>
-          <div class="col">
-            <img src="../img/locksmith.svg" class="services" alt="locksmith">
-            <p class="service-description">Profesionales en cerrajería para tus necesidades de seguridad.</p>
-          </div>
-          <div class="col">
-            <img src="../img/electrician.svg" class="services" alt="electrician">
-            <p class="service-description">Soluciones seguras y eficientes para tus necesidades eléctricas.</p>
-          </div>
-        </div>
-
-        <div class="row align-items-center">
-          <div class="col">
-            <img src="../img/gas.svg" class="services" alt="gas">
-            <p class="service-description">Expertos en instalación y reparación de sistemas de gas.</p>
-          </div>
-          <div class="col">
-            <img src="../img/blacksmith.svg" class="services" alt="blacksmith">
-            <p class="service-description">Soluciones creativas y funcionales para tus necesidades de herrería.</p>
-          </div>
-          <div class="col">
-            <img src="../img/cleaning.svg" class="services" alt="cleaning">
-            <p class="service-description">Soluciones de limpieza para tus necesidades residenciales o comerciales.</p>
-          </div>
-          <div class="col">
-            <img src="../img/plumbing.svg" class="services" alt="plumbing">
-            <p class="service-description">Instalación, reparación y mantenimiento de sistemas de plomería y desagüe.
-            </p>
-          </div>
-        </div>
-      </div>
+      <div th:replace="th_templates/cardServices :: cardServices"></div>
     </section>
 
     <!-- NEIGHBORHOOD MAP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
@@ -79,49 +40,7 @@
       <div th:replace="th_templates/map :: map"></div>
     </section>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100 card card">
-          <img src="../img/profileImg.png" class="card-img-top" alt="profile-provider">
-          <div class="card-body">
-            <h5 class="card-title">Provider #1</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100 card">
-          <img src="../img/profileImg.png" class="card-img-top" alt="profile-provider">
-          <div class="card-body">
-            <h5 class="card-title">Provider #2</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100 card">
-          <img src="../img/profileImg.png" class="card-img-top" alt="profile-provider">
-          <div class="card-body">
-            <h5 class="card-title">Provider #3</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br><br>
   </main>
 
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->

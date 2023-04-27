@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
             //TODOS LOS USER NACEN POR DEFECTO COMO UN CUSTOMER, DE FORMA MANUAL DEBERIAMOS DAR PRIVILEGIOS DE ADMIN
-            user.setRole(Roles.CUSTOMER);
+            // user.setRole(Roles.CUSTOMER);
 
             userRepository.save(user);
 
