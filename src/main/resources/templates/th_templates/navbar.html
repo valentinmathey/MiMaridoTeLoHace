@@ -5,21 +5,14 @@
         <img src="/img/logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top logo">
         MMTLH
       </a>
-    </div>
-
-    <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
 
-          <!-- <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li> -->
-
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">¿Quiénes somos?</a>
           </li>
@@ -29,67 +22,80 @@
               aria-expanded="false">🧰 Servicios</a>
             <ul class="dropdown-menu">
 
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=CARPINTERO">🪚
+              <li><a class="dropdown-item" href="/provider/search?profession=CARPINTERO">🧱
+                  Albañilería</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li><a class="dropdown-item" href="/provider/search?profession=CARPINTERO">🪚
                   Carpintería</a></li>
-
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=CERRAJERO">🔑
+              <li><a class="dropdown-item" href="/provider/search?profession=CERRAJERO">🔑
                   Cerrajería</a></li>
-
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=ELECTRICISTA">💡
+              <li><a class="dropdown-item" href="/provider/search?profession=ELECTRICISTA">💡
                   Electricidad</a></li>
-
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=GASISTA">🔥 Gas</a>
-              </li>
-
+              <li><a class="dropdown-item" href="/provider/search?profession=GASISTA">🔥 Gas</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=HERRERO">🔩
+              <li><a class="dropdown-item" href="/provider/search?profession=HERRERO">🔩
                   Herrería</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li><a class="dropdown-item" href="/provider/search?profession=CARPINTERO">🪣
+                  Limpieza</a></li>
 
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="/provider/search?location=&profession=PLOMERO">🚽
+
+              <li><a class="dropdown-item" href="/provider/search?profession=PLOMERO">🚽
                   Plomería</a></li>
             </ul>
           </li>
-          <a class="nav-link" href="/user/register" role="button" aria-expanded="false">
-            📝 Registrate!
-          </a>
-<!--
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/user/register" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              📝 Registrate!
+
+          <li class="nav-item">
+            <a class="nav-link" href="/user/register" role="button" aria-expanded="false">
+              📝 ¡Registrate!
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/user/register">Soy cliente</a></li>
-
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <li><a class="dropdown-item" href="/provider/register">Soy profesional</a></li>
-
-        </ul>-->
           </li>
 
           <li class="nav-item">
             <a class="nav-link" href="/login">✅ Login</a>
           </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+
+              <img src="@{'/image/DB/' + ${user.image}}" alt="Foto de perfil" width="30" height="30" class="rounded-circle">
+
+              {user.name}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>

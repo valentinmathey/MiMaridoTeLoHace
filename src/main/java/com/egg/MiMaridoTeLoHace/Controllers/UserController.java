@@ -16,9 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -38,20 +37,20 @@ public class UserController {
         return "formUser";
     }
     @Transactional
-    @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public String createCheck(@ModelAttribute User user, @RequestParam("password2") String password2, @RequestParam("img") MultipartFile archivo, ModelMap model) throws IOException, MiException {
+    @PostMapping(value = "/register", consumes = "multipart/form-data")//eric: quitado el (@RequestParam("img") MultipartFile archivo) para que no de error al enviar el form
+    public String createCheck(@ModelAttribute User user, @RequestParam("password2") String password2, ModelMap model) throws IOException, MiException {
         int confirmaciones = 0;
         User userModel = user;
         String errorA = "", errorB = "", errorC = "";
 
         //si vamos a usar imagenes se descomenta esto
         Image image = null;
-        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
-        if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
-            image = imageConverter.convert(archivo);
-        }
-        else {
-            errorA = "Error la imagen es demasiado pesada limite 5MB, se le asignara una de default";
+//        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
+//        if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
+//            image = imageConverter.convert(archivo);
+//        }
+//        else {
+//            errorA = "Error la imagen es demasiado pesada limite 5MB, se le asignara una de default";
             //si salta que solo dejamos registrar con default usar esto
             // dependiendo el rol es la imagen de default
             if(userModel.getRole().name().equals("PROVIDER")){
@@ -59,7 +58,7 @@ public class UserController {
             } else if(userModel.getRole().name().equals("CUSTOMER")){
                 image = imageService.GetByName("customer-avatar.png");
             }
-        }
+//        }
         imageService.Save(image);
 
         //minusias para cada clase
@@ -99,11 +98,11 @@ public class UserController {
         User user = userService.getById(id);
         if(user != null){
             model.addAttribute("user", user);
-            return "User";
+            return "user";
         } else {
             model.addAttribute("Exeption", "Usuario no encontrado");
         }
-        return "redirect:/";
+        return "redirect:/user";
 
     }
 
@@ -131,11 +130,21 @@ public class UserController {
 
     @GetMapping("/list")
     public String listUsers(ModelMap modelo) throws MiException{
-        
         List <User> users = userService.userList();
-        
         modelo.addAttribute("users", users);
-        
         return "userList";
+    }
+
+    @GetMapping("/providers")
+    public String showProviders(@RequestParam String profession, ModelMap model) throws MiException {
+
+        Optional<User> searchReturn = userService.searchByProfession(profession);
+        if (searchReturn.isPresent()){
+            model.addAttribute("searchReturn", searchReturn);
+        } else {
+            model.addAttribute("Exeption", "El Servicio se encuentra sin trabajadores actualmente");
+            return "redirect:/";
+        }
+        return "providers";
     }
 }

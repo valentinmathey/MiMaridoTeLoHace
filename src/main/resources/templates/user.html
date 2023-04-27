@@ -8,10 +8,10 @@
     <!--    eric: aqui el usuario veria su cuenta-->
     <!--    eric: asi ya esta funcional y separa lo que ve un provider de un customer
         quedaria dejarlo bonito-->
-        <div th:object="${entityReturn}" method="get">
+        <div th:object="${user}" method="get">
             <form class="form-container">
                 <div>
-                    <img th:src="@{'/image/DB/' + ${entityReturn.image}}">
+                    <img th:src="@{'/image/DB/' + ${user.image}}">
                     <div>
                         <label>nombre:</label>
                         <input type="text" th:field="*{name}"/>

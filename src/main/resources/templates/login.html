@@ -9,27 +9,27 @@
 
   <main class="main-form">
     <form class="form-container" th:action="@{/logincheck}" method="post">
-      <h1 class="title">📝 Ingresa! </h1>
+      <h1 class="title">✅ ¡Ingresá! </h1>
       
       <div>
 
         <label class="label" for="email"></label>
-        <input type="text" id="email" name="email" placeholder="E-MAIL" />
+        <input type="text" id="email" name="email" placeholder="email@email.com" />
 
 
         <label class="label" for="password"></label>
-        <input type="password" id="password" name="password" placeholder="CONTRASEÑA" />
+        <input type="password" id="password" name="password" placeholder="Contraseña" />
 
       </div>
       <br>
       <div>
-        <button type="submit" class="inputs input-buttom-submit" href="/logincheck">INGRESAR</button>
+        <button type="button" class="btn btn-warning button" href="/logincheck">✅ ¡Ingresá!</button>
       </div>
 
     </form>
-
   </main>
 
+<<<<<<< HEAD
   <!-- PIE DE PÁGINA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 <<<<<<< HEAD
   <footer th:replace="th_templates/templates :: footer"></footer>
@@ -41,14 +41,16 @@
   <!--	DARK MODE  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <script src="/js/toggle.js"></script>
 =======
+=======
+  <br><br>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+>>>>>>> 8b741b6ade722d27f080410450c5d2e371f3961e
   <footer th:replace="th_templates/footer :: footer"></footer>
 >>>>>>> aed9f83c701af3f4ee5c2a5da03fc12e0af6eeb9
 
-  <!--	SCRIP de BOOTSTRAP v5.3  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 </body>
-
 </html>
