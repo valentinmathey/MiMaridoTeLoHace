@@ -32,3 +32,8 @@
   transform: scale(1);
   transition: 1s;
 }
+
+.submit-btn-container {
+  display: flex;
+  justify-content: center;
+}

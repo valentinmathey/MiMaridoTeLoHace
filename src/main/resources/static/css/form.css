@@ -1,10 +1,18 @@
-.main-form1 {
+/* .main-form1 {
   background: #d0e4f500 url("../img/handyman.png") no-repeat scroll 75% 60%;
-}
+} */
 
-form {
+/* .form-container {
   padding: 1.25% 30% 1.25% 0;
   text-align: justify;
+} */
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* border: 1px dashed tomato; */
 }
 
 .form-group {
@@ -50,15 +58,6 @@ textarea {
   resize: none;
 }
 
-/* .fieldset {
-  display: flex;
-  align-content: center;
-} */
-
-/* .hover {
-  border-radius: 30px;
-} */
-
 .button {
   background-color: #c63f81;
   border: #954090;
@@ -94,3 +93,4 @@ input[type="radio"]:checked + label {
 select{
   text-transform: lowercase and capitalize;
 }
+
