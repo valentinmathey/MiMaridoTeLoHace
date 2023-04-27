@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.relation.Role;
 import javax.servlet.http.HttpSession;
 
+import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
             //TODOS LOS USER NACEN POR DEFECTO COMO UN CUSTOMER, DE FORMA MANUAL DEBERIAMOS DAR PRIVILEGIOS DE ADMIN
-            // user.setRole(Roles.CUSTOMER);
+            //user.setRole(Roles.CUSTOMER);
 
             userRepository.save(user);
 
@@ -134,10 +134,18 @@ public class UserService implements UserDetailsService {
     public List <User> providerList() throws MiException{
 
         List <User> providersList = new ArrayList<>();
-
         providersList = userRepository.findByRole(Roles.PROVIDER);
-
         return providersList;
+    }
+
+    @Transactional
+    public Optional<User> searchByProfession(String professions) throws MiException{
+        for (Professions pr : Professions.values()) {
+            if (pr.name().equals(professions)) {
+                return userRepository.searchByProfession(pr);
+            }
+        }
+        return null;
     }
     //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
 //
