@@ -34,24 +34,15 @@ public class UserController {
         model.addAttribute("customerRole", Roles.CUSTOMER);
         model.addAttribute("providerRole", Roles.PROVIDER);
         model.addAttribute("professions", Professions.values());
-        return "formUser";
+        return "formUserTest";
     }
     @Transactional
-    @PostMapping(value = "/register", consumes = "multipart/form-data")//eric: quitado el (@RequestParam("img") MultipartFile archivo) para que no de error al enviar el form
+    @PostMapping(value = "/register", consumes = "multipart/form-data")
     public String createCheck(@ModelAttribute User user, @RequestParam("password2") String password2, ModelMap model) throws IOException, MiException {
         int confirmaciones = 0;
         User userModel = user;
         String errorA = "", errorB = "", errorC = "";
-
-        //si vamos a usar imagenes se descomenta esto
         Image image = null;
-//        long maxFileSize = 5242880; //eric: 5MB es el limite a guardar, puede ser modificado
-//        if(!archivo.isEmpty() && archivo.getSize() < maxFileSize){
-//            image = imageConverter.convert(archivo);
-//        }
-//        else {
-//            errorA = "Error la imagen es demasiado pesada limite 5MB, se le asignara una de default";
-            //si salta que solo dejamos registrar con default usar esto
             // dependiendo el rol es la imagen de default
             if(userModel.getRole().name().equals("PROVIDER")){
                 image = imageService.GetByName("provider-avatar.png");
