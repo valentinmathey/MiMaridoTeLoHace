@@ -5,8 +5,8 @@
     <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <header th:replace="th_templates/navbar :: navbar"></header>
 
-<!--    eric: aqui el usuario veria su cuenta-->
-<!--    eric: asi ya esta funcional y separa lo que ve un provider de un customer
+    <!--    eric: aqui el usuario veria su cuenta-->
+    <!--    eric: asi ya esta funcional y separa lo que ve un provider de un customer
         quedaria dejarlo bonito-->
         <div th:object="${user}" method="get">
             <form class="form-container">
@@ -36,6 +36,60 @@
 
             </form>
         </div>
+        <div>
+          <label>nombre:</label>
+          <input type="text" th:field="*{name}" />
+        </div>
+        <div>
+          <label>apellido:</label>
+          <input type="text" th:field="*{lastname}" />
+        </div>
+        <div>
+          <label>email:</label>
+          <input type="text" th:field="*{email}" />
+        </div>
+        <!--                <div>-->
+        <!--                    <label>profession:</label>-->
+        <!--                    <input type="text" th:field="*{profession}"/>-->
+        <!--                </div>-->
+        <div>
+          <label>rol:</label>
+          <input type="text" th:field="*{role}" />
+        </div>
+      </form>
+      <form
+        class="form-container"
+        th:if="${entityReturn.getRole().name() == 'CUSTOMER'}"
+      >
+        <div>
+          <img
+            th:src="@{/image/{name}(name=${entityReturn.image.getName()})}"
+          />
+          <!--                    <input type="file" th:field="*{image}"/>-->
+          <label>Imagen de perfil</label>
+        </div>
+        <div>
+          <label>nombre:</label>
+          <input type="text" th:field="*{name}" />
+        </div>
+        <div>
+          <label>apellido:</label>
+          <input type="text" th:field="*{lastname}" />
+        </div>
+        <div>
+          <label>email:</label>
+          <input type="text" th:field="*{email}" />
+        </div>
+        <div>
+          <label>profession:</label>
+          <input type="text" th:field="*{location}" />
+        </div>
+        <div>
+          <label>rol:</label>
+          <input type="text" th:field="*{role}" />
+        </div>
+      </form>
+    </div>
     <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <footer th:replace="th_templates/footer :: footer"></footer>
 
