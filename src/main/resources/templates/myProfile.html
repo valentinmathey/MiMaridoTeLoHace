@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="th_templates/head :: head"></head>
+
+  <link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
+  <link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
+  <body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+
+    <!-- form -->
+
+    <div class="form-container">
+      <div class="header">
+        <h2>Mi perfil</h2>
+        <div class="profile-picture">
+          <img th:src="@{'/image/DB/' + ${entityReturn.image}}" />
+        </div>
+      </div>
+      <form>
+        <div class="form-group">
+          <label class="label" for="nombre"></label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            placeholder="Nombre"
+            th:field="*{name}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label class="label" for="lastname"></label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            placeholder="Apellido"
+            th:field="*{lastname}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email"></label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="E-mail"
+            th:field="*{email}"
+            required
+          />
+        </div>
+
+        <label for="img" class="btn btn-warning button">
+          <input
+            type="file"
+            id="img"
+            name="img"
+            accept=".png, .jpeg, .jpg"
+            capture="user"
+            style="display: none"
+          />📸 Subir foto de perfil</label
+        >
+
+        <br />
+        <div class="form-group" >
+          <select id="profession" class="inputs" th:field="*{profession}">
+            <option
+              th:each="professions : ${professions}"
+              th:text="${professions.name}"
+              th:value="${professions}"
+            />
+          </select>
+        </div>
+        <label class="label" for="pass"></label>
+        <input
+          type="password"
+          id="pass1"
+          name="pass"
+          placeholder="Contraseña"
+          th:field="*{password}"
+          required
+        />
+        <br /><br />
+        <label class="label" for="password2"></label>
+        <input
+          type="password"
+          id="password2"
+          name="password2"
+          placeholder="Reingrese su contraseña"
+          required
+        />
+        <div class="form-buttons">
+          <button type="submit">Actualizar</button>
+          <button type="button">Dar baja</button>
+        </div>
+      </form>
+    </div>
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+  </body>
+</html>
