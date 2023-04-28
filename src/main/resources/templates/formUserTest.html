@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+<!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+<header th:replace="th_templates/navbar :: navbar"></header>
+
+<main class="main-form1">
+
+  <form id="formContainer" class="form-container" th:object="${user}" th:action="@{/user/register}" method="post" enctype="multipart/form-data">
+    <br><br><br>
+    <h1>Al ser un checkbox fijate de seleccionar solo uno</h1>
+    <div id="rolSelect" th:field="*{role}">
+      <label for="customerCheck"><input id="customerCheck" name="role" type="checkbox" th:value="${customerRole}" >Customer</label>
+      <label for="providerCheck"><input id="providerCheck" name="role" type="checkbox" th:value="${providerRole}" >Provider</label>
+    </div>
+
+    <div id="user-info">
+      <label class="label" for="nombre"></label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
+
+      <label class="label" for="lastname"></label>
+      <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
+
+      <label class="label" for="email"></label>
+      <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
+
+      <label class="label" for="password"></label>
+      <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" required />
+
+      <label class="label" for="password2"></label>
+      <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
+
+    </div>
+    <div id="user-info-provider">
+      <select id="profession" class="inputs" th:field="*{profession}">
+        <option value="" selected >Elegí tu profesión</option>
+        <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}" required />
+      </select>
+
+      <label class="label" for="description"></label>
+      <textarea classs="description" maxlength="500" id="description" name="description" placeholder="Describí tu actividad" th:field="*{description}"></textarea>
+    </div>
+    <div>
+      <button id="submit-btn" type="submit" class="btn btn-warning button">📝 ¡Registrate!</button>
+    </div>
+  </form>
+</main>
+<!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+<footer th:replace="th_templates/footer :: footer"></footer>
+
+<!-- Bootstrap -->
+<div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+<!--Script's-->
+<script>
+  let select = document.querySelector('#profession');
+  for (let i = 0; i < select.options.length; i++) {
+    let optionText = select.options[i].text;
+    select.options[i].text = optionText.charAt(0).toUpperCase() + optionText.slice(1).toLowerCase();
+  }
+</script>
+</body>
+</html>
