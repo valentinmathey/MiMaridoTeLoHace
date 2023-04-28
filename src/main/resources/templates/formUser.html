@@ -2,192 +2,223 @@
 <!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="th_templates/head :: head"></head>
+<head th:replace="th_templates/head :: head"></head>
 
-    <body>
-        <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <header th:replace="th_templates/navbar :: navbar"></header>
+<body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
 
-        <main class="main-form1">
+    <main class="main-form1">
 
-            <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col left-col">
-                        <h1 class="big-title">📝 ¡Registrate!</h1>
-                        <h4 class="subtitle">Pero antes contanos...</h4>
+        <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="container text-center">
+            <div class="row">
+                <div class="col left-col">
+                    <h1 class="big-title">📝 ¡Registrate!</h1>
+                    <h4 class="subtitle">Pero antes contanos...</h4>
 
-                        <br><br><br>
+                    <br><br><br>
 
-                        <!-- <button type="button" class="btn btn-warning button" href="#">📝Registrate</button> -->
+                    <!-- <button type="button" class="btn btn-warning button" href="#">📝Registrate</button> -->
+                </div>
+                <div class="col">
+
+                    <!-- <img class="image" src="../img/homeRepair.svg" alt="home repair"> -->
+
+                    <img class="image" src="/img/homeRepair.svg" alt="home repair">
+
+                </div>
+            </div>
+        </div>
+        <!-- eric: cambio el form aqui ya que sino no toma los roles-->
+        <form id="formContainer" class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
+            enctype="multipart/form-data">
+
+            <div class="row row-cols-1 row-cols-md-2 g-4" th:field="*{role}">
+                <div class="col">
+                    <div class="card">
+                        <!--          a todas las src de imagenes le saque los ../ del comienzo ya que en localhost no cargaba las imagenes-->
+                        <img src="/img/customer-avatar.png" class="card-img-top" alt="avatar">
+                        <div class="card-body">
+                            <!--            eric: añadido el input para asignar rol y la label selecciona to do el texto ya que sino
+                                no se guarda el rol-->
+                            <label for="customer">
+                                <h5 class="card-title">¿Sos cliente?</h5>
+                                <p class="card-text">Selecciona esta opción si necesitás adquirir un servicio.</p>
+                                <input id="customer" type="radio" th:value="${customerRole}" name="role">
+                            </label>
+                        </div>
                     </div>
-                    <div class="col">
-
-                        <!-- <img class="image" src="../img/homeRepair.svg" alt="home repair"> -->
-
-                        <img class="image" src="/img/homeRepair.svg" alt="home repair">
-
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="/img/provider-avatar.png" class="card-img-top" alt="avatar">
+                        <div class="card-body">
+                            <!--            eric: lo mismo que arrival-->
+                            <label for="provider">
+                                <h5 class="card-title">¿Sos profesional?</h5>
+                                <p class="card-text">Selecciona esta opción si querés prestar un servicio.</p>
+                                <input id="provider" type="radio" th:value="${providerRole}" name="role">
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- eric: cambio el form aqui ya que sino no toma los roles-->
-            <form id="formContainer" class="form-container" th:object="${user}" th:action="@{/user/register}" method="post"
-                  enctype="multipart/form-data">
 
-                <div class="row row-cols-1 row-cols-md-2 g-4" th:field="*{role}">
-                    <div class="col">
-                        <div class="card">
-                            <!--          a todas las src de imagenes le saque los ../ del comienzo ya que en localhost no cargaba las imagenes-->
-                            <img src="/img/customer-avatar.png" class="card-img-top" alt="avatar">
-                            <div class="card-body">
-                                <!--            eric: añadido el input para asignar rol y la label selecciona to do el texto ya que sino
-                                no se guarda el rol-->
-                                <label for="customer">
-                                    <h5 class="card-title">¿Sos cliente?</h5>
-                                    <p class="card-text">Selecciona esta opción si necesitás adquirir un servicio.</p>
-                                    <input id="customer" type="radio" th:value="${customerRole}" name="role">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/img/provider-avatar.png" class="card-img-top" alt="avatar">
-                            <div class="card-body">
-                                <!--            eric: lo mismo que arrival-->
-                                <label for="provider">
-                                    <h5 class="card-title">¿Sos profesional?</h5>
-                                    <p class="card-text">Selecciona esta opción si querés prestar un servicio.</p>
-                                    <input id="provider" type="radio" th:value="${providerRole}" name="role">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!--    eric: aqui antes empezaba el <form>-->
 
-                <!--    eric: aqui antes empezaba el <form>-->
+            <div id="user-info" style="display: none;">
+                <label class="label" for="nombre"></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
 
-                <div id="user-info" style="display: none;">
-                    <label class="label" for="nombre"></label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
+                <label class="label" for="lastname"></label>
+                <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}"
+                    required />
 
-                    <label class="label" for="lastname"></label>
-                    <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
+                <label class="label" for="email"></label>
+                <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
 
-                    <label class="label" for="email"></label>
-                    <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
+                <label class="label" for="password"></label>
+                <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
+                    required />
 
-                    <label class="label" for="password"></label>
-                    <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}" required />
+                <label class="label" for="password2"></label>
+                <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
 
-                    <label class="label" for="password2"></label>
-                    <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
-
-
-                    <!-- <label for="img" class="btn btn-warning button">
+                <!-- <label for="img" class="btn btn-warning button">
                       📸 Subir foto de perfil
                       <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
                     </label> -->
 
 
-                    <!--eric: para que no de error ya saque las cosas de user, dejo comentado para la reutilizacion en user.html-->
-                    <!--        <div  style="display:none;">-->
-                    <!--          <label for="img" class="btn btn-warning button">-->
-                    <!--            <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" />-->
-                    <!--          </label>-->
-                    <!--        </div>-->
+                <!--eric: para que no de error ya saque las cosas de user, dejo comentado para la reutilizacion en user.html-->
+                <!--        <div  style="display:none;">-->
+                <!--          <label for="img" class="btn btn-warning button">-->
+                <!--            <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" />-->
+                <!--          </label>-->
+                <!--        </div>-->
 
-                </div>
-
-
-                <div id="user-info-provider" style="display: none;">
-                    <!-- Aquí va el formulario o información adicional para proveedores -->
-
-                    <br>
-                    <select id="profession" class="inputs" th:field="*{profession}">
-                        <option value="" selected >Elegí tu profesión</option>
-                        <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}" required />
-                    </select>
-
-                    <label class="label" for="description"></label>
-                    <textarea classs="description" maxlength="500" id="description" name="description"
-                              placeholder="Describí tu actividad" th:field="*{description}"></textarea>
-                </div>
-
-                <div>
-                    <!--        eric: type="button" > type="submit"-->
-                    <button id="submit-btn" type="submit" class="btn btn-warning button">📝 ¡Registrate!</button>
-                </div>
-
-            </form>
-        </main>
-
-        <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <footer th:replace="th_templates/footer :: footer"></footer>
-
-        <!-- Script / Bootstrap -->
-        <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+            </div>
 
 
-        <!-- SCRIPT FOR CARDS & BUTTON by @Fede >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <script>
-            // Obtener los elementos del formulario y el botón de registro
-            const userInfoDiv = document.getElementById("user-info");
-            const userInfoProviderDiv = document.getElementById("user-info-provider");
-            const submitBtn = document.getElementById("submit-btn");
+            <div id="user-info-provider" style="display: none;">
+                <!-- Aquí va el formulario o información adicional para proveedores -->
 
-            // Ocultar el botón de registro por defecto
-            submitBtn.style.display = "none";
+                <br>
+                <select id="profession" class="inputs" th:field="*{profession}">
+                    <option value="" selected>Elegí tu profesión</option>
+                    <option th:each="professions : ${professions}" th:text="${professions.name}"
+                        th:value="${professions}" required />
+                </select>
 
-            // Agregar un evento de escucha de cambio a los elementos del formulario
-            userInfoDiv.addEventListener("change", checkForms);
-            userInfoProviderDiv.addEventListener("change", checkForms);
+                <label class="label" for="description"></label>
+                <textarea classs="description" maxlength="500" id="description" name="description"
+                    placeholder="Describí tu actividad" th:field="*{description}"></textarea>
+            </div>
 
-            // Obtener las tarjetas de usuario
-            const userCards = document.querySelectorAll(".card");
+            <div>
+                <!--        eric: type="button" > type="submit"-->
+                <button id="submit-btn" type="submit" class="btn btn-warning button">📝 ¡Registrate!</button>
+            </div>
 
-            // Agregar un evento de escucha de clic a cada tarjeta
-            userCards.forEach((card) => {
-                card.addEventListener("click", function () {
-                    // Obtener el título de la tarjeta
-                    const title = card.querySelector(".card-title").textContent;
+        </form>
+    </main>
 
-                    // Mostrar el formulario de información del usuario
-                    userInfoDiv.style.display = "block";
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
 
-                    // Mostrar u ocultar el formulario de información del proveedor según el título de la tarjeta
-                    if (title === "¿Sos profesional?") {
-                        userInfoProviderDiv.style.display = "block";
-                    } else {
-                        userInfoProviderDiv.style.display = "none";
-                    }
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
-                    // Verificar si alguno de los formularios está visible
-                    checkForms();
-                });
-            });
 
-            function checkForms() {
-                // Verificar si alguno de los formularios está visible
-                if (userInfoDiv.style.display !== "none" || userInfoProviderDiv.style.display !== "none") {
-                    // Mostrar el botón de registro si alguno de los formularios está visible
-                    submitBtn.style.display = "block";
+    <!-- SCRIPT FOR CARDS & BUTTON by @Fede >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <script>
+        // Obtener los elementos del formulario y el botón de registro
+        const userInfoDiv = document.getElementById("user-info");
+        const userInfoProviderDiv = document.getElementById("user-info-provider");
+        const submitBtn = document.getElementById("submit-btn");
+
+        // Ocultar el botón de registro por defecto
+        submitBtn.style.display = "none";
+
+        // Agregar un evento de escucha de cambio a los elementos del formulario
+        userInfoDiv.addEventListener("change", checkForms);
+        userInfoProviderDiv.addEventListener("change", checkForms);
+
+        // Obtener las tarjetas de usuario
+        const userCards = document.querySelectorAll(".card");
+
+        // Agregar un evento de escucha de clic a cada tarjeta
+        userCards.forEach((card) => {
+            card.addEventListener("click", function () {
+                // Obtener el título de la tarjeta
+                const title = card.querySelector(".card-title").textContent;
+
+                // Mostrar el formulario de información del usuario
+                userInfoDiv.style.display = "block";
+
+                // Mostrar u ocultar el formulario de información del proveedor según el título de la tarjeta
+                if (title === "¿Sos profesional?") {
+                    userInfoProviderDiv.style.display = "block";
                 } else {
-                    // Ocultar el botón de registro si ninguno de los formularios está visible
-                    submitBtn.style.display = "none";
+                    userInfoProviderDiv.style.display = "none";
                 }
+
+                // Verificar si alguno de los formularios está visible
+                checkForms();
+            });
+        });
+
+        function checkForms() {
+            // Verificar si alguno de los formularios está visible
+            if (userInfoDiv.style.display !== "none" || userInfoProviderDiv.style.display !== "none") {
+                // Mostrar el botón de registro si alguno de los formularios está visible
+                submitBtn.style.display = "block";
+            } else {
+                // Ocultar el botón de registro si ninguno de los formularios está visible
+                submitBtn.style.display = "none";
             }
-        </script>
+        }
+    </script>
 
 
-        <!-- SCRIPT TO LOWERCASE by @Fede >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <script>
-            let select = document.querySelector('#profession');
-            for (let i = 0; i < select.options.length; i++) {
-                let optionText = select.options[i].text;
-                select.options[i].text = optionText.charAt(0).toUpperCase() + optionText.slice(1).toLowerCase();
+    <!-- SCRIPT FOR VALIDATE PASSWORDS EN TIEMPO REAL by @Facu >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <!-- Este script se puede usar de dos formas, deshabilitando el boton de subbmit, actualmente esta asi, o indicando que-->>
+    <script th:inline="javascript">
+
+        var password = document.getElementById("password");
+        var password2 = document.getElementById("password2");
+
+        function validatePassword() {
+            
+            var submitButton = document.getElementById("submit-btn");
+
+            if (password.value !== password2.value) {
+                password.setCustomValidity("");
+                password2.setCustomValidity("Las contraseñas no coinciden.");
+                submitButton.disabled = true;
+            } else {
+                password.setCustomValidity("");
+                password2.setCustomValidity("");
+                submitButton.disabled = false;
             }
-        </script>
+        }
 
-    </body>
+        password.addEventListener("input", validatePassword);
+        password2.addEventListener("input", validatePassword);
+
+    </script>
+
+
+    <!-- SCRIPT TO LOWERCASE by @Fede >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <script>
+        let select = document.querySelector('#profession');
+        for (let i = 0; i < select.options.length; i++) {
+            let optionText = select.options[i].text;
+            select.options[i].text = optionText.charAt(0).toUpperCase() + optionText.slice(1).toLowerCase();
+        }
+    </script>
+
+</body>
+
 </html>

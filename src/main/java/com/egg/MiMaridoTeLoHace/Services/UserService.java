@@ -36,21 +36,33 @@ public class UserService implements UserDetailsService {
     @Autowired
     ImageRepository imageRepository;
 
+    @Autowired
+    ImageService imageService;
+
 
     //---- CRUD USER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
     @Transactional
-    public void createUser(User user, Image image) throws MiException{
+    public void createUser(User user) throws MiException{
 
         try {
+            
+            Image image = null;
 
-            user.setAlta(true);
+            if (user.getProfession()==null) {
+                user.setRole(Roles.CUSTOMER);
+                image = imageService.GetByName("customer-avatar.png");
+            } else {
+                user.setRole(Roles.PROVIDER);
+                image = imageService.GetByName("provider-avatar.png");
+            }
+            
+            imageService.Save(image);
             user.setImage(image.getId());
+            user.setAlta(true);
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
-            //TODOS LOS USER NACEN POR DEFECTO COMO UN CUSTOMER, DE FORMA MANUAL DEBERIAMOS DAR PRIVILEGIOS DE ADMIN
-            //user.setRole(Roles.CUSTOMER);
-
             userRepository.save(user);
+
 
         } catch (Exception e) {
             throw new MiException("Error al crear USER!");
