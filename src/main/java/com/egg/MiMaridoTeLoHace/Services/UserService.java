@@ -162,12 +162,32 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public List<User> providersAndCustomers() throws MiException {
+
+        List<User> onlyUsers = new ArrayList<>();
+
+        try {
+
+            for (User user : userRepository.findAll()) {
+                if (!user.getRole().toString().equals("ADMIN")) {
+                    onlyUsers.add(user);
+                }
+            }
+
+        } catch (Exception e) {
+            throw new MiException("ERROR AL GUARDAR CUSTOMER Y PROVIDERS (ALGUN ROL VACIO EN DB?)");
+        }
+
+        return onlyUsers;
+    }
+
+    @Transactional
     public boolean validateEmail(User user) throws MiException {
 
-        boolean validator=false;
+        boolean validator = false;
 
-        if (userRepository.searchByEmail(user.getEmail())!=null) {
-            validator=true;
+        if (userRepository.searchByEmail(user.getEmail()) != null) {
+            validator = true;
         }
         // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
         return validator;
@@ -262,7 +282,8 @@ public class UserService implements UserDetailsService {
 
             session.setAttribute("userSession", user);
 
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                    authorities);
 
         } else {
             return null;
