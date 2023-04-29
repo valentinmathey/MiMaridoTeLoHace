@@ -13,9 +13,10 @@
         <div>
 
             <div th:if="${role == 'customer'}">
-                <h2>Registro de cliente</h2>
 
                 <form th:object="${user}" th:action="@{/user/register}" method="post">
+                                      
+                    <h2>Registro de cliente</h2>
 
                     <label class="label" for="nombre"></label>
                     <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
@@ -40,8 +41,10 @@
                 </form>
             </div>
             <div th:if="${role == 'provider'}">
-                <h2>Registro de proveedor</h2>
+                
                 <form th:object="${user}" th:action="@{/user/register}" method="post">
+            
+                    <h2>Registro de proveedor</h2>
 
                     <label class="label" for="nombre"></label>
                     <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />

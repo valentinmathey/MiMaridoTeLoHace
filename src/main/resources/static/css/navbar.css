@@ -2,7 +2,6 @@
   position: fixed;
   z-index: 9999;
   width: 100%;
-
   padding: 0.625em 15.625em;
   /* 10px = 0.625em, 250px = 15.625em */
   /* text-align: justify; */

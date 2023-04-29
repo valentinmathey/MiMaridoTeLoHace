@@ -5,7 +5,6 @@ import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.lang.ProcessBuilder.Redirect;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import com.egg.MiMaridoTeLoHace.Entities.User;
 
 
 
