@@ -25,6 +25,7 @@ public class User {
     private String email;
     private String password;
     private Date unsubscription;
+    private String phone;
     private Boolean alta;
 
     @Enumerated(EnumType.STRING)

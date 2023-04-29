@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
     public void createUser(User user) throws MiException {
 
         try {
-            
+
             Image image = null;
 
             if (user.getProfession() == null) {
@@ -95,6 +95,7 @@ public class UserService implements UserDetailsService {
             originalUser.setName(user.getName());
             originalUser.setLastname(user.getLastname());
             originalUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            originalUser.setPhone(user.getPhone());
 
             userRepository.save(originalUser);
 
@@ -157,12 +158,32 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public List<User> providersAndCustomers() throws MiException {
+
+        List<User> onlyUsers = new ArrayList<>();
+
+        try {
+
+            for (User user : userRepository.findAll()) {
+                if (!user.getRole().toString().equals("ADMIN")) {
+                    onlyUsers.add(user);
+                }
+            }
+
+        } catch (Exception e) {
+            throw new MiException("ERROR AL GUARDAR CUSTOMER Y PROVIDERS (ALGUN ROL VACIO EN DB?)");
+        }
+
+        return onlyUsers;
+    }
+
+    @Transactional
     public boolean validateEmail(User user) throws MiException {
 
-        boolean validator=false;
+        boolean validator = false;
 
         if (userRepository.searchByEmail(user.getEmail())!=null) {
-            validator=true;
+            validator = true;
         }
         // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
         return validator;
@@ -221,23 +242,22 @@ public class UserService implements UserDetailsService {
     // }
     // }
 
-//
-//    @Transactional
-//    public void deleteProvider(String id, User provider) throws MiException{
-//
-//        try {
-//
-//            Optional<User> providerCheck = userRepository.findById(id);
-//
-//            if (providerCheck.isPresent()) {
-//                userRepository.delete(userRepository.getById(id));
-//            }
-//
-//        } catch (Exception e) {
-//            throw new MiException("ERROR al borrar PROVIDER!");
-//        }
-//    }
-
+    //
+    // @Transactional
+    // public void deleteProvider(String id, User provider) throws MiException{
+    //
+    // try {
+    //
+    // Optional<User> providerCheck = userRepository.findById(id);
+    //
+    // if (providerCheck.isPresent()) {
+    // userRepository.delete(userRepository.getById(id));
+    // }
+    //
+    // } catch (Exception e) {
+    // throw new MiException("ERROR al borrar PROVIDER!");
+    // }
+    // }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -258,7 +278,8 @@ public class UserService implements UserDetailsService {
 
             session.setAttribute("userSession", user);
 
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                    authorities);
 
         } else {
             return null;
