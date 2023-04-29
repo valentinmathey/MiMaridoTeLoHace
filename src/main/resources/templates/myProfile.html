@@ -11,99 +11,239 @@
     <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <header th:replace="th_templates/navbar :: navbar"></header>
 
+<!--    eric: agregado por que el navbar se come esta parte-->
+    <br><br><br>
     <!-- form -->
+<!--    eric:  th:object para trae el usuario-->
+<!--    falta crear una vista aparte para la edicion-->
 
-    <div class="form-container">
+    <div id="image-div" class="form-container" th:object="${usuarioActual}">
       <div class="header">
         <h2>Mi perfil</h2>
         <div class="profile-picture">
-          <img th:src="@{'/image/DB/' + ${entityReturn.image}}" />
+          <img class="image2" th:src="@{'/image/DB/' + *{image}}" />
         </div>
       </div>
-      <form>
-        <div class="form-group">
-          <label class="label" for="nombre"></label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            placeholder="Nombre"
-            th:field="*{name}"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label class="label" for="lastname"></label>
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            placeholder="Apellido"
-            th:field="*{lastname}"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="email"></label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="E-mail"
-            th:field="*{email}"
-            required
-          />
-        </div>
+    </div>
 
-        <label for="img" class="btn btn-warning button">
-          <input
-            type="file"
-            id="img"
-            name="img"
-            accept=".png, .jpeg, .jpg"
-            capture="user"
-            style="display: none"
-          />📸 Subir foto de perfil</label
-        >
+    <form  id="get-perfil-form" th:object="${usuarioActual}">
+      <div class="form-group">
+        <p th:text="*{name}"></p>
+      </div>
+      <div class="form-group">
+        <p th:text="*{lastname}"></p>
+      </div>
+      <div class="form-group">
+        <p th:text="*{email}"></p>
+      </div>
+      <div class="providerOnly" style="display: none">
+        <div class="form-group">
+          <p th:text="*{profession}"></p>
+        </div>
+        <div class="form-group">
+          <p th:text="*{description}"></p>
+        </div>
+      </div>
+      <div class="form-buttons">
+        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+        <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button>
+        <button id="edit-perfil" class="btn btn-warning button" type="button">Actualizar</button>
+        <button id="delete-perfil" class="btn btn-warning button" type="button">Dar baja</button>
+      </div>
+    </form>
 
-        <br />
-        <div class="form-group" >
+    <form id="edit-perfil-form" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}">
+      <div id="rolStore" th:data-rol="*{role}"></div>
+      <div class="form-group">
+        <label class="label" for="nombre"></label>
+        <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre"
+                th:field="*{name}"
+                required
+        />
+      </div>
+      <div class="form-group">
+        <label class="label" for="lastname"></label>
+        <input
+                type="text"
+                id="lastname"
+                name="lastname"
+                placeholder="Apellido"
+                th:field="*{lastname}"
+                required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email"></label>
+        <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="E-mail"
+                th:field="*{email}"
+                required
+        />
+      </div>
+      <label for="img" class="btn btn-warning button">
+        <input
+                type="file"
+                id="img"
+                name="img"
+                accept=".png, .jpeg, .jpg"
+                capture="user"
+                style="display: none"
+        />📸 Subir foto de perfil
+      </label>
+      <div class="providerOnly" style="display: none">
+        <div class="form-group">
           <select id="profession" class="inputs" th:field="*{profession}">
             <option
-              th:each="professions : ${professions}"
-              th:text="${professions.name}"
-              th:value="${professions}"
+                    th:each="professions : ${professions}"
+                    th:text="${professions.name}"
+                    th:value="${professions}"
             />
           </select>
         </div>
-        <label class="label" for="pass"></label>
-        <input
-          type="password"
-          id="pass1"
-          name="pass"
-          placeholder="Contraseña"
-          th:field="*{password}"
-          required
-        />
-        <br /><br />
-        <label class="label" for="password2"></label>
-        <input
-          type="password"
-          id="password2"
-          name="password2"
-          placeholder="Reingrese su contraseña"
-          required
-        />
-        <div class="form-buttons">
-          <button type="submit">Actualizar</button>
-          <button type="button">Dar baja</button>
+        <div class="form-group">
+          <label for="description"></label>
+          <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  th:field="*{description}"
+          />
         </div>
-      </form>
-    </div>
+      </div>
+      <input type="hidden" th:field="*{role}"/>
+      <div class="form-buttons">
+        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+        <button class="btn btn-warning button" type="submit">confirmar</button>
+        <button id="btn-back-1" class="btn btn-warning button" type="button">cancelar</button>
+      </div>
+    </form>
+
+    <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}" style="display: none" th:object="${usuarioActual}">
+      <h1>Seguro que quieres Borrar la cuenta?</h1>
+      <h2>la cuenta sera borrada definitivamente una vez pasado 3 meses</h2>
+
+      <div class="form-buttons">
+        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+        <button class="btn btn-warning button" type="submit">confirmar</button>
+        <button id="btn-back-2" class="btn btn-warning button" type="button">cancelar</button>
+      </div>
+    </form>
+
+
+    <form id="change-password"  method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}">
+      <label class="label" for="password"></label>
+      <div id="passStore" th:data-pass="*{password}"></div>
+      <input
+              type="password"
+              id="password"
+              name="pass"
+              placeholder="contraseña actual"
+              required
+      />
+      <label class="label" for="newPassword"></label>
+      <input
+              type="password"
+              id="newPassword"
+              name="password2"
+              placeholder="nueva contraseña"
+              th:field="*{password}"
+              required
+      />
+      <div class="form-buttons">
+        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+        <button id="Confirm-change-pass" class="btn btn-warning button" type="submit">confirmar</button>
+        <button id="btn-back-3" class="btn btn-warning button" type="button">cancelar</button>
+      </div>
+    </form>
     <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <footer th:replace="th_templates/footer :: footer"></footer>
 
     <!-- Script / Bootstrap -->
     <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+  <script>
+    const formGetUser = document.getElementById("get-perfil-form");
+
+    const imageDiv = document.getElementById("image-div");
+
+    const formChangeUser = document.getElementById("edit-perfil-form");
+    const divDeleteUser = document.getElementById("delete-perfil-div");
+    const passChange = document.getElementById("change-password");
+
+    const btnBack1 = document.getElementById("btn-back-1");
+    const btnBack2 = document.getElementById("btn-back-2");
+    const btnBack3 = document.getElementById("btn-back-3");
+
+    const editButton = document.getElementById("edit-perfil");
+    const editPasswordButton = document.getElementById("edit-password");
+    const deleteButton = document.getElementById("delete-perfil");
+
+    // botones de cambio de opcion
+
+    editButton.addEventListener("click", function() {
+      formGetUser.style.display = "none";
+      formChangeUser.style.display = "block";
+    });
+
+    deleteButton.addEventListener("click", function() {
+      formGetUser.style.display = "none";
+      imageDiv.style.display = "none";
+      divDeleteUser.style.display = "block";
+    });
+
+    editPasswordButton.addEventListener("click", function() {
+      formGetUser.style.display = "none";
+      imageDiv.style.display = "none";
+      passChange.style.display = "block";
+    });
+
+    //botones de cancelar
+
+    btnBack1.addEventListener("click", function() {
+      formGetUser.style.display = "block";
+      formChangeUser.style.display = "none";
+    });
+    btnBack2.addEventListener("click", function() {
+      formGetUser.style.display = "block";
+      imageDiv.style.display = "block";
+      divDeleteUser.style.display = "none";
+    });
+    btnBack3.addEventListener("click", function() {
+      formGetUser.style.display = "block";
+      imageDiv.style.display = "block";
+      passChange.style.display = "none";
+    });
+
+    //correlacion contrasena
+    var passStore = document.getElementById("passStore");
+    var pass = passStore.getAttribute("data-pass");
+    console.log(pass);
+    const password = document.getElementById("password").textContent;
+    const newPassword = document.getElementById("newPassword").textContent;
+    const btnConfirm = document.getElementById("Confirm-change-pass");
+
+    if (password === pass && newPassword !== password){
+      btnConfirm.style.display = "block";
+    }
+
+    //gestion de rol
+    const divProviders = document.querySelectorAll(".providerOnly")
+    var rolUser = document.getElementById("rolStore");
+    var rolInfo = rolUser.getAttribute("data-rol");
+    console.log(rolInfo);
+    if (rolInfo === 'PROVIDER'){
+      for (let i = 0; i < divProviders.length; i++) {
+        divProviders[i].style.display = "block";
+      }
+    }
+  </script>
+
   </body>
 </html>
