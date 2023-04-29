@@ -45,11 +45,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String userRegister(@ModelAttribute User user) throws MiException {
+    public String userRegister(@ModelAttribute User user, Model model) throws MiException {
 
-        userService.createUser(user);
-
-        return "home";
+        if (userService.validateEmail(user)==false) {
+            userService.createUser(user);
+            return "home";
+        } else {
+            String mssg = "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO";
+            model.addAttribute("mssg", mssg);
+            return "userSelect";
+        }
     }
 
     @GetMapping("/select")

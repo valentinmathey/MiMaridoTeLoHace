@@ -11,6 +11,8 @@
     <form class="form-container" th:action="@{/logincheck}" method="post">
       <h1 class="title">✅ ¡Ingresá! </h1>
       
+      <p th:text="${mssg}"></p>
+
       <div>
 
         <label class="label" for="email"></label>

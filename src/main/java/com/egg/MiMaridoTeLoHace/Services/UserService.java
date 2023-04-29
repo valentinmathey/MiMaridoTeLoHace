@@ -39,23 +39,23 @@ public class UserService implements UserDetailsService {
     @Autowired
     ImageService imageService;
 
-
-    //---- CRUD USER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
+    // ---- CRUD USER ------ (Se usara para crear, modificar y boorrar Customers, y
+    // solo para crear Admins)
     @Transactional
-    public void createUser(User user) throws MiException{
+    public void createUser(User user) throws MiException {
 
         try {
             
             Image image = null;
 
-            if (user.getProfession()==null) {
+            if (user.getProfession() == null) {
                 user.setRole(Roles.CUSTOMER);
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);
                 image = imageService.GetByName("provider-avatar.png");
             }
-            
+
             imageService.Save(image);
             user.setImage(image.getId());
             user.setAlta(true);
@@ -69,10 +69,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-
-    //Este metodo se puede modificar para actualizar imagen, por ahora queda asi
+    // Este metodo se puede modificar para actualizar imagen, por ahora queda asi
     @Transactional
-    public void modifyUser(String id, User user) throws MiException{
+    public void modifyUser(String id, User user) throws MiException {
 
         try {
 
@@ -87,7 +86,7 @@ public class UserService implements UserDetailsService {
                 newUser.setEmail(user.getEmail());
                 newUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
-                if(user.getRole().name().equals("PROVIDER")){
+                if (user.getRole().name().equals("PROVIDER")) {
                     newUser.setDescription(user.getDescription());
                     newUser.setRating(Math.random() * 5 + 1); // uso hasta tener reviews
                     newUser.setProfession(user.getProfession());
@@ -99,19 +98,20 @@ public class UserService implements UserDetailsService {
 
 
         } catch (Exception e) {
-            throw new MiException("ERROR al modificar USUARIO "+user.getName()+" "+user.getLastname());
+            throw new MiException("ERROR al modificar USUARIO " + user.getName() + " " + user.getLastname());
         }
     }
 
     @Transactional
-    public void deleteUser(String id) throws MiException{
+    public void deleteUser(String id) throws MiException {
 
         try {
 
             Optional<User> userCheck = userRepository.findById(id);
 
             if (userCheck.isPresent()) {
-                userRepository.delete(userRepository.getById(id));;
+                userRepository.delete(userRepository.getById(id));
+                ;
             }
 
         } catch (Exception e) {
@@ -133,25 +133,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List <User> userList() throws MiException{
-        
-        List <User> usersList = new ArrayList<>();
-        
+    public List<User> userList() throws MiException {
+
+        List<User> usersList = new ArrayList<>();
+
         usersList = userRepository.findAll();
 
         return usersList;
     }
 
     @Transactional
-    public List <User> providerList() throws MiException{
+    public List<User> providerList() throws MiException {
 
-        List <User> providersList = new ArrayList<>();
+        List<User> providersList = new ArrayList<>();
         providersList = userRepository.findByRole(Roles.PROVIDER);
         return providersList;
     }
 
     @Transactional
-    public Optional<User> searchByProfession(String professions) throws MiException{
+    public Optional<User> searchByProfession(String professions) throws MiException {
         for (Professions pr : Professions.values()) {
             if (pr.name().equals(professions)) {
                 return userRepository.searchByProfession(pr);
@@ -159,54 +159,71 @@ public class UserService implements UserDetailsService {
         }
         return null;
     }
-    //---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar Customers, y solo para crear Admins)
-//
-//    @Transactional
-//    public void createProvider(User provider, Image image) throws MiException{
-//
-//        try {
-//
-//            provider.setAlta(true);
-//            provider.setImage(image.getId());
-//            provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
-//
-//            provider.setRole(Roles.PROVIDER);
-//            provider.setSubscription(new Date(System.currentTimeMillis()));
-//
-//            //La descipcion, profesion y rating vienen dentro del objeto que llega por parametros
-//            userRepository.save(provider);
-//
-//        } catch (Exception e) {
-//            throw new MiException("Error al crear USER!");
-//        }
-//    }
-//
-//    @Transactional
-//    public void modifyProvider(String id, User provider) throws MiException{
-//
-//        try {
-//
-//            Optional<User> providerCheck = userRepository.findById(id);
-//
-//            if (providerCheck.isPresent()) {
-//
-//                User newProvider = providerCheck.get();
-//                newProvider.setAlta(true);
-//                newProvider.setName(provider.getName());
-//                newProvider.setLastname(provider.getLastname());
-//                newProvider.setDescription(provider.getDescription());
-//                newProvider.setProfession(provider.getProfession());
-//                newProvider.setEmail(provider.getEmail());
-//                newProvider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
-//
-//                userRepository.save(newProvider);
-//            }
-//
-//        } catch (Exception e) {
-//            throw new MiException("ERROR al modificar PROVEEDOR "+provider.getName()+" "+provider.getLastname());
-//        }
-//    }
 
+    @Transactional
+    public boolean validateEmail(User user) throws MiException {
+
+        boolean validator=false;
+
+        if (userRepository.searchByEmail(user.getEmail())!=null) {
+            validator=true;
+        }
+        // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
+        return validator;
+
+    }
+    // ---- CRUD PROVIDER ------ (Se usara para crear, modificar y boorrar
+    // Customers, y solo para crear Admins)
+    //
+    // @Transactional
+    // public void createProvider(User provider, Image image) throws MiException{
+    //
+    // try {
+    //
+    // provider.setAlta(true);
+    // provider.setImage(image.getId());
+    // provider.setPassword(new
+    // BCryptPasswordEncoder().encode(provider.getPassword()));
+    //
+    // provider.setRole(Roles.PROVIDER);
+    // provider.setSubscription(new Date(System.currentTimeMillis()));
+    //
+    // //La descipcion, profesion y rating vienen dentro del objeto que llega por
+    // parametros
+    // userRepository.save(provider);
+    //
+    // } catch (Exception e) {
+    // throw new MiException("Error al crear USER!");
+    // }
+    // }
+    //
+    // @Transactional
+    // public void modifyProvider(String id, User provider) throws MiException{
+    //
+    // try {
+    //
+    // Optional<User> providerCheck = userRepository.findById(id);
+    //
+    // if (providerCheck.isPresent()) {
+    //
+    // User newProvider = providerCheck.get();
+    // newProvider.setAlta(true);
+    // newProvider.setName(provider.getName());
+    // newProvider.setLastname(provider.getLastname());
+    // newProvider.setDescription(provider.getDescription());
+    // newProvider.setProfession(provider.getProfession());
+    // newProvider.setEmail(provider.getEmail());
+    // newProvider.setPassword(new
+    // BCryptPasswordEncoder().encode(provider.getPassword()));
+    //
+    // userRepository.save(newProvider);
+    // }
+    //
+    // } catch (Exception e) {
+    // throw new MiException("ERROR al modificar PROVEEDOR "+provider.getName()+"
+    // "+provider.getLastname());
+    // }
+    // }
 
 //
 //    @Transactional
@@ -243,9 +260,9 @@ public class UserService implements UserDetailsService {
 
             HttpSession session = attr.getRequest().getSession(true);
 
-            session.setAttribute("usersession", user);
+            session.setAttribute("userSession", user);
 
-            return (UserDetails) new org.springframework.security.core.userdetails.User(email, email, authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 
         } else {
             return null;
