@@ -84,6 +84,7 @@ public class UserService implements UserDetailsService {
                 newUser.setLastname(user.getLastname());
                 newUser.setEmail(user.getEmail());
                 newUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+                newUser.setPhone(user.getPhone());
 
                 if (user.getRole().name().equals("PROVIDER")) {
                     newUser.setDescription(user.getDescription());
