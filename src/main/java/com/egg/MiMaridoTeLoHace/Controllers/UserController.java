@@ -76,13 +76,18 @@ public class UserController {
 
     }
     @Transactional
-    @PostMapping("/perfil/{id}/mod")
-    public String edit(@PathVariable("id") String id, @ModelAttribute User user, ModelMap model){
+    @PostMapping(value = "/perfil/{id}/mod", consumes = "multipart/form-data")
+    public String edit(@PathVariable("id") String id, @ModelAttribute User user,@RequestParam("img") MultipartFile archivo, ModelMap model) throws MiException {
+
         try {
-            userService.modifyUser(id, user);
-            model.addAttribute("OK", "el usuario fue modificado con exito");
+        Image image = null;
+        if (!archivo.isEmpty()) {
+            image = imageConverter.convert(archivo);
+        }
+            userService.modifyUser(id, user, image);
+            model.addAttribute("OK", "el usuario fue editado con exito");
         } catch (Exception e) {
-            model.addAttribute("Exeption", "Error al modificar el usuario");
+            model.addAttribute("Exeption", "el usuario no pudo ser editado");
         }
         return "redirect:/#";
     }
@@ -101,18 +106,5 @@ public class UserController {
         List<User> users = userService.userList();
         modelo.addAttribute("users", users);
         return "userList";
-    }
-
-    @GetMapping("/providers")
-    public String showProviders(@RequestParam String profession, ModelMap model) throws MiException {
-
-        Optional<User> searchReturn = userService.searchByProfession(profession);
-        if (searchReturn.isPresent()) {
-            model.addAttribute("searchReturn", searchReturn);
-        } else {
-            model.addAttribute("Exeption", "El Servicio se encuentra sin trabajadores actualmente");
-            return "redirect:/";
-        }
-        return "providers";
     }
 }

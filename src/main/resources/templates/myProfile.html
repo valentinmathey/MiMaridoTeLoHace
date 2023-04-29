@@ -52,7 +52,7 @@
       </div>
     </form>
 
-    <form id="edit-perfil-form" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}">
+    <form id="edit-perfil-form" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}" enctype="multipart/form-data">
       <div id="rolStore" th:data-rol="*{role}"></div>
       <div class="form-group">
         <label class="label" for="nombre"></label>
@@ -94,9 +94,9 @@
                 name="img"
                 accept=".png, .jpeg, .jpg"
                 capture="user"
-                style="display: none"
         />📸 Subir foto de perfil
       </label>
+
       <div class="providerOnly" style="display: none">
         <div class="form-group">
           <select id="profession" class="inputs" th:field="*{profession}">
