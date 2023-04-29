@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+    <br><br><br>
+    <h1>Registro de usuario</h1>
+    <div>
+        <div>
+            <h2>Cliente</h2>
+            <a  class="btn btn-primary" href="#" th:href="@{/register/user}" type="button">Registrarse</a>
+        </div>
+        <div>
+            <h2>Proveedor</h2>
+            <a class="btn btn-primary" href="#" th:href="@{/register/provider}" type="button">Registrarse</a>
+        </div>
+    </div>
+
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>
