@@ -24,8 +24,8 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+    private Date unsubscription;
     private String phone;
-    //private Date unsubscription;
     private Boolean alta;
 
     @Enumerated(EnumType.STRING)
@@ -36,7 +36,7 @@ public class User {
     //Provider---------------------------
     
     private String description;
-    private Double rating;
+    private int rating;
     private Date subscription;
     //private int priceTime; (A futuro)
     

@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findByRole(@Param("role") Roles role);
 
     @Query("SELECT u FROM User u WHERE u.profession = :profession")
-    Optional<User> searchByProfession(@Param("profession") Professions profession);
+    List<User> searchByProfession(@Param("profession") Professions profession);
 
     @Query("SELECT u FROM User u WHERE u.name = :name")
     List<User> findByName(@Param("name") String name);
@@ -33,5 +33,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT u FROM User u WHERE u.rating = :rating")
     Optional<User> findByRating(@Param("rating") Double rating);
+
+
+
 
 }

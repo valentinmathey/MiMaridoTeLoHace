@@ -1,13 +1,13 @@
 <div th:fragment="cardProvider" class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col" th:each="tmpProvider : ${searchReturn}">
+  <div class="col" th:each="provider : ${searchReturn}">
       <div class="card h-100">
-        <img th:src="@{'/image/DB/' + ${tmpProvider.image}}" class="card-img-top" alt="profile-provider">
+        <img th:src="@{'/image/DB/' + ${provider.image}}" class="card-img-top" alt="profile-provider">
           <div class="card-body">
-              <h5 class="card-title" th:text="${tmpProvider.name}"></h5>
-              <p class="card-text" th:text="${tmpProvider.description}"></p>
+              <h5 class="card-title" th:text="${provider.name}"></h5>
+              <p class="card-text" th:text="${provider.description}"></p>
           </div>
           <div class="card-footer">
-              <div th:switch="${tmpProvider.raiting}">
+              <div th:switch="${provider.rating}">
                   <small th:case="1" class="text-body-secondary">⭐️</small>
                   <small th:case="2" class="text-body-secondary">⭐⭐️</small>
                   <small th:case="3" class="text-body-secondary">⭐⭐⭐️️️</small>
