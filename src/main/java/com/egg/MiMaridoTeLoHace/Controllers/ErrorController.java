@@ -13,6 +13,7 @@ public class ErrorController {
     ModelAndView model = new ModelAndView("error");
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
+    // Fede: cree el controller para manejar los errores y su vista en html
     switch (httpStatus.value()) {
       case 400:
         model.addObject("errorTitle", "Error 400");
