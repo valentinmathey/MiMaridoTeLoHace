@@ -5,138 +5,142 @@
 <head th:replace="th_templates/head :: head"></head>
 
 <body>
-    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <header th:replace="th_templates/navbar :: navbar"></header>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
 
-    <main class="main-index">
+  <main class="main-index">
 
-        <div>
+    <!-- FORMS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
-            <div th:if="${role == 'customer'}">
+    <div th:if="${role == 'customer'}">
+      
+        <form th:object="${user}" th:action="@{/user/register}" method="post">
 
-                <form th:object="${user}" th:action="@{/user/register}" method="post">
-                                      
-                    <h2>Registro de cliente</h2>
+          <h2 class="title">Registro de cliente</h2>
 
-                    <label class="label" for="nombre"></label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
+          <label class="label" for="nombre"></label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
 
-                    <label class="label" for="lastname"></label>
-                    <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}"
-                        required />
+          <label class="label" for="lastname"></label>
+          <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
 
-                    <label class="label" for="email"></label>
-                    <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}"
-                        required />
+          <label class="label" for="email"></label>
+          <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
 
-                    <label class="label" for="password"></label>
-                    <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
-                        required />
+          <label class="label" for="password"></label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
+            required />
 
-                    <label class="label" for="password2"></label>
-                    <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña"
-                        required />
+          <label class="label" for="password2"></label>
+          <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
 
-                    <button id="submit-btn" type="submit" class="btn btn-warning button">✅ REGISTRAR MIS DATOS</button>
-                </form>
-            </div>
-            <div th:if="${role == 'provider'}">
-                
-                <form th:object="${user}" th:action="@{/user/register}" method="post">
-            
-                    <h2>Registro de proveedor</h2>
-
-                    <label class="label" for="nombre"></label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
-
-                    <label class="label" for="lastname"></label>
-                    <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}"
-                        required />
-
-                    <label class="label" for="email"></label>
-                    <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}"
-                        required />
-
-                    <label class="label" for="phone"></label>
-                    <input type="text" id="phone" name="phone" placeholder="Numero de teléfono" onkeypress="return validateNumbers(event)" th:field="*{phone}" required/>
-
-                    <label class="label" for="password"></label>
-                    <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
-                        required />
-
-                    <label class="label" for="password2"></label>
-                    <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña"
-                        required />
-
-                    <p></p><br>
-
-                    <select id="profession" class="inputs" th:field="*{profession}" required>
-                        <option value="" selected>Elegí tu profesión</option>
-                        <option th:each="professions : ${professions}" th:text="${professions.name}"
-                            th:value="${professions}"></option>
-                    </select>
-
-                    <label class="label" for="description"></label>
-                    <textarea classs="description" maxlength="500" id="description" name="description"
-                        placeholder="Describí tu actividad" th:field="*{description}"></textarea>
-
-                    <button id="submit-btn" type="submit" class="btn btn-warning button">✅ REGISTRAR MIS DATOS</button>
-                </form>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <footer th:replace="th_templates/footer :: footer"></footer>
-
-    <!-- SCRIPT FormValidation -->
-
-    <script src="/src/main/resources/static/js/formValidation.js"></script>
-
-    <!-- Script / Bootstrap -->
-    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+          <button id="submit-btn" type="submit" class="btn btn-warning button btn-form">Registrate! 📝</button>
+        </form>
+      </div>
 
 
-    <!----------- Script for validate passwords ----------->
-    <script th:inline="javascript">
+      <!-- PROVIDER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+      <div th:if="${role == 'provider'}">
 
-        var password = document.getElementById("password");
-        var password2 = document.getElementById("password2");
+        <form th:object="${user}" th:action="@{/user/register}" method="post">
 
-        function validatePassword() {
+          <h2 class="title">Registro de proveedor</h2>
 
-            var submitButton = document.getElementById("submit-btn");
+          <label class="label" for="nombre"></label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
 
-            if (password.value !== password2.value) {
-                password.setCustomValidity("");
-                password2.setCustomValidity("Las contraseñas no coinciden.");
-                submitButton.disabled = true;
-            } else {
-                password.setCustomValidity("");
-                password2.setCustomValidity("");
-                submitButton.disabled = false;
-            }
-        }
+          <label class="label" for="lastname"></label>
+          <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
 
-        password.addEventListener("input", validatePassword);
-        password2.addEventListener("input", validatePassword);
+          <label class="label" for="email"></label>
+          <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
 
-    </script>
+          <label class="label" for="phone"></label>
+          <input type="text" id="phone" name="phone" placeholder="Numero de teléfono"
+            onkeypress="return validateNumbers(event)" th:field="*{phone}" required />
 
-    <!----------- Script for validate only numbers in phone input ----------->
-    <script>
-        function validateNumbers(e) {
-            var key = e.which || e.keyCode;
-            if (key >= 48 && key <= 57) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
+          <label class="label" for="password"></label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
+            required />
+
+          <label class="label" for="password2"></label>
+          <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
+
+          <br><br>
+          <select id="profession" class="inputs" th:field="*{profession}" required>
+            <option value="" selected>Elegí tu profesión</option>
+            <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}">
+            </option>
+          </select>
+
+          <label class="label" for="description"></label>
+          <textarea classs="description" maxlength="500" id="description" name="description"
+            placeholder="Describí tu actividad" th:field="*{description}"></textarea>
+
+          <button id="submit-btn" type="submit" class="btn btn-warning button btn-form">Registrate! 📝</button>
+        </form>
+      </div>
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- SCRIPT FormValidation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+  <script src="/src/main/resources/static/js/formValidation.js"></script>
+
+  <!-- Script / Bootstrap >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+
+  <!----------- Script for validate passwords ----------->
+  <script th:inline="javascript">
+
+    var password = document.getElementById("password");
+    var password2 = document.getElementById("password2");
+
+    function validatePassword() {
+
+      var submitButton = document.getElementById("submit-btn");
+
+      if (password.value !== password2.value) {
+        password.setCustomValidity("");
+        password2.setCustomValidity("Las contraseñas no coinciden.");
+        submitButton.disabled = true;
+      } else {
+        password.setCustomValidity("");
+        password2.setCustomValidity("");
+        submitButton.disabled = false;
+      }
+    }
+
+    password.addEventListener("input", validatePassword);
+    password2.addEventListener("input", validatePassword);
+
+  </script>
+
+  <!----------- Script for validate only numbers in phone input ----------->
+  <script>
+    function validateNumbers(e) {
+      var key = e.which || e.keyCode;
+      if (key >= 48 && key <= 57) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+
+  <!----------- Script to LowerCase Enum ----------->
+  <script>
+    const professionSelect = document.getElementById("profession");
+
+    for (let i = 1; i < professionSelect.options.length; i++) {
+      const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
+      const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
+      professionSelect.options[i].text = capitalizedProfession;
+    }
+  </script>
 
 </body>
-
 </html>

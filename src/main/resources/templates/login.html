@@ -8,26 +8,53 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-form">
+
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <img class="image2" src="../img/login.svg" alt="login">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h1 class="big-title2">✅ ¡Ingresá!</h1>
+          <!-- <h4 class="subtitle">pero antes contanos...</h4> -->
+          <!-- <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"
+                href="/user/select" role="button" aria-expanded="false">📝 Registrate!</a></button> -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <form class="form-container" th:action="@{/logincheck}" method="post">
-      <h1 class="title">✅ ¡Ingresá! </h1>
-      
-      <p th:text="${mssg}"></p>
 
-      <div>
+      <!-- ERROR CARD -->
 
+      <!-- Fede: Creé la card de error x si ingresa user o pass incorrectos -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <div th:if="${not #strings.isEmpty(mssg)}" class="card text-bg-danger mb-3">
+              <div class="card-body text-danger">
+                <p class="card-text-error" th:text="${mssg}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
         <label class="label" for="email"></label>
-        <input type="text" id="email" name="email" placeholder="email@email.com" />
+        <input type="text" id="email" name="email" placeholder="email@email.com" required />
 
 
         <label class="label" for="password"></label>
-        <input type="password" id="password" name="password" placeholder="Contraseña" />
+        <input type="password" id="password" name="password" placeholder="Contraseña" required />
 
-      </div>
-      <br>
       <div>
-        <button type="summit" class="btn btn-warning button">✅ ¡Ingresá!</button>
+        <button type="summit" class="btn btn-warning button btn-form">✅ ¡Ingresá!</button>
       </div>
-
     </form>
   </main>
 
@@ -39,4 +66,5 @@
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 </body>
+
 </html>
