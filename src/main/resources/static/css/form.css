@@ -1,11 +1,11 @@
-.main-form1 {
+/* .main-form1 {
   background: #d0e4f500 url("../img/handyman.png") no-repeat scroll 75% 60%;
-}
+} */
 
-form {
+/* form {
   padding: 1.25% 30% 1.25% 0;
   text-align: justify;
-}
+} */
 
 .form-group {
   margin-bottom: 20px 0;
@@ -50,6 +50,7 @@ textarea {
   resize: none;
 }
 
+<<<<<<< HEAD
 /* .fieldset {
   display: flex;
   align-content: center;
@@ -59,6 +60,7 @@ textarea {
   border-radius: 30px;
 } */
 
+=======
 .button {
   background-color: #c63f81;
   border: #954090;
@@ -66,15 +68,8 @@ textarea {
   color: #fff;
   width: 15em;
   height: 3em;
+>>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
 
-  border-radius: 50px;
-
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
 input[type="radio"] {
   display: none;
@@ -92,5 +87,10 @@ input[type="radio"]:checked + label {
 }
 
 select{
+<<<<<<< HEAD
+  text-transform: capitalize;
+=======
   text-transform: lowercase and capitalize;
+>>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
 }
+

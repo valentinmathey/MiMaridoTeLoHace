@@ -1,19 +1,27 @@
 .image {
-  margin: 10em 0 0 0;
-  width: 150%;
+  margin: 18em 0 0 0;
+  width: 180%;
 }
 
-.container {
+.image2,
+.image3{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .image2 {
+  width: 110%;
+  margin: 10em 0 0 0;
+}
+
+.image3 {
+  width: 120%;
+  margin: 15em 0 0 0;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin: 7em;
-  width: 45%;
 }

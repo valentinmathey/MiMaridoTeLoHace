@@ -9,37 +9,26 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-index">
-    <br>
+    <br><br><br>
+    
+    <!-- IMG OF ERROR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
-    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <!-- Fede: Manejamos todos los errores desde esta vista (No pude probar esto)-->
     <div class="container text-center">
       <div class="row">
         <div class="col left-col">
-          <h1 class="big-title">Mi marido<br>
-            te lo hace</h1>
-          <h4 class="subtitle">Reparaciones hogareñas</h4>
+          <h1 class="big-title" th:text="'Error ' + ${status}"></h1>
+          <h4 class="subtitle">No pudimos encontrar la página que estabas buscando.</h4>
 
-          <a class="btn btn-warning button" href="/user/register" role="button">📝Registrate</a>
+          <button type="button" class="btn btn-warning button btn-back-home">
+            <a class="nav-link" th:href="@{/}" role="button" aria-expanded="false">Volver <i class="fa fa-arrow-left"></i></a>
+          </button>
         </div>
         <div class="col">
-          <img class="image" src="../img/homeRepair.svg" alt="home repair">
+          <img class="image3" src="../img/error.svg" alt="error">
         </div>
       </div>
     </div>
-
-    <!-- IMG / PROVIDERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <section id="services-cards" class="services-cards">
-      <h3 class="title">Servicios</h3>
-
-      <div th:replace="th_templates/cardServices :: cardServices"></div>
-    </section>
-
-    <!-- NEIGHBORHOOD MAP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <section>
-      <h3 class="title">Zona de trabajo</h3>
-
-      <div th:replace="th_templates/map :: map"></div>
-    </section>
 
     <br><br>
   </main>

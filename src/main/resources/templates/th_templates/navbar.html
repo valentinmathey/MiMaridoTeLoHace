@@ -20,15 +20,15 @@
           <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">LISTAS USUARIOS 👥</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/admin/dashboard?role=provider">PROOVEDORES ⚙️</a></li>
+              <li><a class="dropdown-item" href="/admin/dashboard?role=provider">Proveedores ⚙️</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/admin/dashboard?role=customer">CLIENTES 🙋🏼‍♂️</a></li>
+              <li><a class="dropdown-item" href="/admin/dashboard?role=customer">Clientes 🙋🏼‍♂️</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER')">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">🧰 Servicios</a>
+              aria-expanded="false" th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">🧰 Servicios</a>
             <ul class="dropdown-menu">
 
               <li><a class="dropdown-item" href="/search?profession=ALBAÑIL">🧱
@@ -80,30 +80,28 @@
 
           <li class="nav-item" th:if="${session.userSession == null}">
             <a class="nav-link" href="/user/select" role="button" aria-expanded="false">
-              REGISTRARSE 📝
+              Registrate! 📝
             </a>
           </li>
 
           <li class="nav-item" th:if="${session.userSession == null}">
-            <a class="nav-link" href="/login">INGRESAR ✅</a>
+            <a class="nav-link" href="/login">Ingresar ✅</a>
           </li>
+
+          <!-- Fede: Arreglé lo de la img de perfil y nombre de usuario -->
 
           <li class="nav-item dropdown" th:if="${session.userSession != null}">
             <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-
-              <img src="@{'/image/DB/' + ${user.image}}" alt="Foto de perfil" width="30" height="30"
-                class="rounded-circle">
+                <img th:src="@{'/image/DB/' + ${session.userSession.image}}" alt="Foto de perfil" width="25" height="25" class="rounded-circle">
+                <span class="user-name" th:text="${session.userSession.name}"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
             </ul>
-          </li>
-
+        </li>
         </ul>
       </div>
     </div>

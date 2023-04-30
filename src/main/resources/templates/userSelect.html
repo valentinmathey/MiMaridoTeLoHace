@@ -9,25 +9,65 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-index">
+    <br><br>
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div class="container text-center">
       <div class="row">
-        <div class="col left-col">
-
-          <h1 th:text="${mssg}"></h1>
-
-          <h1 class="big-title">Selecciona una forma de registro!</h1>
-
-          <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"  href="/user/register?role=customer" role="button" aria-expanded="false">🙋🏼‍♂️ Usuario</a></button>
-          <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"  href="/user/register?role=provider" role="button" aria-expanded="false">⚙️ Proveedor</a></button>
-        </div>
         <div class="col">
-          <img class="image" src="../img/homeRepair.svg" alt="home repair">
+          <img class="image2" src="../img/register.svg" alt="register">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h1 class="big-title2">Registrate! 📝</h1>
+          <h4 class="subtitle2">pero antes contanos...</h4>
+          <!-- <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"
+              href="/user/select" role="button" aria-expanded="false">📝 Registrate!</a></button> -->
         </div>
       </div>
     </div>
 
+    <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+    <div class="row">
+      <div class="col">
+        <a href="/user/register?role=customer" class="card-link">
+          <div class="card">
+            <img src="/img/customer-avatar.png" class="card-img-top" alt="customer-avatar">
+            <div class="card-body">
+              <h5 class="card-title">¿Sos usuario?</h5>
+              <p class="card-text">Ingresá acá si querés adquirir un servicio</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <a href="/user/register?role=provider" class="card-link">
+          <div class="card">
+            <img src="/img/provider-avatar.png" class="card-img-top" alt="provider-avatar">
+            <div class="card-body">
+              <h5 class="card-title">¿Sos proveedor?</h5>
+              <p class="card-text">Ingresá acá si querés ofrecer un servicio</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+    <!-- <div class="row justify-content-center">
+      <div class="col-auto">
+        <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"
+            href="/user/register?role=customer" role="button" aria-expanded="false">🙋🏼‍♂️ Usuario</a></button>
+      </div>
+      <div class="col-auto">
+        <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"
+            href="/user/register?role=provider" role="button" aria-expanded="false">⚙️ Proveedor</a></button>
+      </div>
+    </div> -->
 
     <br><br>
   </main>
@@ -36,7 +76,7 @@
   <footer th:replace="th_templates/footer :: footer"></footer>
 
   <!-- SCRIPT FormValidation -->
-  
+
   <script src="/src/main/resources/static/js/formValidation.js"></script>
 
   <!-- Script / Bootstrap -->

@@ -1,34 +1,51 @@
-.left-col .button {
-  width: 15em;
-  height: 3em;
-
-  margin-top: 1rem;
-
-  color: #333;
+.btn,
+.btn-warning,
+.button {
   background: #f1c057;
-  border: none;
-  border-radius: 50px;
+  border: #f1c057;
+  color: #333;
 
+  width: 200px;
+  height: 40px;
+
+  border-radius: 50px;
+  border: none;
   cursor: pointer;
+
+  margin: 30px auto;
 
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
 }
 
+.btn:hover,
+.btn-warning:hover,
 .button:hover {
-  color: #333;
-  background: #f3a600;
-  border: none;
-  border-radius: 50px;
   transform: scale(1.1);
   transition: 1s;
 }
 
+.btn:active,
+.btn-warning:active,
 .button:active {
-  color: #fff;
-  background: #f36500;
-  border: none;
-  border-radius: 50px;
-  transform: scale(1);
+  background-color: #f36500;
+  transform: scale(1.1);
   transition: 1s;
+}
+
+.btn:focus,
+.btn-warning:focus,
+.button:focus {
+  outline: none;
+}
+
+.btn-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-index-home {
+  margin-top: -70px;
 }
