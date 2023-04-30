@@ -32,8 +32,8 @@
 
     <div class="row">
       <div class="col">
-        <a href="/user/register?role=customer" class="card-link">
-          <div class="card">
+        <a class="card-link">
+          <div id="customer-card" class="card">
             <img src="/img/customer-avatar.png" class="card-img-top" alt="customer-avatar">
             <div class="card-body">
               <h5 class="card-title">¿Sos usuario?</h5>
@@ -43,8 +43,8 @@
         </a>
       </div>
       <div class="col">
-        <a href="/user/register?role=provider" class="card-link">
-          <div class="card">
+        <a class="card-link">
+          <div id="provider-card" class="card">
             <img src="/img/provider-avatar.png" class="card-img-top" alt="provider-avatar">
             <div class="card-body">
               <h5 class="card-title">¿Sos proveedor?</h5>
@@ -54,13 +54,14 @@
         </a>
       </div>
     </div>
+
     <!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div th:if="${role == 'customer' or role == 'provider'}">
-      <form method="post" onsubmit="return validatePassword" th:object="${user}" th:action="@{/user/register}">
+    <div id="form-container" style="display: none" class="form-display">
+      <form id="register-form" method="post" th:object="${user}" th:action="@{/user/register}">
 
         <div>
-          <label class="label" for="nombre"></label>
-          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" th:field="*{name}" required />
+          <label class="label" for="name"></label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre" th:field="*{name}" required />
         </div>
 
         <div>
@@ -70,13 +71,12 @@
 
         <div>
           <label class="label" for="email"></label>
-          <input type="text" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
+          <input type="email" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
         </div>
 
-        <div th:if="${role == 'provider'}">
+        <div id="phone-group">
           <label class="label" for="phone"></label>
-          <input type="text" id="phone" name="phone" placeholder="Numero de teléfono"
-            onkeypress="return validateNumbers(event)" th:field="*{phone}" required />
+          <input type="text" id="phone" name="phone" placeholder="Numero de teléfono" onkeypress="return validateNumbers(event)" th:field="*{phone}" required/>
         </div>
 
         <div>
@@ -92,15 +92,15 @@
 
         <p></p><br>
 
-        <div th:if="${role == 'provider'}">
+        <div id="profession-group">
           <select id="profession" class="inputs" th:field="*{profession}" required>
             <option value="" selected>Elegí tu profesión</option>
-            <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}">
+            <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}" >
             </option>
           </select>
         </div>
 
-        <div th:if="${role == 'provider'}">
+        <div id="description-group">
           <label class="label" for="description"></label>
           <textarea classs="description" maxlength="500" id="description" name="description"
             placeholder="Describí tu actividad" th:field="*{description}"></textarea>
@@ -109,9 +109,46 @@
         <button id="submit-btn" type="submit" class="btn btn-warning button btn-form">Registrate! 📝</button>
       </form>
     </div>
+
   </main>
 
   <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <!----------- Script for Card Select/ Card Higligth / Input Required Select ----------->
+  <script>
+    const providerCard = document.getElementById("provider-card");
+    const customerCard = document.getElementById("customer-card");
+    const formContainer = document.getElementById("form-container");
+    const professionInput = document.getElementById("profession")
+    const phoneInput = document.getElementById("phone");
+
+    providerCard.addEventListener("click", () => {
+
+      formContainer.style.display = "block";
+
+      document.getElementById("phone-group").style.display = "block";
+      document.getElementById("profession-group").style.display = "block";
+      document.getElementById("description-group").style.display = "block";
+
+      providerCard.classList.add("highlight");
+      customerCard.classList.remove("highlight");
+    });
+
+    customerCard.addEventListener("click", () => {
+
+      phoneInput.required = false;
+      professionInput.required = false;
+
+      formContainer.style.display = "block";
+
+      document.getElementById("phone-group").style.display = "none";
+      document.getElementById("profession-group").style.display = "none";
+      document.getElementById("description-group").style.display = "none";
+
+      customerCard.classList.add("highlight");
+      providerCard.classList.remove("highlight");
+    });
+  </script>
+
   <!----------- Script for validate passwords ----------->
   <script th:inline="javascript">
 
@@ -153,7 +190,6 @@
   <!----------- Script to LowerCase Enum ----------->
   <script>
     const professionSelect = document.getElementById("profession");
-
     for (let i = 1; i < professionSelect.options.length; i++) {
       const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
       const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
@@ -168,6 +204,7 @@
 
   <!-- Script / Bootstrap -->
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
 
 </body>
 
