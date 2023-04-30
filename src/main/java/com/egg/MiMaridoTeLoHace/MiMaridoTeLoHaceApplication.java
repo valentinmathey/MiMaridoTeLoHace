@@ -9,5 +9,4 @@ public class MiMaridoTeLoHaceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MiMaridoTeLoHaceApplication.class, args);
 	}
-
 }

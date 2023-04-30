@@ -1,5 +1,13 @@
 package com.egg.MiMaridoTeLoHace.Enums;
 
 public enum Professions {
-    GASISTA, ELECTRICISTA, PLOMERO, LIMPIEZA, CERRAJERO, ALBAÑIL, CARPINTERO, HERRERO;
+    // ELEGÍ_TU_PROFESIÓN,
+    ALBAÑIL, 
+    CARPINTERO, 
+    CERRAJERO, 
+    ELECTRICISTA, 
+    GASISTA, 
+    HERRERO, 
+    LIMPIEZA, 
+    PLOMERO;
 }

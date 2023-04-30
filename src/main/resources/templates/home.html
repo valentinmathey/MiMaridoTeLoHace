@@ -9,23 +9,27 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-index">
-    <br>
-
+    <br><br><br>
+    
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div class="container text-center">
       <div class="row">
         <div class="col left-col">
+
+          <!-- Fede: Arreglé q muestre el nombre de usuario -->
+          <h4>Hola <span th:text="${session.userSession.name}"></span>, te damos la bienvenida a:</h4>
           <h1 class="big-title">Mi marido<br>
             te lo hace</h1>
-          <h4 class="subtitle">Reparaciones hogareñas</h4>
 
-          <a class="btn btn-warning button" href="/user/select" role="button">📝Registrate</a>
+          <button type="button" class="btn btn-warning button btn-index-home">🧰 Ir a Servicios</button>
         </div>
+
         <div class="col">
-          <img class="image" src="../img/homeRepair.svg" alt="home repair">
+          <img class="image3" src="../img/repairHouse.svg" alt="home repair">
         </div>
       </div>
     </div>
+
 
     <!-- IMG / PROVIDERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <section id="services-cards" class="services-cards">
@@ -46,6 +50,10 @@
 
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- SCRIPT FormValidation -->
+
+  <script src="/src/main/resources/static/js/formValidation.js"></script>
 
   <!-- Script / Bootstrap -->
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>

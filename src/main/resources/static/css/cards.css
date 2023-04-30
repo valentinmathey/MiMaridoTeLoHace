@@ -1,0 +1,75 @@
+.card {
+  width: 20em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+
+  border-radius: 30px;
+  margin: 5em auto;
+
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+}
+
+.card-body {
+  padding: 35px;
+}
+
+.card-img-top {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.card-title {
+  font-size: 14, 5px;
+  color: #4050e1;
+
+  margin-bottom: 0.5em;
+}
+
+.card-text {
+  flex: 1;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+/* SERVICES CARDS */
+.card-services {
+  background: none;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+/* ERROR CARD */
+.col-md-6,
+.mx-auto {
+  margin: -150px 0 2em 0;
+}
+
+.card-text-error {
+  color: #fff;
+  margin: 1em 2em;
+}
