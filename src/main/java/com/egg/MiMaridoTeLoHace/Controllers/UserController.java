@@ -31,13 +31,13 @@ public class UserController {
     ImageConverter imageConverter;
 
     @GetMapping("/register")
-    public String user(@RequestParam("role") String role, Model model) {
+    public String user(@RequestParam(name = "role", required = false) String role, Model model) {
 
         model.addAttribute("role", role);
         model.addAttribute("user", new User());
         model.addAttribute("professions", Professions.values());
 
-        return "newFormUser";
+        return "formUser";
     }
 
     @PostMapping("/register")
@@ -47,15 +47,10 @@ public class UserController {
             userService.createUser(user);
             return "redirect:/login";
         } else {
-            String mssg = "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO";
-            model.addAttribute("mssg", mssg);
-            return "userSelect";
+            model.addAttribute("mssg", "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO");
+            return "formUser";
         }
-    }
 
-    @GetMapping("/select")
-    public String userSelect() {
-        return "userSelect";
     }
 
     @GetMapping("/perfil/{id}")
