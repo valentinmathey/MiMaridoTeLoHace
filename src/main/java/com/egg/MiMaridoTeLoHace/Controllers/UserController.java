@@ -31,9 +31,8 @@ public class UserController {
     ImageConverter imageConverter;
 
     @GetMapping("/register")
-    public String user(@RequestParam(name = "role", required = false) String role, Model model) {
+    public String user(Model model) {
 
-        model.addAttribute("role", role);
         model.addAttribute("user", new User());
         model.addAttribute("professions", Professions.values());
 

@@ -1,7 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
-import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.ImageRepository;
 import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
