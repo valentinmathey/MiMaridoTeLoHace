@@ -45,7 +45,7 @@ public class UserController {
 
         if (userService.validateEmail(user)==false) {
             userService.createUser(user);
-            return "redirect:/home";
+            return "redirect:/login";
         } else {
             String mssg = "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO";
             model.addAttribute("mssg", mssg);
@@ -94,7 +94,7 @@ public class UserController {
         //se podrian agregar mas controles a futuro
         userService.deleteUser(id);
         model.addAttribute("OK", "el usuario fue eliminado con exito");
-        return "redirect:/";
+        return "redirect:/logout";
     }
 
     @GetMapping("/list")

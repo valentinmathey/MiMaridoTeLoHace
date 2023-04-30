@@ -97,7 +97,7 @@
                 <span class="user-name" th:text="${session.userSession.name}"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
+                <li><a class="dropdown-item" th:href="@{/user/perfil/{id}(id=${session.userSession.id})}">Editar Perfil</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
             </ul>
