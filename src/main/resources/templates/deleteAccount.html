@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+
+  <main class="main-index">
+    <br><br>
+    <div>
+      <h1 th:text="${mssg}"></h1>
+    </div>
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <img class="image2" src="../img/delete.svg" alt="register">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+
+          <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}"
+            th:object="${usuarioActual}">
+
+            <img class="image2" src="/src/main/resources/static/img/profile.svg" alt="profile">
+
+            <h1 class="big-title2">¿Querés borrar tu cuenta?</h1>
+            <h4 class="subtitle">⌛️ La cuenta sera borrada definitivamente una vez pasado 3 meses⏳</h4>
+
+            <div class="row justify-content-center">
+              <div class="col-6 col-md-4">
+                <button id="submit-btn1" type="submit" class="btn btn-warning button btn-block">🗑 Si, borrar</button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button id="submit-btn2" type="submit" class="btn btn-warning button btn-block">Cancelar</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>
