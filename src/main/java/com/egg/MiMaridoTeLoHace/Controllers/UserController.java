@@ -68,17 +68,19 @@ public class UserController {
     }
     @Transactional
     @PostMapping(value = "/perfil/{id}/mod", consumes = "multipart/form-data")
-    public String edit(@PathVariable("id") String id, @ModelAttribute User user,@RequestParam("img") MultipartFile archivo, ModelMap model) throws MiException {
+    public String edit(@PathVariable("id") String id, @ModelAttribute User user,
+                       @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
 
         try {
         Image image = null;
         if (!archivo.isEmpty()) {
             image = imageConverter.convert(archivo);
         }
-            userService.modifyUser(id, user, image);
+        session.setAttribute("userSession", userService.modifyUser(id, user, image));
+
             model.addAttribute("OK", "el usuario fue editado con exito");
-        } catch (Exception e) {
-            model.addAttribute("Exeption", "el usuario no pudo ser editado");
+        } catch (MiException e) {
+            e.printStackTrace();
         }
         return "redirect:/#";
     }
