@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class UserController {
 
     @PostMapping("/register")
     public String userRegister(@ModelAttribute User user, Model model) throws MiException {
-
-        if (userService.validateEmail(user)==false) {
+        //eric: simplificado
+        if (!userService.validateEmail(user)) {
             userService.createUser(user);
             return "redirect:/login";
         } else {

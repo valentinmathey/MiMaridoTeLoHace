@@ -142,10 +142,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public List<User> searchByProfession(String professions) throws MiException {
+    public List<User> searchByProfessionAlta(String professions) throws MiException {
         for (Professions pr : Professions.values()) {
             if (pr.name().equals(professions)) {
-                return userRepository.searchByProfession(pr);
+                return userRepository.searchByProfessionAlta(pr);
             }
         }
         return null;
@@ -176,7 +176,7 @@ public class UserService implements UserDetailsService {
 
         boolean validator = false;
 
-        if (userRepository.searchByEmail(user.getEmail())!=null) {
+        if (userRepository.searchByEmail(user.getEmail()) != null) {
             validator = true;
         }
         // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
