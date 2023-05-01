@@ -1,96 +1,94 @@
-/* .main-form1 {
-  background: #d0e4f500 url("../img/handyman.png") no-repeat scroll 75% 60%;
-} */
-
-/* form {
-  padding: 1.25% 30% 1.25% 0;
-  text-align: justify;
-} */
-
-.form-group {
+form {
+  max-width: 100%;
+  margin: 0 auto;
+  }
+  
+  .form-group {
   margin-bottom: 20px 0;
-}
-
-label,
-input {
-  vertical-align: middle;
-}
-
-label,
-input:not([type="radio"],
-  [type="checkbox"]) {
   width: 100%;
-}
-
-input,
-textarea,
-select,
-input:not([type="file"]) {
+  }
+  
+  label,
+  input {
+  vertical-align: middle;
+  }
+  
+  label,
+  input:not([type="radio"],[type="checkbox"]) {
+  width: 100%;
+  }
+  
+  input,
+  textarea,
+  select,
+  input:not([type="file"]) {
   background: #fff;
-
   border: 3px solid #954090;
   border-radius: 30px;
   padding: 8px 10px;
   color: #c63f81;
-}
-
-input:focus-visible,
-textarea:focus-visible {
+  }
+  
+  input:focus-visible,
+  textarea:focus-visible {
   outline: 2px solid #c63f81;
-}
-
-::placeholder{
+  }
+  
+  ::placeholder{
   color: #c63f81;
-}
-
-textarea {
+  }
+  
+  textarea {
   width: 100%;
   height: 250px;
   display: block;
   resize: none;
-}
-
-<<<<<<< HEAD
-/* .fieldset {
-  display: flex;
-  align-content: center;
-} */
-
-/* .hover {
-  border-radius: 30px;
-} */
-
-=======
-.button {
-  background-color: #c63f81;
-  border: #954090;
+  }
   
-  color: #fff;
-  width: 15em;
-  height: 3em;
->>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
-
-
-input[type="radio"] {
+  input[type="radio"] {
   display: none;
-}
-
-input[type="radio"] + label {
+  }
+  
+  input[type="radio"] + label {
   display: inline-block;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-input[type="radio"]:checked + label {
+  }
+  
+  input[type="radio"]:checked + label {
   background-color: #eee;
-}
-
-select{
-<<<<<<< HEAD
+  }
+  
+  select{
   text-transform: capitalize;
-=======
-  text-transform: lowercase and capitalize;
->>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
-}
+  }
 
+  /* LOGIN FORM */
+
+  .form-container, .mt-4, .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .form-container input,
+  .form-container button {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px 0;
+  }
+  
+  .form-container .label {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .form-container button {
+    margin-top: 20px;
+  }
+
+  .container-profession-btn{
+   margin-bottom: -95px; 
+  }
