@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void modifyUser(String id, User user, Image image) throws MiException {
+    public User modifyUser(String id, User user, Image image) throws MiException {
         //eric: metodo reecho
         try {
             User originalUser = userRepository.findById(id).get();
@@ -88,13 +88,18 @@ public class UserService implements UserDetailsService {
             }
             originalUser.setName(user.getName());
             originalUser.setLastname(user.getLastname());
-            originalUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
+            if(user.getPassword() != null){
+                originalUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            }
+
             originalUser.setPhone(user.getPhone());
 
             userRepository.save(originalUser);
+            return originalUser;
 
         } catch (Exception e) {
-            throw new MiException("ERROR al modificar USUARIO " + user.getName() + " " + user.getLastname());
+            throw new MiException("ERROR al modificar USUARIO " + user.getName() + " " + user.getLastname() + ". \n error: " + e.getMessage());
         }
     }
 
@@ -142,10 +147,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public List<User> searchByProfession(String professions) throws MiException {
+    public List<User> searchByProfessionAlta(String professions) throws MiException {
         for (Professions pr : Professions.values()) {
             if (pr.name().equals(professions)) {
-                return userRepository.searchByProfession(pr);
+                return userRepository.searchByProfessionAlta(pr);
             }
         }
         return null;
@@ -176,7 +181,7 @@ public class UserService implements UserDetailsService {
 
         boolean validator = false;
 
-        if (userRepository.searchByEmail(user.getEmail())!=null) {
+        if (userRepository.searchByEmail(user.getEmail()) != null) {
             validator = true;
         }
         // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
