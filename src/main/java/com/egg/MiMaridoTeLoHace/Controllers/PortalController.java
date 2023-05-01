@@ -61,7 +61,7 @@ public class PortalController {
 
     @GetMapping("/search")
     public String showProviders(@RequestParam("profession") String profession, ModelMap model) throws MiException {
-        List<User> searchReturn = userService.searchByProfession(profession);
+        List<User> searchReturn = userService.searchByProfessionAlta(profession);
         if (!searchReturn.isEmpty()) {
             model.addAttribute("searchReturn", searchReturn);
         } else {

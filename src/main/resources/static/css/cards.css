@@ -79,4 +79,12 @@
 
 .error-card p {
   white-space: nowrap;
+  
+.card-text-error {
+  color: #fff;
+  margin: 1em 2em;
+}
+
+.highlight {
+  background-color: #f1c057;
 }
