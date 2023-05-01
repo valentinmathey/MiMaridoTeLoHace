@@ -20,7 +20,7 @@
           <!-- <button type="button" class="btn btn-warning button">🧰 Servicios</button> -->
         </div>
         <div class="col">
-          <img class="image2" src="../img/database.svg" alt="database">
+          <img class="image3" src="../img/database.svg" alt="database">
         </div>
       </div>
     </div>
@@ -38,22 +38,24 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Rol</th>
-            <th></th>
-            <th>Acciones </th>
-            <th></th>
+            <th colspan="3">Acciones</th>
           </tr>
         </thead>
         <tbody th:each="user : ${users}">
           <tr>
             <!-- <td th:text="${user.id}"></td> -->
             <td><img class="profilePic" th:src="@{'/image/DB/' + ${user.image}}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.lastname}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+            <td class="td-name" th:text="${user.name}"></td>
+            <td class="td-lastname" th:text="${user.lastname}"></td>
+            <td class="td-email" th:text="${user.email}"></td>
+            <td class="td-role" th:text="${user.role}"></td>
+
+            <div class="td-actions">
+              <td class="td-change-role"><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+              <td class="td-edit"><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
+              <td class="td-delete"><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+            </div>
+            
           </tr>
         </tbody>
       </table>

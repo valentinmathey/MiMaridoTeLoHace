@@ -49,3 +49,8 @@
 .btn-index-home {
   margin-top: -70px;
 }
+
+.btn-upload-photo{
+position: relative;
+top: -72px
+}

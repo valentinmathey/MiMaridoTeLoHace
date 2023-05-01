@@ -111,12 +111,17 @@
     </div>
   </main>
 
-  <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <script src="/src/main/resources/static/js/formValidation.js"></script>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+
   <!----------- Script for validate passwords ----------->
   <script th:inline="javascript">
-
-
-
     function validatePassword() {
       var password = document.getElementById("password");
       var confirm_password = document.getElementById("password2");
@@ -161,14 +166,5 @@
     }
   </script>
 
-  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <footer th:replace="th_templates/footer :: footer"></footer>
-
-  <script src="/src/main/resources/static/js/formValidation.js"></script>
-
-  <!-- Script / Bootstrap -->
-  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
-
 </body>
-
 </html>

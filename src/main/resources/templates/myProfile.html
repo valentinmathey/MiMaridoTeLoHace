@@ -1,138 +1,162 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="th_templates/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-  <link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
-  <link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
-  <body>
-    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <header th:replace="th_templates/navbar :: navbar"></header>
-    <br><br><br>
+<head th:replace="th_templates/head :: head"></head>
 
-<main>
-<!-- PROFILE IMG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<div class="container text-center">
-  <div class="row">
-    <div class="col left-col">
-      <div id="image-div" class="form-container" th:object="${usuarioActual}">
-        <div class="header text-center d-flex align-items-center">
-          <h1 class="big-title2 col-6">Mi perfil</h1>
-          <div class="profile-picture">
-            <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+<link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
+<link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+  <br><br><br>
+
+  <main class="main-index">
+    <!-- PROFILE IMG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col left-col">
+
+          <div id="image-div" class="form-container" th:object="${usuarioActual}">
+            <div class="profile-picture">
+              <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+            </div>
           </div>
+
+          <h1 class="big-title">Mi perfil</h1>
+          <!-- <h4 class="subtitle">Reparaciones hogareñas</h4> -->
+
+        </div>
+        <div class="col">
+          <img class="image2" src="/src/main/resources/static/img/profile.svg" alt="profile">
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-<form class="profile-form" id="get-perfil-form" th:object="${usuarioActual}" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" enctype="multipart/form-data">
-  <div class="form-group">
-    <label class="label" for="nombre">Nombre</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:value="*{name}" required />
-  </div>
-  <div class="form-group">
-    <label class="label" for="lastname">Apellido</label>
-    <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:value="*{lastname}" required />
-  </div>
-  <div class="form-group">
-    <label class="label" for="email">E-mail</label>
-    <input type="email" id="email" name="email" placeholder="E-mail" th:value="*{email}" required />
-  </div>
-
-     <div class="form-group">
-      <label class="label" for="profession">Profesión</label>
-<select id="profession" class="inputs" name="profession" th:field="*{profession}">
-  <option value="" selected>Elegí tu profesión</option>
-  <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}"></option>
-</select>
 
 
-      <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
-      <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
-      <div class="providerOnly" style="display: none">
-    </div>
+    <form class="profile-form" id="get-perfil-form" th:object="${usuarioActual}" method="post"
+      th:action="@{'/user/perfil/' + ${id} +'/mod'}" enctype="multipart/form-data">
+      <label class="label" for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:value="*{name}" required />
 
-    <div class="form-group">
-      <label class="label" for="description">Descripción</label>
-      <textarea id="description" name="description" placeholder="Descripción" th:value="*{description}"></textarea>      
-    </div>
-  </div>
-  <input type="hidden" id="role" name="role" th:value="*{role}" />
+      <label class="label" for="lastname">Apellido</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:value="*{lastname}" required />
 
-  <label class="label" for="password"></label>
-      <div id="passStore" th:data-pass="*{password}"></div>
-      <input
-              type="password"
-              id="password"
-              name="pass"
-              placeholder="contraseña actual"
-              required
-      />
-      <label class="label" for="newPassword"></label>
-      <input
-              type="password"
-              id="newPassword"
-              name="password2"
-              placeholder="nueva contraseña"
-              th:field="*{password}"
-              required
-      />
+      <label class="label" for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="E-mail" th:value="*{email}" required />
 
+      <div class="container-profession-btn">
+        <label class="label" for="profession"></label>
 
-  <div class="form-buttons">
-    <!-- <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button> -->
-    <button id="edit-perfil" class="btn btn-warning button" type="submit">🔄 Actualizar</button>
-    <button id="delete-perfil" class="btn btn-warning button" type="button">🗑 Eliminar cuenta</button>
-  </div>
-</form>
+        <!-- REVISAR ESTE SELECT PORQUE NO MUESTRA LAS OPCIONES -->
+        <select id="profession" class="inputs" th:field="*{profession}" required>
+          <option value="" selected>Elegí tu profesión</option>
+          <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}">
+          </option>
+        </select>
 
-
-<!-- DELETE ACCOUNT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-<div class="container text-centerc">
-  <div class="row delete-account align-items-center flex-column form-delete">
-    <div class="col">
-      <img class="image2" src="../static/img/delete.svg" alt="delete account">
-    </div>
-    <div class="col left-col">
-
-      <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}" style="display: none" th:object="${usuarioActual}">
-        <h1 class="big-title2">¿Querés borrar<br>
-          tu cuenta?</h1>
-          <h4 class="subtitle">la cuenta sera borrada definitivamente una vez pasado 3 meses</h4>
-        <div class="form-buttons">
-          <button class="btn btn-warning button" type="submit">confirmar</button>
-          <button id="btn-back-2" class="btn btn-warning button" type="button">cancelar</button>
+        <div class="d-flex justify-content-center btn-upload-photo">
+          <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸
+            Subir foto de perfil</button>
+          <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
         </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </div>
+
+      <div>
+        <label class="label" for="description"></label>
+        <textarea id="description" name="description" placeholder="Podés cambiar tu antigua descripción"
+          th:value="*{description}"></textarea>
+      </div>
+
+      <div class="row justify-content-center">
+        <!-- <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button> -->
+        <div class="col-6 col-md-4">
+          <button id="edit-perfil" class="btn btn-warning button" type="submit">🔄 Actualizar</button>
+        </div>
+
+        <div class="col-6 col-md-4">
+          <button id="delete-perfil" class="btn btn-warning button" type="button" onclick="location.href='deleteAccount.html';">🗑 Eliminar cuenta</button>
+        </div>
+      </div>
+    </form>
 
 
-</main>
+    <!-- DELETE ACCOUT FORM -->
+
+    <!-- Fede: Para ocultar el FORM se agrega display:none
+      <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}"
+      th:object="${usuarioActual}"style="display: none"  -->
+
+    <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}"
+      th:object="${usuarioActual}"> 
+
+      <img class="image2" src="/src/main/resources/static/img/profile.svg" alt="profile">
+
+      <h1 class="big-title2">¿Querés borrar tu cuenta?</h1>
+      <h4 class="subtitle">⌛️ La cuenta sera borrada definitivamente una vez pasado 3 meses⏳</h4>
+
+      <div class="row justify-content-center">
+        <div class="col-6 col-md-4">
+          <button id="submit-btn1" type="submit" class="btn btn-warning button btn-block">🗑 Si, borrar</button>
+        </div>
+        <div class="col-6 col-md-4">
+          <button id="submit-btn2" type="submit" class="btn btn-warning button btn-block">Cancelar</button>
+        </div>
+      </div>
+    </form>
+
+    
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+  <!-- Script delete account -->
+  <script>
+    const deleteBtn = document.getElementById('delete-perfil');
+    const deleteForm = document.getElementById('delete-perfil-div');
+    deleteBtn.addEventListener('click', () => {
+      if (deleteForm.style.display === 'none') {
+        deleteForm.style.display = 'block';
+      } else {
+        deleteForm.style.display = 'none';
+      }
+    });
+  </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Script change password -->
   <script>
     const changePasswordForm = document.getElementById('change-password');
     const showChangePasswordFormButton = document.getElementById('show-change-password-form');
-    
+
     showChangePasswordFormButton.addEventListener('click', () => {
       changePasswordForm.style.display = 'block';
       showChangePasswordFormButton.style.display = 'none';
     });
   </script>
-
-
-    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <footer th:replace="th_templates/footer :: footer"></footer>
-
-    <!-- Script / Bootstrap -->
-    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
   <script>
     const formGetUser = document.getElementById("get-perfil-form");
@@ -153,18 +177,18 @@
 
     // botones de cambio de opcion
 
-    editButton.addEventListener("click", function() {
+    editButton.addEventListener("click", function () {
       formGetUser.style.display = "none";
       formChangeUser.style.display = "block";
     });
 
-    deleteButton.addEventListener("click", function() {
+    deleteButton.addEventListener("click", function () {
       formGetUser.style.display = "none";
       imageDiv.style.display = "none";
       divDeleteUser.style.display = "block";
     });
 
-    editPasswordButton.addEventListener("click", function() {
+    editPasswordButton.addEventListener("click", function () {
       formGetUser.style.display = "none";
       imageDiv.style.display = "none";
       passChange.style.display = "block";
@@ -172,16 +196,16 @@
 
     //botones de cancelar
 
-    btnBack1.addEventListener("click", function() {
+    btnBack1.addEventListener("click", function () {
       formGetUser.style.display = "block";
       formChangeUser.style.display = "none";
     });
-    btnBack2.addEventListener("click", function() {
+    btnBack2.addEventListener("click", function () {
       formGetUser.style.display = "block";
       imageDiv.style.display = "block";
       divDeleteUser.style.display = "none";
     });
-    btnBack3.addEventListener("click", function() {
+    btnBack3.addEventListener("click", function () {
       formGetUser.style.display = "block";
       imageDiv.style.display = "block";
       passChange.style.display = "none";
@@ -195,7 +219,7 @@
     const newPassword = document.getElementById("newPassword").textContent;
     const btnConfirm = document.getElementById("Confirm-change-pass");
 
-    if (password === pass && newPassword !== password){
+    if (password === pass && newPassword !== password) {
       btnConfirm.style.display = "block";
     }
 
@@ -204,7 +228,7 @@
     var rolUser = document.getElementById("rolStore");
     var rolInfo = rolUser.getAttribute("data-rol");
     console.log(rolInfo);
-    if (rolInfo === 'PROVIDER'){
+    if (rolInfo === 'PROVIDER') {
       for (let i = 0; i < divProviders.length; i++) {
         divProviders[i].style.display = "block";
       }
@@ -223,7 +247,8 @@
     }
   </script>
 
-  </body>
+</body>
+
 </html>
 
 
@@ -232,7 +257,7 @@
 
 
 
- <!--   <form  id="get-perfil-form" th:object="${usuarioActual}">
+<!--   <form  id="get-perfil-form" th:object="${usuarioActual}">
       <div class="form-group">
         <p th:text="*{name}"></p>
       </div>
@@ -251,14 +276,14 @@
         </div>
       </div>
       <div class="form-buttons">-->
-             <!--     se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
-       <!--  <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button>
+<!--     se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+<!--  <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button>
         <button id="edit-perfil" class="btn btn-warning button" type="button">Actualizar</button>
         <button id="delete-perfil" class="btn btn-warning button" type="button">Dar baja</button>
       </div>
     </form>-->
 
-   <!--  <form id="edit-perfil-form" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}" enctype="multipart/form-data">
+<!--  <form id="edit-perfil-form" method="post" th:action="@{'/user/perfil/' + ${id} +'/mod'}" style="display: none" th:object="${usuarioActual}" enctype="multipart/form-data">
       <div id="rolStore" th:data-rol="*{role}"></div>
       <div class="form-group">
         <label class="label" for="nombre"></label>
@@ -325,8 +350,8 @@
       </div>
       <input type="hidden" th:field="*{role}"/>
       <div class="form-buttons">-->
-        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
-       <!--  <button class="btn btn-warning button" type="submit">confirmar</button>
+<!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+<!--  <button class="btn btn-warning button" type="submit">confirmar</button>
         <button id="btn-back-1" class="btn btn-warning button" type="button">cancelar</button>
       </div>
     </form>
@@ -336,8 +361,8 @@
       <h2>la cuenta sera borrada definitivamente una vez pasado 3 meses</h2>
 
       <div class="form-buttons">-->
-        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
-       <!-- <button class="btn btn-warning button" type="submit">confirmar</button>
+<!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+<!-- <button class="btn btn-warning button" type="submit">confirmar</button>
         <button id="btn-back-2" class="btn btn-warning button" type="button">cancelar</button>
       </div>
     </form>
@@ -363,14 +388,14 @@
               required
       />
       <div class="form-buttons">-->
-        <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
-      <!--  <button id="Confirm-change-pass" class="btn btn-warning button" type="submit">confirmar</button>
+<!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
+<!--  <button id="Confirm-change-pass" class="btn btn-warning button" type="submit">confirmar</button>
         <button id="btn-back-3" class="btn btn-warning button" type="button">cancelar</button>
       </div>
     </form>-->
 
 
-    <!-- <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}" style="display: none" th:object="${usuarioActual}">
+<!-- <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}" style="display: none" th:object="${usuarioActual}">
   <h1 class="big-title">¿Querés borrar<br>
     tu cuenta?</h1>
     <h4 class="subtitle">la cuenta sera borrada definitivamente una vez pasado 3 meses</h4>
