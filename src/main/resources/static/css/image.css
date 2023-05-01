@@ -1,6 +1,8 @@
 .image {
   margin: 18em 0 0 0;
   width: 180%;
+
+  
 }
 
 .image2,
@@ -20,6 +22,9 @@
   margin: 15em 0 0 0;
 }
 
+.image-profile{
+  width: 15%;
+}
 .container {
   display: flex;
   flex-direction: column;

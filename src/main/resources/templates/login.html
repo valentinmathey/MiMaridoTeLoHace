@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="th_templates/head :: head"></head>
@@ -8,64 +7,51 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-form">
-    <br><br>
-    
+
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div class="container text-center">
+    <div class="container text-center mt-4">
       <div class="row">
         <div class="col">
           <img class="image2" src="../img/login.svg" alt="login">
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
         <div class="col">
           <h1 class="big-title2">✅ ¡Ingresá!</h1>
-          <!-- <h4 class="subtitle">pero antes contanos...</h4> -->
-          <!-- <button href="#services-cards" type="button" class="btn btn-warning button"><a class="nav-link"
-                href="/user/select" role="button" aria-expanded="false">📝 Registrate!</a></button> -->
+        </div>
+      </div>
+    </div>
+
+    <!--  ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container" th:if="${not #strings.isEmpty(mssg)}">
+      <div class="row">
+        <div class="col-md-6 mx-auto error-card">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+              <p class="card-text" th:text="${mssg}"></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
 
-    <!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <form class="form-container" th:action="@{/logincheck}" method="post">
+    <!--  LOGIN CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <form th:action="@{/logincheck}" method="post">
+      <label class="label" for="email"></label>
+      <input type="text" id="email" name="email" placeholder="Email" required>
+      <label class="label" for="password"></label>
+      <input type="password" id="password" name="password" placeholder="Contraseña" required>
 
-      <!-- ERROR CARD -->
-
-      <!-- Fede: Creé la card de error x si ingresa user o pass incorrectos -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 mx-auto">
-            <div th:if="${not #strings.isEmpty(mssg)}" class="card text-bg-danger mb-3">
-              <div class="card-body text-danger">
-                <p class="card-text-error" th:text="${mssg}"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-        <label class="label" for="email"></label>
-        <input type="text" id="email" name="email" placeholder="email@email.com" required />
-
-
-        <label class="label" for="password"></label>
-        <input type="password" id="password" name="password" placeholder="Contraseña" required />
-
-      <div>
-        <button type="summit" class="btn btn-warning button btn-form">✅ ¡Ingresá!</button>
-      </div>
+      <button type="submit" class="btn btn-warning button btn-form">✅ ¡Ingresá!</button>
     </form>
   </main>
 
   <!-- PIE DE PÁGINA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-
   <footer th:replace="th_templates/footer :: footer"></footer>
 
   <!-- Script / Bootstrap -->
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
-
 </body>
 
 </html>
