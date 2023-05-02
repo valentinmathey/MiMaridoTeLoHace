@@ -8,20 +8,26 @@
 <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 <header th:replace="th_templates/navbar :: navbar"></header>
 
-<main class="main-providers">
-
+<main class="main-index">
 
   <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <div class="container">
-    <img class="image2" src="/img/provider.svg" alt="providers">
-    <h1 class="big-title2">Encontrá los mejores profesionales de la zona</h1>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <img class="image-center" src="/img/provider.svg" alt="register">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-text-center">
+        <h1 class="big-title-center">Encontrá los mejores <br>
+          profesionales de la zona</h1>
+        <!-- <h4 class="subtitle-center">pero antes contanos...</h4> -->
+      </div>
+    </div>
   </div>
-
 
   <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
-
-
 
 </main>
 

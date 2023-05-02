@@ -2,18 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 20rem;
-  margin-top: 1rem;
-  border-top: 1px solid #000;
+  padding: 0 10rem;
 
   background-color: #fff;
   box-shadow: 0px -7px 12px -3px rgba(0, 0, 0, 0.262);
 }
 
 .footer .col-md-4 {
+  margin: 2rem 0 0 0;
   display: flex;
   align-items: center;
-  flex: 1;
+
 }
 
 .footer .col-md-4 img {
