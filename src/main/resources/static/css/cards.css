@@ -1,0 +1,123 @@
+.row-user-card {
+  display: flex;
+  justify-content: center;
+}
+
+.card-user {
+  margin: 0 40px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card {
+  width: 15em;
+  height: 10em;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+
+  border-radius: 30px;
+  margin: 5em auto;
+
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 8px rgba(0, 0, 0, 0);
+}
+
+/* .card-body {
+  padding: -5px;
+} */
+
+.card-img-top {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+
+  margin-top: -30px;
+  margin-bottom: 0.5em;
+}
+
+.card-title {
+  font-size: 14, 5px;
+  color: #4050e1;
+
+  margin: -1em;
+}
+
+.card-text {
+  flex: 1;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.card-link {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+/* SERVICES CARDS */
+.card-services {
+  background: none;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+/* ERROR CARD */
+.container-error-card {
+  margin: -50px 0;
+}
+
+.col-md-6,
+.mx-auto,
+.error-card {
+  opacity: 0.7;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -100px;
+  z-index: 9999;
+}
+
+.row-error-card {
+  margin: 0 0 -100px 0;
+}
+
+.error-card2 {
+  opacity: 0.7;
+  font-size: 10px;
+  width: 50%;
+  position: relative;
+}
+
+/* .error-card p {
+  white-space: nowrap;
+} */
+
+
+.card-text-error {
+  color: #fff;
+  margin: 1em 2em;
+}
+
+.highlight {
+  background-color: #f1c057;
+}

@@ -1,0 +1,33 @@
+.navbar {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  padding: 0.625em 15.625em;
+  /* 10px = 0.625em, 250px = 15.625em */
+  /* text-align: justify; */
+
+  color: #333;
+  accent-color: #e48c0d;
+
+  -webkit-box-shadow: 5px 5px 12px -3px rgba(0, 0, 0, 0.262);
+  box-shadow: 5px 5px 12px -3px rgba(0, 0, 0, 0.262);
+}
+
+.logo {
+  transform: scale(1.5);
+  margin: 0 1em 0 3em;
+}
+
+.navbar-brand:hover{
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.navbar-nav{
+  font-size: 14px;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
