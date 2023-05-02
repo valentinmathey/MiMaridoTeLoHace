@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.egg.MiMaridoTeLoHace.Repositories;
 
-/**
- *
- * @author mathe
- */
-public interface ReviewRepository {
-    
+import com.egg.MiMaridoTeLoHace.Entities.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface ReviewRepository extends JpaRepository<Review, String> {
+
+    @Query("SELECT r FROM Review r WHERE r.UserProviderId =: provider_id")
+    List<Review> getReviewByUserProvider(@Param("provider_id") String provider);
+
+    @Query("SELECT r FROM Review r WHERE r.UserCustomerId =: customer_id")
+    List<Review> getReviewByUserCustomer(@Param("customer_id") String customer);
 }
