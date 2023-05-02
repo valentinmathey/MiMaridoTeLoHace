@@ -1,7 +1,7 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
-
 import com.egg.MiMaridoTeLoHace.Entities.User;
+import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-
-
 @Controller
 @RequestMapping("/")
 public class PortalController {
     @Autowired
     UserService userService;
+
     @PreAuthorize("hasAnyRole('ROLE_CUSTOMER', 'ROLE_PROVIDER', 'ROLE_ADMIN')")
     @GetMapping("/home")
-    public String home(HttpSession session, Model model){
+    public String home(HttpSession session, Model model) {
 
         User logued = (User) session.getAttribute("userSession");
 
@@ -39,9 +38,9 @@ public class PortalController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, Model model){
+    public String login(@RequestParam(required = false) String error, Model model) {
 
-        if (error!=null) {
+        if (error != null) {
             String mssg = "USUARIO O CONTRASEÑA INVALIDOS";
             model.addAttribute("mssg", mssg);
         }
@@ -50,23 +49,28 @@ public class PortalController {
     }
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
-    
+
     @GetMapping("about")
-    public String about(){
+    public String about() {
         return "about";
     }
 
     @GetMapping("/search")
     public String showProviders(@RequestParam("profession") String profession, ModelMap model) throws MiException {
-        List<User> searchReturn = userService.searchByProfessionAlta(profession);
+        List<User> searchReturn = null;
+        for (Professions professions : Professions.values()) {
+            if (professions.name().equals(profession)) {
+                searchReturn = userService.searchByProfessionAlta(professions.name());
+            }
+        }
         if (!searchReturn.isEmpty()) {
             model.addAttribute("searchReturn", searchReturn);
+            return "provider";
         } else {
-            return "redirect:/";
+            return "redirect:/home";
         }
-        return "provider";
     }
 }
