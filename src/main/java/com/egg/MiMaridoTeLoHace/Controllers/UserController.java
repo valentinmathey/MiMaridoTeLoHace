@@ -54,17 +54,21 @@ public class UserController {
     }
 
     @GetMapping("/perfil/{id}")
-    public String user(@PathVariable("id") String id, ModelMap model) throws MiException {
+    public String user(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         User user = userService.getById(id);
         if(user != null){
             model.addAttribute("usuarioActual", user);
-            model.addAttribute("professions", Professions.values());
-            return "myProfile";
+            if (session.getAttribute("userSession") == null || !session.getAttribute("userSession").equals(user)){
+                return "otherProfile";
+            } else if (session.getAttribute("userSession").equals(userService.getById(id))) {
+                model.addAttribute("professions", Professions.values());
+                return "myProfile";
+            }
         } else {
             model.addAttribute("professions", Professions.values());
             model.addAttribute("Exeption", "Usuario no encontrado");
         }
-        return "redirect:/user";
+        return "redirect:/";
 
     }
     @Transactional
@@ -72,27 +76,38 @@ public class UserController {
     public String edit(@PathVariable("id") String id, @ModelAttribute User user,
                        @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
 
-        try {
-        Image image = null;
-        if (!archivo.isEmpty()) {
-            image = imageConverter.convert(archivo);
-        }
-        session.setAttribute("userSession", userService.modifyUser(id, user, image));
+        //hasta ahora no importaba si estaba iniciada la sesion igual se podia editar
+        if (session.getAttribute("userSession") == null || !session.getAttribute("userSession").equals(userService.getById(id))){
+            model.addAttribute("mssg", "no puede alterar una cuenta sin iniciar la sesion");
+        } else if (session.getAttribute("userSession").equals(userService.getById(id))){
+            try {
+                Image image = null;
+                if (!archivo.isEmpty()) {
+                    image = imageConverter.convert(archivo);
+                }
+                session.setAttribute("userSession", userService.modifyUser(id, user, image));
 
-            model.addAttribute("OK", "el usuario fue editado con exito");
-        } catch (MiException e) {
-            e.printStackTrace();
+                model.addAttribute("mssg", "Usuario editado con exito");
+            } catch (MiException e) {
+                e.printStackTrace();
+            }
+            return "redirect:#";
         }
-        return "redirect:/#";
+        return "redirect:/";
     }
 
     @Transactional
     @PostMapping("/perfil/{id}/del")
-    public String delete(@PathVariable("id") String id, ModelMap model) throws MiException {
+    public String delete(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         //se podrian agregar mas controles a futuro
-        userService.deleteUser(id);
-        model.addAttribute("OK", "el usuario fue eliminado con exito");
-        return "redirect:/logout";
+        if (session.getAttribute("userSession") == null || !session.getAttribute("userSession").equals(userService.getById(id))){
+            model.addAttribute("mssg", "no puede alterar una cuenta sin iniciar la sesion");
+        } else if (session.getAttribute("userSession").equals(userService.getById(id))){
+            userService.deleteUser(id);
+            model.addAttribute("mssg", "el usuario fue eliminado con exito");
+            return "redirect:/logout";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/list")

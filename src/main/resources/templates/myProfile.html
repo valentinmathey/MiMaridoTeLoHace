@@ -3,13 +3,10 @@
 
 <head th:replace="th_templates/head :: head"></head>
 
-<link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
-<link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
-
 <body>
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <header th:replace="th_templates/navbar :: navbar"></header>
-
+  
   <!--    eric: agregado por que el navbar se come esta parte-->
   <br><br><br>
   <!-- form -->
@@ -36,6 +33,7 @@
       <p th:text="*{email}"></p>
     </div>
     <div class="providerOnly" style="display: none">
+
       <div class="form-group">
         <p th:text="*{profession}"></p>
       </div>
@@ -93,7 +91,6 @@
     th:object="${usuarioActual}">
     <h1>Seguro que quieres Borrar la cuenta?</h1>
     <h2>la cuenta sera borrada definitivamente una vez pasado 3 meses</h2>
-
     <div class="form-buttons">
       <!--          se modifico el user controller para hacer que dependiendo la url sea la accion tomada-->
       <button class="btn btn-warning button" type="submit">confirmar</button>
@@ -128,13 +125,16 @@
 
     const imageDiv = document.getElementById("image-div");
 
-    const formChangeUser = document.getElementById("edit-perfil-form");
-    const divDeleteUser = document.getElementById("delete-perfil-div");
-    const passChange = document.getElementById("change-password");
 
-    const btnBack1 = document.getElementById("btn-back-1");
-    const btnBack2 = document.getElementById("btn-back-2");
-    const btnBack3 = document.getElementById("btn-back-3");
+<!-- <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}" style="display: none" th:object="${usuarioActual}">
+  <h1 class="big-title">¿Querés borrar<br>
+    tu cuenta?</h1>
+    <h4 class="subtitle">la cuenta sera borrada definitivamente una vez pasado 3 meses</h4>
+  <div class="form-buttons">
+    <button class="btn btn-warning button" type="submit">confirmar</button>
+    <button id="btn-back-2" class="btn btn-warning button" type="button">cancelar</button>
+  </div>
+</form> -->
 
     const editButton = document.getElementById("edit-perfil");
     const editPasswordButton = document.getElementById("edit-password");
@@ -203,3 +203,4 @@
 </body>
 
 </html>
+

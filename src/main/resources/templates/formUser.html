@@ -20,19 +20,18 @@
     <div class="container text-center">
       <div class="row">
         <div class="col">
-          <img class="image2" src="../img/register.svg" alt="register">
+          <img class="image-center" src="../img/register.svg" alt="register">
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <h1 class="big-title2">Registrate! 📝</h1>
-          <h4 class="subtitle2">pero antes contanos...</h4>
+        <div class="col-text-center">
+          <h1 class="big-title-center">Registrate! 📝</h1>
+          <h4 class="subtitle-center">pero antes contanos...</h4>
         </div>
       </div>
     </div>
 
     <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-
     <div class="row row-user-card">
       <div class="col card-user">
         <a class="card-link">
@@ -57,10 +56,6 @@
         </a>
       </div>
     </div>
-
-
-
-
 
     <!-- ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <div class="container-error-card" th:if="${not #strings.isEmpty(mssg)}">
@@ -134,7 +129,13 @@
 
   </main>
 
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
   <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+  
   <!----------- Script for Card Select/ Card Higligth / Input Required Select ----------->
 
   <script>
@@ -173,9 +174,8 @@
   </script>
 
   <!----------- Script for validate passwords ----------->
-
+  
   <script th:inline="javascript">
-
     function validatePassword() {
       var password = document.getElementById("password");
       var confirm_password = document.getElementById("password2");
@@ -220,15 +220,7 @@
       professionSelect.options[i].text = capitalizedProfession;
     }
   </script>
-
-  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <footer th:replace="th_templates/footer :: footer"></footer>
-
-  <script src="/src/main/resources/static/js/formValidation.js"></script>
-
-  <!-- Script / Bootstrap -->
-  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
-
+  
 </body>
 
 </html>
