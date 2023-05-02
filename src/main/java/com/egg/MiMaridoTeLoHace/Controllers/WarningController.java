@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class WarningControlador implements ErrorController {
+public class WarningController implements ErrorController {
 
     @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {

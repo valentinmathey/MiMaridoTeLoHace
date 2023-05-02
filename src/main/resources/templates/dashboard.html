@@ -16,8 +16,6 @@
         <div class="col left-col">
           <h4 class="subtitle">Te damos la bienvenida</h4>
           <h1 class="big-title">Administrador!</h1>
-
-          <!-- <button type="button" class="btn btn-warning button">🧰 Servicios</button> -->
         </div>
         <div class="col">
           <img class="image2" src="../img/database.svg" alt="database">
@@ -25,41 +23,99 @@
       </div>
     </div>
 
-    <br><br>
+    <!-- FORM SEARCH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
-    <!-- TABLE -->
-    <div th:if="${users != null}">
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <!-- <th>id</th> -->
-            <th>Foto</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th></th>
-            <th>Acciones </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody th:each="user : ${users}">
-          <tr>
-            <!-- <td th:text="${user.id}"></td> -->
-            <td><img class="profilePic" th:src="@{'/image/DB/' + ${user.image}}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.lastname}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
-            <td><a th:href="@{/user/perfil/__${user.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <form method="post" id="search-form" action="/admin/search">
+      <div class="row">
+        <div class="col">
+          <p>BUSQUEDA: </p>
+        </div>
+        <div class="col">
+          <input type="text" name="search">
+        </div>
+        <div class="col"><button type="submit" class="btn btn-warning button">BUSCAR</button></div>
+      </div>
+    </form>
 
+    <!-- TABLE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <table class="table table-dark table-striped" id="table-se">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Profesión</th>
+          <th>Rol</th>
+          <th>Acciones </th>
+        </tr>
+      </thead>
+      <tbody th:each="se : ${se}">
+        <tr>
+          <td><img class="profilePic" th:src="@{'/image/DB/' + ${se.image}}"></td>
+          <td th:text="${se.name}"></td>
+          <td th:text="${se.lastname}"></td>
+          <td th:text="${se.email}"></td>
+          <td th:text="${se.profession}"></td>
+          <td th:text="${se.role}"></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-dark table-striped" id="table" style="display: none">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Profesión</th>
+          <th>Rol</th>
+          <th>Acciones </th>
+        </tr>
+      </thead>
+      <tbody th:each="u : ${users}">
+        <tr>
+          <td><img class="profilePic" th:src="@{'/image/DB/' + ${u.image}}"></td>
+          <td th:text="${u.name}"></td>
+          <td th:text="${u.lastname}"></td>
+          <td th:text="${u.email}"></td>
+          <td th:text="${u.profession}"></td>
+          <td th:text="${u.role}"></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+        </tr>
+      </tbody>
+    </table>
   </main>
+
+
+  <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <!----------- Script for show Tables ----------->
+  <script>
+
+    function toggleTable() {
+      var table = document.getElementById("table");
+      if (table.style.display === "none") {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    }
+
+  </script>
+
+  <script>
+    var table = document.getElementById("table-se");
+    var rows = table.getElementsByTagName("tr");
+
+    if (rows.length == 1) { // Only header row is present
+      table.style.display = "none"; // Hide the table
+    }
+  </script>
 
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>

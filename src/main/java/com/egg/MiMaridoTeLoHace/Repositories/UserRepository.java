@@ -34,4 +34,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.rating = :rating")
     Optional<User> findByRating(@Param("rating") Double rating);
 
+    @Query("SELECT u FROM User u WHERE u.name LIKE %:search% OR u.lastname LIKE %:search% OR u.profession LIKE %:search%")
+    List<User> searchEngine(@Param("search") String search);
+
 }

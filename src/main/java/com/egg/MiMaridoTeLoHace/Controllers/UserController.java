@@ -61,6 +61,7 @@ public class UserController {
             model.addAttribute("professions", Professions.values());
             return "myProfile";
         } else {
+            model.addAttribute("professions", Professions.values());
             model.addAttribute("Exeption", "Usuario no encontrado");
         }
         return "redirect:/user";
