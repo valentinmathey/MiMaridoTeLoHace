@@ -10,30 +10,28 @@
 
   <main class="main-index">
     <br><br>
-    <div>
-      <h1 th:text="${mssg}"></h1>
-    </div>
+
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div class="container text-center">
       <div class="row">
         <div class="col">
-          <img class="image2" src="../img/register.svg" alt="register">
+          <img class="image-center" src="../img/register.svg" alt="register">
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <h1 class="big-title2">Registrate! 📝</h1>
-          <h4 class="subtitle2">pero antes contanos...</h4>
+        <div class="col-text-center">
+          <h1 class="big-title-center">Registrate! 📝</h1>
+          <h4 class="subtitle-center">pero antes contanos...</h4>
         </div>
       </div>
     </div>
 
     <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
-    <div class="row">
-      <div class="col">
-        <a class="card-link">
-          <div id="customer-card" class="card">
+    <div class="row-user-card">
+      <div class="card-user">
+        <a href="/user/register?role=customer" class="card-link">
+          <div class="card">
             <img src="/img/customer-avatar.png" class="card-img-top" alt="customer-avatar">
             <div class="card-body">
               <h5 class="card-title">¿Sos usuario?</h5>
@@ -42,9 +40,9 @@
           </div>
         </a>
       </div>
-      <div class="col">
-        <a class="card-link">
-          <div id="provider-card" class="card">
+      <div class="card-user">
+        <a href="/user/register?role=provider" class="card-link">
+          <div class="card">
             <img src="/img/provider-avatar.png" class="card-img-top" alt="provider-avatar">
             <div class="card-body">
               <h5 class="card-title">¿Sos proveedor?</h5>
@@ -54,6 +52,21 @@
         </a>
       </div>
     </div>
+
+
+    <!-- ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <div class="container-error-card" th:if="${not #strings.isEmpty(mssg)}">
+      <div class="row-error-card">
+        <div class="col-md-6 mx-auto error-card">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+              <p class="card-text" th:text="${mssg}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div id="form-container" style="display: none" class="form-display">
@@ -201,4 +214,5 @@
   </script>
 
 </body>
+
 </html>
