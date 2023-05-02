@@ -37,17 +37,9 @@ public class AdminController {
     public String searchEngine(@RequestParam(name = "search", required = false) String search, Model model) {
 
         List<User> se = userRepository.searchEngine(search);
-
-        if (!search.equals("")) {
-            model.addAttribute("se", se);
-            model.addAttribute("users", userRepository.findAll(Sort.by(Sort.Direction.ASC, "profession")));            
-            return "dashboard";
-        } else {
-            se.clear();
-            model.addAttribute("se", se);
-            model.addAttribute("users", userRepository.findAll(Sort.by(Sort.Direction.ASC, "profession")));            
-            return "dashboard";
-        }
+        model.addAttribute("se", se);
+        model.addAttribute("users", userRepository.findAll(Sort.by(Sort.Direction.ASC, "profession")));
+        return "dashboard";
         
     }
 }
