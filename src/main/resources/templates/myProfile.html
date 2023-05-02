@@ -12,57 +12,54 @@
   <br><br><br>
 
   <main class="main-index">
-    <!-- PROFILE IMG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div class="container text-center">
-      <div class="row-image">
-        <div class="col left-col">
-
-          <div id="image-div" class="form-container" th:object="${usuarioActual}">
-            <div class="profile-picture">
-              <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
-            </div>
-          </div>
-
-          <h1 class="big-title">Mi perfil</h1>
-          <!-- <h4 class="subtitle">Reparaciones hogareñas</h4> -->
-
-        </div>
-        <div class="col-image">
-          <img class="image2" src="/src/main/resources/static/img/profile.svg" alt="profile">
-        </div>
-      </div>
-    </div>
-
 
     <form class="profile-form" id="get-perfil-form" th:object="${usuarioActual}" method="post"
       th:action="@{'/user/perfil/' + ${id} +'/mod'}" enctype="multipart/form-data">
-      <label class="label" for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:value="*{name}" required />
+      
+      <div id="rolStore" th:data-rol="*{role}"></div>
+    <div class="container text-center">
+        <div class="row-image">
+          <div class="col left-col">
+            <div id="image-div" class="form-container" th:object="${usuarioActual}">
+              <div class="profile-picture">
+                <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+              </div>
+            </div>
+
+            <h1 class="big-title">Mi perfil</h1>
+            <!-- <h4 class="subtitle">Reparaciones hogareñas</h4> -->
+        </div>
+        <div class="col-image">
+          <img class="image2" src="/img/profile.svg" alt="profile">
+        </div>
+      </div>
+
+      <label class="label" for="name">Nombre</label>
+      <input type="text" id="name" name="name" placeholder="Nombre" th:value="*{name}" required />
 
       <label class="label" for="lastname">Apellido</label>
       <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:value="*{lastname}" required />
-
-      <label class="label" for="email">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="E-mail" th:value="*{email}" required />
-
+        <div class="providerOnly" style="display: none">
+            <label class="label" for="phone">N° de Telefono</label>
+            <input type="number" id="phone" name="phone" placeholder="Telefono" th:value="*{phone}"/>
+        </div>
+<!--        los <br> estan para que el container-profession-btn no se coma el numero-->
+      <br><br><br><br>
       <div class="container-profession-btn">
-        <label class="label" for="profession"></label>
-
-        <!-- REVISAR ESTE SELECT PORQUE NO MUESTRA LAS OPCIONES -->
-        <select id="profession" class="inputs" th:field="*{profession}" required>
-          <option value="" selected>Elegí tu profesión</option>
-          <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}">
-          </option>
-        </select>
-
         <div class="d-flex justify-content-center btn-upload-photo">
-          <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸
-            Subir foto de perfil</button>
+          <!-- este div solo afecta a la profession-->
+          <div class="providerOnly" style="display: none">
+            <label class="label" for="profession"></label>
+            <select id="profession" class="inputs" th:field="*{profession}">
+              <option th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
+            </select>
+          </div>
+          <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
           <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
         </div>
       </div>
 
-      <div>
+      <div class="providerOnly" style="display: none">
         <label class="label" for="description"></label>
         <textarea id="description" name="description" placeholder="Podés cambiar tu antigua descripción"
           th:value="*{description}"></textarea>
@@ -75,22 +72,13 @@
         </div>
 
         <div class="col-6 col-md-4">
-          <button id="delete-perfil" class="btn btn-warning button" type="button" onclick="location.href='deleteAccount.html';">🗑 Eliminar cuenta</button>
+          <button id="delete-perfil" class="btn btn-warning button" type="button">🗑 Eliminar cuenta</button>
         </div>
       </div>
     </form>
 
-
-    <!-- DELETE ACCOUT FORM -->
-
-    <!-- Fede: Para ocultar el FORM se agrega display:none
-      <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}"
-      th:object="${usuarioActual}"style="display: none"  -->
-
     <form id="delete-perfil-div" method="post" th:action="@{'/user/perfil/' + ${id} +'/del'}"
-      th:object="${usuarioActual}"> 
-
-      <img class="image2" src="/src/main/resources/static/img/profile.svg" alt="profile">
+      th:object="${usuarioActual}" style="display: none">
 
       <h1 class="big-title2">¿Querés borrar tu cuenta?</h1>
       <h4 class="subtitle">⌛️ La cuenta sera borrada definitivamente una vez pasado 3 meses⏳</h4>
@@ -100,7 +88,7 @@
           <button id="submit-btn1" type="submit" class="btn btn-warning button btn-block">🗑 Si, borrar</button>
         </div>
         <div class="col-6 col-md-4">
-          <button id="submit-btn2" type="submit" class="btn btn-warning button btn-block">Cancelar</button>
+          <button id="submit-btn2" type="button" class="btn btn-warning button btn-block">Cancelar</button>
         </div>
       </div>
     </form>
@@ -116,15 +104,39 @@
 
   <!-- Script delete account -->
   <script>
-    const deleteBtn = document.getElementById('delete-perfil');
     const deleteForm = document.getElementById('delete-perfil-div');
+    const profileForm = document.getElementById('get-perfil-form');
+
+    const deleteBtn = document.getElementById('delete-perfil');
+    const backBtn = document.getElementById('submit-btn2')
+
     deleteBtn.addEventListener('click', () => {
-      if (deleteForm.style.display === 'none') {
-        deleteForm.style.display = 'block';
-      } else {
-        deleteForm.style.display = 'none';
+      deleteForm.style.display = 'block';
+      profileForm.style.display = 'none';
+    })
+
+    backBtn.addEventListener('click', () => {
+      deleteForm.style.display = 'none';
+      profileForm.style.display = 'block';
+    })
+
+    //gestion de rol
+    const divProviders = document.querySelectorAll(".providerOnly")
+    var rolUser = document.getElementById("rolStore");
+    var rolInfo = rolUser.getAttribute("data-rol");
+    console.log(rolInfo);
+    if (rolInfo === 'PROVIDER'){
+      for (let i = 0; i < divProviders.length; i++) {
+        divProviders[i].style.display = "block";
       }
-    });
+    }
+    <!----------- Script to LowerCase Enum ----------->
+    const professionSelect = document.getElementById("profession");
+    for (let i = 1; i < professionSelect.options.length; i++) {
+        const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
+        const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
+        professionSelect.options[i].text = capitalizedProfession;
+    }
   </script>
 
 

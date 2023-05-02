@@ -215,4 +215,20 @@ public class UserService implements UserDetailsService {
             return null;
         }
     }
+
+    //prueba reviews
+//    public void recalculateRating(String id) throws MiException {
+//        try {
+//            User user = getById(id);
+//            int newRating = 0;
+//            for (int i = 0; i <= user.getReviewRecibidas().size(); i++){
+//                newRating += user.getReviewRecibidas().get(i).getRating();
+//            }
+//            newRating = Math.round( (float) newRating / user.getReviewRecibidas().size());
+//
+//            user.setRating(newRating);
+//        } catch (MiException e) {
+//            throw new MiException("MSG: no se pudo calcular el rating. \n ERROR: " + e.getMessage());
+//        }
+//    }
 }

@@ -38,10 +38,17 @@ public class User {
     private String description;
     private int rating;
     private Date subscription;
-    //private int priceTime; (A futuro)
-    
+
     @Enumerated(EnumType.STRING)
     private Professions profession;
+    //private int priceTime; (A futuro)
+
+    //pruebas-----------------
+//    @OneToMany(mappedBy = "UserCustomerId")
+//    private List<Review> reviewDadas;
+//
+//    @OneToMany(mappedBy = "UserProviderId")
+//    private List<Review> reviewRecibidas;
     
     //Customer---------------------------
     
