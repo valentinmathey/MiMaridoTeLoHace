@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -31,9 +32,8 @@ public class UserController {
     ImageConverter imageConverter;
 
     @GetMapping("/register")
-    public String user(@RequestParam(name = "role", required = false) String role, Model model) {
+    public String user(Model model) {
 
-        model.addAttribute("role", role);
         model.addAttribute("user", new User());
         model.addAttribute("professions", Professions.values());
 
@@ -42,8 +42,8 @@ public class UserController {
 
     @PostMapping("/register")
     public String userRegister(@ModelAttribute User user, Model model) throws MiException {
-
-        if (userService.validateEmail(user)==false) {
+        //eric: simplificado
+        if (!userService.validateEmail(user)) {
             userService.createUser(user);
             return "redirect:/login";
         } else {
@@ -68,17 +68,19 @@ public class UserController {
     }
     @Transactional
     @PostMapping(value = "/perfil/{id}/mod", consumes = "multipart/form-data")
-    public String edit(@PathVariable("id") String id, @ModelAttribute User user,@RequestParam("img") MultipartFile archivo, ModelMap model) throws MiException {
+    public String edit(@PathVariable("id") String id, @ModelAttribute User user,
+                       @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
 
         try {
         Image image = null;
         if (!archivo.isEmpty()) {
             image = imageConverter.convert(archivo);
         }
-            userService.modifyUser(id, user, image);
+        session.setAttribute("userSession", userService.modifyUser(id, user, image));
+
             model.addAttribute("OK", "el usuario fue editado con exito");
-        } catch (Exception e) {
-            model.addAttribute("Exeption", "el usuario no pudo ser editado");
+        } catch (MiException e) {
+            e.printStackTrace();
         }
         return "redirect:/#";
     }
