@@ -9,22 +9,22 @@
   <main class="main-index">
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div class="container text-center mt-4">
+    <div class="container mt-4">
       <div class="row">
         <div class="col">
-          <img class="image2" src="../img/login.svg" alt="login">
+          <img class="image-center" src="../img/login.svg" alt="login">
         </div>
       </div>
-      <div class="row mt-2">
-        <div class="col">
-          <h1 class="big-title2">✅ ¡Ingresá!</h1>
+      <div class="row mt-2 ">
+        <div class="col-text-center">
+          <h1 class="big-title-center">✅ ¡Ingresá!</h1>
         </div>
       </div>
     </div>
 
     <!--  ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-    <div class="container" th:if="${not #strings.isEmpty(mssg)}">
-      <div class="row">
+    <div class="container-error-card" th:if="${not #strings.isEmpty(mssg)}">
+      <div class="row-error-card">
         <div class="col-md-6 mx-auto error-card">
           <div class="card text-white bg-danger mb-3">
             <div class="card-body">

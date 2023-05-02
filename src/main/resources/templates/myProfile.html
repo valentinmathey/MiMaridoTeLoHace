@@ -15,15 +15,11 @@
 
     <form class="profile-form" id="get-perfil-form" th:object="${usuarioActual}" method="post"
       th:action="@{'/user/perfil/' + ${id} +'/mod'}" enctype="multipart/form-data">
-<!--      esto envia el rol al js-->
+      
       <div id="rolStore" th:data-rol="*{role}"></div>
-
-      <!-- PROFILE IMG.
-      eric: traje la imajen para que desaparesca junto al form-->
-      <div class="container text-center">
-        <div class="row">
+    <div class="container text-center">
+        <div class="row-image">
           <div class="col left-col">
-
             <div id="image-div" class="form-container" th:object="${usuarioActual}">
               <div class="profile-picture">
                 <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
@@ -32,11 +28,9 @@
 
             <h1 class="big-title">Mi perfil</h1>
             <!-- <h4 class="subtitle">Reparaciones hogareñas</h4> -->
-
-          </div>
-          <div class="col">
-            <img class="image2" src="/img/profile.svg" alt="profile">
-          </div>
+        </div>
+        <div class="col-image">
+          <img class="image2" src="/img/profile.svg" alt="profile">
         </div>
       </div>
 

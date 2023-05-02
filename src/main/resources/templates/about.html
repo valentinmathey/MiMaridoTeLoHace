@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+
+  <main class="main-index">
+    <br>
+
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col left-col">
+          <h1 class="big-title">¿Quienes Somos?</h1>
+          <!-- <h4 class="subtitle">Reparaciones hogareñas</h4> -->
+        </div>
+        <div class="col">
+          <img class="image" src="../img/homeRepair.svg" alt="home repair">
+        </div>
+      </div>
+    </div>
+
+
+    <section>
+      <div class="about-text">
+        <h4 class="subtitle">Somos una plataforma líder como proveedor de contacto para servicios del hogar, conectando
+          a los usuarios con profesionales confiables como gasistas, plomeros, electricistas, etc. Los usuarios pueden
+          buscar y contactar a proveedores con perfiles verificados, dejar comentarios y puntajes para ayudar a
+          construir una red confiable.
+
+          Nuestra plataforma es fácil de usar y nos esforzamos por garantizar que los usuarios encuentren a los mejores
+          profesionales para sus necesidades del hogar.</h4>
+      </div>
+    </section>
+
+    <section>
+      <div class="about-text">
+        <h4 class="subtitle">Integrantes</h4>
+
+
+      </div>
+    </section>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-warning button btn-back-home">
+        <a class="nav-link" th:href="@{/}" role="button" aria-expanded="false">Volver <i class="fa fa-arrow-left"></i></a>
+      </button>
+    </div>
+
+    <br><br>
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>
