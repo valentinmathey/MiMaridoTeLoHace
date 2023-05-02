@@ -11,9 +11,6 @@
 
   <main class="main-index">
     <br><br>
-    <div>
-      <h1 th:text="${mssg}"></h1>
-    </div>
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
@@ -57,10 +54,6 @@
         </a>
       </div>
     </div>
-
-
-
-
 
     <!-- ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <div class="container-error-card" th:if="${not #strings.isEmpty(mssg)}">
@@ -143,6 +136,7 @@
     const formContainer = document.getElementById("form-container");
     const professionInput = document.getElementById("profession")
     const phoneInput = document.getElementById("phone");
+    const professionSelect = document.getElementById("profession");
 
     providerCard.addEventListener("click", () => {
 
@@ -213,7 +207,7 @@
   <!----------- Script to LowerCase Enum ----------->
 
   <script>
-    const professionSelect = document.getElementById("profession");
+    
     for (let i = 1; i < professionSelect.options.length; i++) {
       const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
       const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);

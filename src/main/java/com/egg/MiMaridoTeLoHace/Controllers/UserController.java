@@ -37,7 +37,7 @@ public class UserController {
         model.addAttribute("user", new User());
         model.addAttribute("professions", Professions.values());
 
-        return "formUser";
+        return "registerUser";
     }
 
     @PostMapping("/register")
@@ -48,7 +48,9 @@ public class UserController {
             return "redirect:/login";
         } else {
             model.addAttribute("mssg", "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO");
-            return "formUser";
+            model.addAttribute("professions", Professions.values());
+
+            return "registerUser";
         }
 
     }

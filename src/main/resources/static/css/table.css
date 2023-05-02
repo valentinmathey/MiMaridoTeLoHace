@@ -1,3 +1,25 @@
+table {
+  table-layout:auto;
+}
+
+td {
+  white-space: nowrap;
+}
+
 .profilePic {
-  width: 40px;
-  }
+  width: 35px;
+}
+
+thead {
+  color: #f1c057;
+  text-align: center;
+}
+
+.td-role {
+  text-transform: lowercase;
+}
+
+.td a {
+  text-decoration: none;
+  color: #f1c057;
+}
