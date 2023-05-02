@@ -1,5 +1,5 @@
 table {
-  table-layout:auto;
+  table-layout: auto;
 }
 
 td {
@@ -10,8 +10,12 @@ td {
   width: 35px;
 }
 
-thead {
+th {
   color: #f1c057;
+  text-align: left;
+}
+
+th[colspan="3"] {
   text-align: center;
 }
 

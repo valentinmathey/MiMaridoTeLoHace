@@ -48,6 +48,7 @@ public class UserService implements UserDetailsService {
 
             if (user.getProfession() == null) {
                 user.setRole(Roles.CUSTOMER);
+                user.setRating(1);
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);

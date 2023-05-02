@@ -87,12 +87,12 @@
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link" onclick="toggleTable()" role="button" aria-expanded="false">
-              Mostrar/Ocultar Registros 🖇
+              Ver/Ocultar Registros 👀 
             </a>
           </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-            <a class="nav-link" href="/admin/dashboard" role="button" aria-expanded="false">
+            <a href="/admin/dashboard" class="nav-link" role="button" aria-expanded="false">
               Panel Administrativo ⚙️
             </a>
           </li>

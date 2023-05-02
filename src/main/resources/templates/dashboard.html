@@ -31,15 +31,21 @@
           <h4>Busqueda: </h4>
         </div>
         <div class="col">
-          <input type="text" name="search" placeholder="nombre, apellido, email, profesión">
+          <input oninput="validateInput()" type="text" name="search" id="search" placeholder="nombre, apellido, email, profesión">
         </div>
-        <div class="col"><button type="submit" class="btn btn-warning button">🔎 BUSCAR</button></div>
+        <div id="search-button" class="col"><button type="submit" class="btn btn-warning button" disabled>🔎 BUSCAR</button>
+        </div>
       </div>
     </form>
-    
+
     <!-- TABLE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <table class="table table-dark table-striped" id="table-se">
       <thead>
+        <tr>
+          <th colspan="9">
+            <h4>Resultado de búsqueda</h4>
+          </th>
+        </tr>
         <tr>
           <th>Foto</th>
           <th>Nombre</th>
@@ -66,6 +72,11 @@
     </table>
     <table class="table table-dark table-striped" id="table" style="display: none">
       <thead>
+        <tr>
+          <th colspan="9">
+            <h4>Todos los registros</h4>
+          </th>
+        </tr>
         <tr>
           <th>Foto</th>
           <th>Nombre</th>
@@ -109,12 +120,25 @@
 
   </script>
 
+  <!----------- Script for hidde Search Engine ----------->
   <script>
     var table = document.getElementById("table-se");
     var rows = table.getElementsByTagName("tr");
 
-    if (rows.length == 1) {
+    if (rows.length == 2) {
       table.style.display = "none";
+    }
+  </script>
+
+  <!----------- Script for block input ----------->
+  <script>
+    function validateInput() {
+      var searchValue = document.getElementById("search").value;
+      if (searchValue.trim().length > 0) {
+        document.getElementById("search-button").querySelector("button").disabled = false;
+      } else {
+        document.getElementById("search-button").querySelector("button").disabled = true;
+      }
     }
   </script>
 
