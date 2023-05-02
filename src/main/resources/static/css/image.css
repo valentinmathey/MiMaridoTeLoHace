@@ -3,6 +3,11 @@
   width: 180%;
 }
 
+.image4 {
+  margin: 7em 0 0 0;
+  width: 450px;
+}
+
 .image2,
 .image3{
   display: flex;
@@ -17,7 +22,7 @@
 
 .image3 {
   width: 120%;
-  margin: 15em 0 0 0;
+  margin: 5em 0 0 0;
 }
 
 .container {
@@ -25,3 +30,25 @@
   flex-direction: column;
   align-items: center;
 }
+
+/* IMG PROFILE */
+.image-profile {
+  width: 220px;
+  opacity: 1;
+  border-radius: 50%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row-image {
+  margin: -100px 0 0 0;
+}
+/* 
+.col,
+.left-col {
+  margin: 150px 0 0 0;
+} */

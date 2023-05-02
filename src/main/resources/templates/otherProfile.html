@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="th_templates/head :: head"></head>
+
+  <link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
+  <link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
+  <body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+
+<!--    eric: agregado por que el navbar se come esta parte-->
+    <br><br><br>
+    <!-- form -->
+<!--    eric:  th:object para trae el usuario-->
+<!--    falta crear una vista aparte para la edicion-->
+
+    <main class="main-index">
+
+      <form class="profile-form" th:object="${usuarioActual}">
+        <!-- PROFILE IMG.
+        eric: traje la imajen para que desaparesca junto al form-->
+        <div class="container text-center">
+          <div id="rolStore" th:data-rol="*{role}"></div>
+          <div class="row">
+            <div class="col left-col">
+                <div class="profile-picture">
+                  <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+                </div>
+                <div class="console text-center">
+                  <h1 class="big-title" th:text="*{name} + ' ' + *{lastname}"></h1>
+                </div>
+              <h4 class="subtitle" th:text="*{role}"></h4>
+
+              <div class="providerOnly text-center" style="display: none">
+                <h4><i>Oficio:‎ </i> <span th:text="*{profession}"></h4>
+                <h4><i>Contacto:‎ </i><span th:text="*{phone}"></h4>
+                <h4><i>Descripcion:‎ </i> <span th:text="*{description}"></h4>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <br><br><br><br><br><br>
+      </form>
+    </main>
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+  <script>
+    //gestion de rol
+    const divProviders = document.querySelectorAll(".providerOnly")
+    var rolUser = document.getElementById("rolStore");
+    var rolInfo = rolUser.getAttribute("data-rol");
+    console.log(rolInfo);
+    if (rolInfo === 'PROVIDER'){
+      for (let i = 0; i < divProviders.length; i++) {
+        divProviders[i].style.display = "block";
+      }
+    }
+  </script>
+
+  </body>
+</html>

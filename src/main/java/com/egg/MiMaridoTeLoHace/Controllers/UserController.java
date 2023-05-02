@@ -8,7 +8,6 @@ import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
 import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +41,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String userRegister(@ModelAttribute User user, Model model) throws MiException {
-        //eric: simplificado
+        // eric: simplificado
         if (!userService.validateEmail(user)) {
             userService.createUser(user);
             return "redirect:/login";
@@ -56,30 +55,32 @@ public class UserController {
     }
 
     @GetMapping("/perfil/{id}")
-    public String user(@PathVariable("id") String id, ModelMap model) throws MiException {
+    public String user(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         User user = userService.getById(id);
-        if(user != null){
-            model.addAttribute("usuarioActual", user);
+        model.addAttribute("usuarioActual", user);
+
+        User sessionUser = (User) session.getAttribute("userSession");
+        if (user != null && sessionUser != null && user.equals(sessionUser)) {
+
             model.addAttribute("professions", Professions.values());
             return "myProfile";
-        } else {
-            model.addAttribute("professions", Professions.values());
-            model.addAttribute("Exeption", "Usuario no encontrado");
-        }
-        return "redirect:/user";
 
+        } else {
+            return "otherProfile";
+        }
     }
+
     @Transactional
     @PostMapping(value = "/perfil/{id}/mod", consumes = "multipart/form-data")
     public String edit(@PathVariable("id") String id, @ModelAttribute User user,
-                       @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
+            @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
 
         try {
-        Image image = null;
-        if (!archivo.isEmpty()) {
-            image = imageConverter.convert(archivo);
-        }
-        session.setAttribute("userSession", userService.modifyUser(id, user, image));
+            Image image = null;
+            if (!archivo.isEmpty()) {
+                image = imageConverter.convert(archivo);
+            }
+            session.setAttribute("userSession", userService.modifyUser(id, user, image));
 
             model.addAttribute("OK", "el usuario fue editado con exito");
         } catch (MiException e) {
@@ -91,7 +92,7 @@ public class UserController {
     @Transactional
     @PostMapping("/perfil/{id}/del")
     public String delete(@PathVariable("id") String id, ModelMap model) throws MiException {
-        //se podrian agregar mas controles a futuro
+        // se podrian agregar mas controles a futuro
         userService.deleteUser(id);
         model.addAttribute("OK", "el usuario fue eliminado con exito");
         return "redirect:/logout";
