@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+
+  <main class="main-index">
+    <br><br><br>
+    
+    <!-- IMG OF ERROR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+    <!-- Fede: Manejamos todos los errores desde esta vista (No pude probar esto)-->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col left-col">
+          <h1 class="big-title" th:text="'Error ' + ${codigo}"></h1>
+          <h2 th:text="'Error ' + ${status}"></h2>
+          <h4 class="subtitle" th:text="${mensaje}"></h4>
+
+          <button type="button" class="btn btn-warning button btn-back-home">
+            <a class="nav-link" th:href="@{/}" role="button" aria-expanded="false">Volver <i class="fa fa-arrow-left"></i></a>
+          </button>
+        </div>
+        <div class="col">
+          <img class="image3" src="../img/error.svg" alt="error">
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+  </main>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>

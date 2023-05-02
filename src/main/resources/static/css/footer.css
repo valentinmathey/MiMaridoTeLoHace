@@ -1,0 +1,29 @@
+.footer { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 20rem;
+  margin-top: 1rem;
+  border-top: 1px solid #000;
+
+  background-color: #fff;
+  box-shadow: 0px -7px 12px -3px rgba(0, 0, 0, 0.262);
+}
+
+.footer .col-md-4 {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.footer .col-md-4 img {
+  width: 2rem;
+  height: 2rem;
+
+  margin: 0 -1rem 0 0;
+}
+
+.footer p {
+  margin: 0 2rem;
+  font-size: 14px;
+}
