@@ -49,3 +49,17 @@
 .btn-index-home {
   margin-top: -70px;
 }
+
+.boton-github {
+  background-color: #24292e;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
