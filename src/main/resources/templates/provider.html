@@ -31,5 +31,17 @@
 <!-- Script / Bootstrap -->
 <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
+<script> 
+// este script es el de la redireccion
+  const providerCards = document.querySelectorAll('[id^="provider-"]');
+  providerCards.forEach(providerCard => {
+      providerCard.addEventListener('click', () => {
+          const providerId = providerCard.dataset.id;
+          const url = `/user/perfil/${providerId}`;
+          window.location.href = url;
+      });
+  });
+</script>
+
 </body>
 </html>
