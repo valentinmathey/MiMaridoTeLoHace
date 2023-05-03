@@ -41,7 +41,7 @@ public class WorkController {
         return "work.html"; // el html todavio no existe?
     }
 
-    @PostMapping("/work") // editarlo
+    @PostMapping("/work/mod") // editarlo
     public String editWorkReview(@RequestParam("id") String id, ModelMap model) {
         // tanto los cambios realizados por el provider(start, finish) como los del
         // customer(rating, review) son realizados en editReview
@@ -50,7 +50,7 @@ public class WorkController {
         return "redirect:/home"; // el html todavio no existe?
     }
 
-    @PostMapping("/work") // borrarlo
+    @PostMapping("/work/del") // borrarlo
     public String deleteWorkReview(@RequestParam("id") String id) {
         workService.delete(id);
         return "redirect:/home";

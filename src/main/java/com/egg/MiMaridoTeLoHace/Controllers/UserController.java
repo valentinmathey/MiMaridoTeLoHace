@@ -3,6 +3,7 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
+import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
@@ -60,8 +61,8 @@ public class UserController {
         model.addAttribute("usuarioActual", user);
 
         User sessionUser = (User) session.getAttribute("userSession");
-        if (user != null && sessionUser != null && user.equals(sessionUser)) {
-
+        if (user != null && sessionUser != null
+                && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
             model.addAttribute("professions", Professions.values());
             return "myProfile";
 
@@ -76,13 +77,23 @@ public class UserController {
             @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
 
         try {
-            Image image = null;
-            if (!archivo.isEmpty()) {
-                image = imageConverter.convert(archivo);
-            }
-            session.setAttribute("userSession", userService.modifyUser(id, user, image));
+            User sessionUser = (User) session.getAttribute("userSession");
+            if (user != null && sessionUser != null
+                    && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
 
-            model.addAttribute("OK", "el usuario fue editado con exito");
+                Image image = null;
+                if (!archivo.isEmpty()) {
+                    image = imageConverter.convert(archivo);
+                }
+
+                if (user.equals(sessionUser)) { // eric: si el que modigico es admin no se le modifica la session
+                    session.setAttribute("userSession", userService.modifyUser(id, user, image));
+                } else { // eric: solo modifica el user
+                    userService.modifyUser(id, user, image);
+                }
+            } else {
+                return "otherProfile";
+            }
         } catch (MiException e) {
             e.printStackTrace();
         }
@@ -91,11 +102,23 @@ public class UserController {
 
     @Transactional
     @PostMapping("/perfil/{id}/del")
-    public String delete(@PathVariable("id") String id, ModelMap model) throws MiException {
+    public String delete(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         // se podrian agregar mas controles a futuro
-        userService.deleteUser(id);
-        model.addAttribute("OK", "el usuario fue eliminado con exito");
-        return "redirect:/logout";
+        User user = userService.getById(id);
+
+        User sessionUser = (User) session.getAttribute("userSession");
+        if (user != null && sessionUser != null
+                && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
+            userService.deleteUser(id);
+        }
+
+        if (user.equals(sessionUser)) { // eric: solo deslogea si el session es igual al user
+            return "redirect:/logout";
+        } else if (sessionUser.getRole().equals(Roles.ADMIN)) { // eric: si es admin lo redirecciona a dashboard
+            return "redirect:/admin/dashboard";
+        } else { // eric: si es user lo envia al /home
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/list")

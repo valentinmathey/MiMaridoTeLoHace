@@ -24,7 +24,7 @@ public class WorkService {
     public void createWork(Work work) {
         // les agrega al customer y al provider el trabajo como pendiente (si es que se
         // quiere eso)
-        userService.setWorkPendiente(work);
+        // userService.setWorkPendiente(work);
 
         workRepository.save(work);
     }
