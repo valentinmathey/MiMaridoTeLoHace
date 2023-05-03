@@ -22,9 +22,10 @@ public class WorkController {
     WorkService workService;
 
     @GetMapping("/create")
-    public String create(ModelMap model) {
+    public String create(@RequestParam(value = "applicationType", required = false) String applicationType, ModelMap model) {
+        model.addAttribute("applicationType", applicationType);
         model.addAttribute("work", new Work());
-        return "WorksUser";
+        return "registerWork";
     }
 
     @PostMapping("/create")

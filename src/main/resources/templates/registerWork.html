@@ -5,18 +5,89 @@
 <head th:replace="th_templates/head :: head"></head>
 
 <body>
-<!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<header th:replace="th_templates/navbar :: navbar"></header>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
 
-<main class="main-providers">
+    <main class="main-providers">
+        <br><br>
+        <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="container text-center">
+            <br><br><br><br>
 
-</main>
+            <div class="row">
+                <div class="col left-col">
+                    <h4 class="big-title">Solicita un trabajo!</h4>
+                </div>
 
-<!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<footer th:replace="th_templates/footer :: footer"></footer>
+                <div class="col">
+                    <img class="image3" src="../img/repairHouse.svg" alt="home repair">
+                </div>
 
-<!-- Script / Bootstrap -->
-<div th:replace="th_templates/bootstrap :: bootstrap"></div>
+            </div>
+        </div>
+
+        <div id="form-container" class="form-display">
+            <form id="work-form" method="post" th:object="${work}">
+
+                <div>
+                    <label class="label" for="workName">Resumí en una frase tu solicitud</label>
+                    <input type="text" id="workName" name="workName" maxlength="30" placeholder="..." th:field="*{workName}" required />
+                </div>
+                <p></p><br>
+                <div id="description-group">
+                    <label class="label" for="description">Describe con detalle el problema</label>
+                    <textarea classs="workDescription" maxlength="500" id="workDescription" name="workDescription"
+                        placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
+                </div>
+                <button id="work-apply" type="" class="btn btn-warning button btn-form">Enviar Solicitud 📝</button>
+            </form>
+
+            <form id="review-form" action="post" th:object="${work}">
+                <div id="review-group">
+                    <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio brindado
+                        por parte del proveedor</label>
+                    <textarea type="review" id="review" name="review"
+                        placeholder="Ej: El trabajo realizado fue .. " th:field="*{review}"></textarea>
+                </div>
+                <p></p><br>
+                <div id="rating-group">
+                    <p>Calificación</p>
+                    <input type="range" id="range-slider" min="1" max="5" value="1" th:field="*{ratingWork}" required>
+                    <p id="range-value"></p>
+                </div>
+
+                <button id="work-apply" type="" class="btn btn-warning button btn-form">Enviar Calificación📝</button>
+            </form>
+        </div>
+    </main>
+
+
+    <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <!-- Script for showing stars on slider input >>>>>>>>>>>>>>>>>>>>>>>  -->
+    <script>
+        const rangeSlider = document.querySelector("#range-slider");
+        const rangeValue = document.querySelector("#range-value");
+
+        rangeSlider.addEventListener("input", () => {
+            if (rangeSlider.value == 1)
+                rangeValue.textContent = ("MALO ⭐");
+            else if (rangeSlider.value == 2)
+                rangeValue.textContent = ("REGULAR ⭐⭐");
+            else if (rangeSlider.value == 3)
+                rangeValue.textContent = ("BUENO ⭐⭐⭐");
+            else if (rangeSlider.value == 4)
+                rangeValue.textContent = ("MUY BUENO ⭐⭐⭐⭐");
+            else if (rangeSlider.value == 5)
+                rangeValue.textContent = ("EXCELENTE ⭐⭐⭐⭐⭐");
+        });
+    </script>
+
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 </body>
+
 </html>
