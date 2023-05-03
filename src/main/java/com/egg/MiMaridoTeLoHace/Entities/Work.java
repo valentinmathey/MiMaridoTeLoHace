@@ -34,6 +34,4 @@ public class Work {
     
     private String review;
     private int ratingWork;
-
-    
 }
