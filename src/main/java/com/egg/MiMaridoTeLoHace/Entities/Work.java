@@ -2,6 +2,9 @@ package com.egg.MiMaridoTeLoHace.Entities;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,8 +22,7 @@ public class Work {
     
     private String workName;
     private String workDescription;
-    private Boolean workStarted;
-    private Boolean workFinished;
+    private WorkStatus workStatus;
     
     @ManyToOne
     @JoinColumn(name = "customer_id")

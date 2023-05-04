@@ -5,19 +5,56 @@
 <head th:replace="th_templates/head :: head"></head>
 
 <body>
-<!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<header th:replace="th_templates/navbar :: navbar"></header>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
 
-<main class="main-providers">
+    <main class="main-index">
+        <br><br>
+        <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="container text-center">
+            <br><br><br><br>
+
+            <div class="row">
+                <div class="col left-col">
+                    <h4 class="big-title">Solicita un trabajo!</h4>
+                </div>
+
+                <div class="col">
+                    <img class="image3" src="../img/repairHouse.svg" alt="home repair">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="card text-center large-card">
+            <br>
+            <div class="card-body">
+                <h5 class="card-title">Nombre del Customer/Provider</h5>
+                <p class="card-text">workName (descripcion breve del trabajo)</p>
+                <a href="#" class="btn btn-warning">Aceptar Trabajo</a>
+                <a href="#" class="btn btn-warning">Dejar Review</a>
+            </div>
+            <!-- <div class="card-footer text-body-secondary">
+                2 days ago
+            </div> -->
+        </div>
+
+    </main>
 
 
-</main>
+    <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <!-- Script for showing stars on slider input >>>>>>>>>>>>>>>>>>>>>>>  -->
+    <script>
 
-<!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<footer th:replace="th_templates/footer :: footer"></footer>
+    </script>
 
-<!-- Script / Bootstrap -->
-<div th:replace="th_templates/bootstrap :: bootstrap"></div>
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 </body>
+
 </html>

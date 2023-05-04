@@ -8,30 +8,33 @@
     <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <header th:replace="th_templates/navbar :: navbar"></header>
 
-    <main class="main-providers">
+    <main class="main-index">
         <br><br>
+
         <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
         <div class="container text-center">
-            <br><br><br><br>
-
+            <!-------------------------------------- ACORDARSE DE REEMPLAZAR IMAGENES -------------------------------->
             <div class="row">
-                <div class="col left-col">
-                    <h4 class="big-title">Solicita un trabajo!</h4>
-                </div>
-
                 <div class="col">
-                    <img class="image3" src="../img/repairHouse.svg" alt="home repair">
+                    <img class="image3" src="../img/ranking.svg" alt="ranking">
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="big-title">Solicita un trabajo!</h1>
+                </div>
             </div>
         </div>
 
+        <!-- FORMS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
         <div id="form-container" class="form-display">
             <form id="work-form" method="post" th:object="${work}">
 
                 <div>
                     <label class="label" for="workName">Resumí en una frase tu solicitud</label>
-                    <input type="text" id="workName" name="workName" maxlength="30" placeholder="..." th:field="*{workName}" required />
+                    <input type="text" id="workName" name="workName" maxlength="30" placeholder="..."
+                        th:field="*{workName}" required />
                 </div>
                 <p></p><br>
                 <div id="description-group">
@@ -46,8 +49,8 @@
                 <div id="review-group">
                     <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio brindado
                         por parte del proveedor</label>
-                    <textarea type="review" id="review" name="review"
-                        placeholder="Ej: El trabajo realizado fue .. " th:field="*{review}"></textarea>
+                    <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
+                        th:field="*{review}"></textarea>
                 </div>
                 <p></p><br>
                 <div id="rating-group">

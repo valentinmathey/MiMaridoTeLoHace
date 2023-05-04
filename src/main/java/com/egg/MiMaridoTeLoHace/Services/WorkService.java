@@ -3,6 +3,7 @@ package com.egg.MiMaridoTeLoHace.Services;
 import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
+import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 
 import javax.transaction.Transactional;
 
@@ -33,14 +34,14 @@ public class WorkService {
     public void editReview(Work work) {
         Work original = getById(work.getId());
 
-        if (original.getWorkFinished()) {
+        if (original.getWorkStatus().name().equals("DONE")) {
             original.setRatingWork(work.getRatingWork());
             original.setReview(work.getReview());
         } else {
-            if (work.getWorkFinished()) {
-                original.setWorkFinished(work.getWorkFinished());
-            } else if (work.getWorkStarted()) {
-                original.setWorkStarted(work.getWorkStarted());
+            if (work.getWorkStatus().name().equals("DONE")) {
+                original.setWorkStatus(WorkStatus.DONE);
+            } else if (work.getWorkStatus().name().equals("ACCEPTED")) {
+                original.setWorkStatus(WorkStatus.ACCEPTED);
             }
         }
         workRepository.save(original);
