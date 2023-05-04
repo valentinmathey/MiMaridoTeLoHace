@@ -16,7 +16,8 @@
 
             <div class="row">
                 <div class="col left-col">
-                    <h4 class="big-title">Solicita un trabajo!</h4>
+                    <h4 sec:authorize="hasRole('ROLE_PROVIDER')" class="big-title">Tus Trabajos</h4>
+                    <h4 sec:authorize="hasRole('ROLE_CUSTOMER')" class="big-title">Mis Solicitudes</h4>
                 </div>
 
                 <div class="col">
@@ -27,17 +28,35 @@
         </div>
 
         <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-        <div class="card text-center large-card">
+
+        <div class="card text-center large-card" th:each="pwl : ${providerWorkList}">
             <br>
             <div class="card-body">
-                <h5 class="card-title">Nombre del Customer/Provider</h5>
-                <p class="card-text">workName (descripcion breve del trabajo)</p>
-                <a href="#" class="btn btn-warning">Aceptar Trabajo</a>
-                <a href="#" class="btn btn-warning">Dejar Review</a>
+                <h5 class="card-title" th:text="${pwl.userCustomerId.name+' '+pwl.userCustomerId.lastname}"></h5>
+                <p class="card-text" th:text="${pwl.workName}"></p>
+                <button href="#" class="btn btn-warning" th:if="#{pwl.workStatus.equals('REQUIRED')}">Aceptar Trabajo ✅</button>
+                <button href="#" class="btn btn-warning" th:if="#{pwl.workStatus.equals('REQUIRED')}">Cancelar Solicitud ❌</button>
+                <button href="#" class="btn btn-warning" th:if="#{pwl.workStatus.equals('ACCEPTED')}">Cancelar Trabajo ❌</button>
+                <button href="#" class="btn btn-warning" th:if="#{pwl.workStatus.equals('ACCEPTED')}">Trabajo Terminado ✅</button>
             </div>
             <!-- <div class="card-footer text-body-secondary">
-                2 days ago
-            </div> -->
+                    2 days ago
+                </div> -->
+        </div>
+
+
+        <div class="card text-center large-card" th:each="cwl : ${customerWorkList}">
+            <br>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${cwl.userProviderId.name+' '+cwl.userProviderId.lastname}"></h5>
+                <p class="card-text" th:text="${cwl.workName}"></p>
+                <button href="#" class="btn btn-warning" th:if="#{pwl.workStatus == 'REQUIRED'}">Cancelar Solicitud ❌</button>
+                <button href="#" class="btn btn-warning" th:if="#{cwl.workStatus == 'ACCEPTED'}">Cancelar Trabajo ❌</button>
+                <button href="#" class="btn btn-warning" th:if="#{cwl.workStatus == 'DONE'}">Dejar Calificación ⭐</button>
+            </div>
+            <!-- <div class="card-footer text-body-secondary">
+                    2 days ago
+                </div> -->
         </div>
 
     </main>
