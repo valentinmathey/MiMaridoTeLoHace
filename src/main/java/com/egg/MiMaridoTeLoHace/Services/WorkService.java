@@ -2,6 +2,7 @@ package com.egg.MiMaridoTeLoHace.Services;
 
 import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
+import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 
 import javax.transaction.Transactional;
 
@@ -20,12 +21,16 @@ public class WorkService {
     UserService userService;
 
     @Transactional
-    public void createWork(Work work) {
-        // les agrega al customer y al provider el trabajo como pendiente (si es que se
-        // quiere eso)
-        // userService.setWorkPendiente(work);
+    public void createWork(Work work) throws MiException {
 
-        workRepository.save(work);
+        try {
+
+            work.setWorkStatus(WorkStatus.REQUIRED);
+            workRepository.save(work);
+            
+        } catch (Exception e) {
+            throw new MiException("ERROR al generar solicitud de trabajo");
+        }
     }
 
     @Transactional

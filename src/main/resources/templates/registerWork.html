@@ -29,7 +29,8 @@
 
         <!-- FORMS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
         <div id="form-container" class="form-display">
-            <form id="work-form" method="post" th:object="${work}">
+            <form id="work-form" method="post" th:action="@{/work/create(idProvider=${idProvider})}" th:object="${work}"
+                th:if="${#strings.equals(applicationType, 'work')}">
 
                 <div>
                     <label class="label" for="workName">Resumí en una frase tu solicitud</label>
@@ -42,10 +43,12 @@
                     <textarea classs="workDescription" maxlength="500" id="workDescription" name="workDescription"
                         placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
                 </div>
-                <button id="work-apply" type="" class="btn btn-warning button btn-form">Enviar Solicitud 📝</button>
+                <button id="work-apply" name="workCreate" class="btn btn-warning button btn-form" type="submit">Enviar
+                    Solicitud 📝</button>
             </form>
 
-            <form id="review-form" action="post" th:object="${work}">
+            <form id="review-form" action="post" th:object="${work}"
+                th:if="${#strings.equals(applicationType, 'review')}">
                 <div id="review-group">
                     <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio brindado
                         por parte del proveedor</label>
@@ -88,6 +91,14 @@
                 rangeValue.textContent = ("EXCELENTE ⭐⭐⭐⭐⭐");
         });
     </script>
+
+    <!-- Script for catch the value of the Provider ID and assign it to the submit button of the form  -->
+    <!-- <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProvider = urlParams.get('idProvider');
+
+        document.getElementById('work-apply').setAttribute('data-value', idProvider);
+    </script> -->
 
     <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <footer th:replace="th_templates/footer :: footer"></footer>
