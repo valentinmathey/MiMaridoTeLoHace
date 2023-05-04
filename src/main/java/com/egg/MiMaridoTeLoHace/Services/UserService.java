@@ -163,7 +163,7 @@ public class UserService implements UserDetailsService {
             List<User> searchItems = null;
 
             searchItems = userRepository.searchByProfessionAlta(professions);
-            
+
             return searchItems;
         } catch (Exception e) {
             throw new MiException("ERROR AL CARGAR LOS PROVIDERS DE LA PROFESION: " + professions.name());
@@ -186,7 +186,7 @@ public class UserService implements UserDetailsService {
     public List<User> AllAltaFiltro(String search) throws MiException {
         try {
             List<User> searchItems = null;
-                searchItems = userRepository.searchByAllAltaFiltro(search);
+            searchItems = userRepository.searchByAllAltaFiltro(search);
             return searchItems;
         } catch (Exception e) {
             throw new MiException("ERROR AL CARGAR LOS PROVIDERS CON EL FILTRO: " + search);
@@ -231,7 +231,7 @@ public class UserService implements UserDetailsService {
 
         User user = userRepository.searchByEmail(email);
 
-        if (user != null) {
+        if (user != null && user.getAlta()) {
 
             List<GrantedAuthority> authorities = new ArrayList();
 
