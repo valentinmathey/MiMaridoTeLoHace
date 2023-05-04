@@ -62,7 +62,7 @@ public class UserController {
 
         User sessionUser = (User) session.getAttribute("userSession");
         if (user != null && sessionUser != null
-                && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
+                && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
             model.addAttribute("professions", Professions.values());
             return "myProfile";
 
@@ -79,20 +79,18 @@ public class UserController {
         try {
             User sessionUser = (User) session.getAttribute("userSession");
             if (user != null && sessionUser != null
-                    && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
+                    && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
 
                 Image image = null;
                 if (!archivo.isEmpty()) {
                     image = imageConverter.convert(archivo);
                 }
 
-                if (user.equals(sessionUser)) { // eric: si el que modigico es admin no se le modifica la session
+                if (user.getId().equals(sessionUser.getId())) {
                     session.setAttribute("userSession", userService.modifyUser(id, user, image));
                 } else { // eric: solo modifica el user
                     userService.modifyUser(id, user, image);
                 }
-            } else {
-                return "otherProfile";
             }
         } catch (MiException e) {
             e.printStackTrace();
@@ -108,17 +106,15 @@ public class UserController {
 
         User sessionUser = (User) session.getAttribute("userSession");
         if (user != null && sessionUser != null
-                && (user.equals(sessionUser) || sessionUser.getRole().equals(Roles.ADMIN))) {
+                && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
             userService.deleteUser(id);
+            if (user.getId().equals(sessionUser.getId())) { // eric: solo deslogea si el session es igual al user
+                return "redirect:/logout";
+            } else if (sessionUser.getRole().equals(Roles.ADMIN)) { // eric: si es admin lo redirecciona a dashboard
+                return "redirect:/admin/dashboard";
+            }
         }
-
-        if (user.equals(sessionUser)) { // eric: solo deslogea si el session es igual al user
-            return "redirect:/logout";
-        } else if (sessionUser.getRole().equals(Roles.ADMIN)) { // eric: si es admin lo redirecciona a dashboard
-            return "redirect:/admin/dashboard";
-        } else { // eric: si es user lo envia al /home
-            return "redirect:/home";
-        }
+        return "redirect:/";
     }
 
     @GetMapping("/list")

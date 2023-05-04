@@ -71,10 +71,14 @@
         const rangeSlider = document.querySelector("#range-slider");
         const rangeValue = document.querySelector("#range-value");
 
+        // eric: verificacion al instanciarse si rangeSlider.value == 1, luego se gestiona con el addeventListener
+        if (rangeSlider.value == 1)
+            rangeValue.textContent = ("MALO ⭐");
+
         rangeSlider.addEventListener("input", () => {
             if (rangeSlider.value == 1)
                 rangeValue.textContent = ("MALO ⭐");
-            else if (rangeSlider.value == 2)
+            if (rangeSlider.value == 2)
                 rangeValue.textContent = ("REGULAR ⭐⭐");
             else if (rangeSlider.value == 3)
                 rangeValue.textContent = ("BUENO ⭐⭐⭐");

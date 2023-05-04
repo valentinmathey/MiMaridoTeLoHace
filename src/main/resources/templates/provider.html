@@ -10,7 +10,6 @@
 
 <main class="main-providers">
 
-
   <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <div class="container">
     <img class="image4" src="/img/provider.svg" alt="providers">
@@ -18,10 +17,21 @@
   </div>
 
 
+  <!-- aqui ira el motor de busquedas -->
+  <div class="text-center">
+    <h2 class="subtittle">Que estas buscando?</h2>
+    <div class="d-flex justify-content-cente">
+      <select id="profession" class="inputs">
+        <option type="text" name="profession" value="">profesiones</option>
+        <option type="text" name="profession" th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
+      </select>
+      <input type="text" name="st" id="st" placeholder="Busca por: nombre, apellido y email">
+    </div>
+    <button id="sendQueryProviders" class="btn" type="button">ENVIAR</button>
+  </div>
+
   <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
-
-
 
 </main>
 
@@ -32,7 +42,7 @@
 <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
 <script> 
-// este script es el de la redireccion
+  // <!----------- Script to redirectCards ----------->
   const providerCards = document.querySelectorAll('[id^="provider-"]');
   providerCards.forEach(providerCard => {
       providerCard.addEventListener('click', () => {
@@ -41,7 +51,25 @@
           window.location.href = url;
       });
   });
-</script>
 
+  // <!----------- Script to search ----------->
+  const profession = document.getElementById("profession");
+  const search = document.getElementById("st");
+
+const button = document.getElementById("sendQueryProviders");
+button.addEventListener("click", () => {
+  const professionValue = profession.value;
+  const searchValue = search.value;
+  
+  window.location.href="/search?profession=" + professionValue + "&st=" + searchValue;
+});
+
+// <!----------- Script to LowerCase Enum ----------->
+    for (let i = 1; i < profession.options.length; i++) {
+        const lowercaseProfession = profession.options[i].text.toLowerCase();
+        const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
+        profession.options[i].text = capitalizedProfession;
+    }
+</script>
 </body>
 </html>
