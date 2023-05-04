@@ -148,34 +148,6 @@
     }
   </script>
 
-  <script>
-    // Agregar un evento de clic a cada enlace
-    document.querySelectorAll('a[id^="link-"]').forEach(function (link) {
-      link.addEventListener('click', function (event) {
-        event.preventDefault(); // prevenir la acción por defecto del enlace
-
-        // Obtener el ID del usuario a partir del identificador del enlace
-        var userId = this.id.split('-')[1];
-
-        // Crear una petición POST al controlador
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/user/perfil/' + userId + '/role');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // Enviar la petición con los datos necesarios
-        xhr.send();
-
-        // Redirigir a la página deseada después de la respuesta del servidor
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            window.location.href = '/admin/dashboard';
-          }
-        };
-      });
-    });
-
-  </script>
-
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>
 
