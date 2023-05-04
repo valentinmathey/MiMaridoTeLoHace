@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,6 +24,8 @@ public class Work {
     
     private String workName;
     private String workDescription;
+
+    @Enumerated(EnumType.STRING)
     private WorkStatus workStatus;
     
     @ManyToOne
