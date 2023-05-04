@@ -1,8 +1,8 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
+import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ import com.egg.MiMaridoTeLoHace.Services.WorkService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.UserRepository;
+import com.egg.MiMaridoTeLoHace.Repositories.WorkRepository;
 
 @Controller
 @RequestMapping("/work")
@@ -31,35 +31,51 @@ public class WorkController {
     WorkService workService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    WorkRepository workRepository;
 
     @GetMapping("/create")
-    public String create(@RequestParam(value = "applicationType", required = false) String applicationType, @RequestParam(value="idProvider") String idProvider, User user, ModelMap model) {
+    public String create(@RequestParam(value = "applicationType", required = false) String applicationType,
+            @RequestParam(value = "idProvider") String idProvider, User user, ModelMap model) {
         model.addAttribute("applicationType", applicationType);
         model.addAttribute("idProvider", idProvider);
-        model.addAttribute("user", user);
         model.addAttribute("work", new Work());
         return "registerWork";
     }
 
     @PostMapping("/create")
-    public String createCheck(@ModelAttribute Work work, @RequestParam("idProvider") String idProvider, HttpSession customerSession) throws MiException {
-        
+    public String createCheck(@ModelAttribute Work work, @RequestParam("idProvider") String idProvider,
+            HttpSession customerSession) throws MiException {
+
         User user = (User) customerSession.getAttribute("userSession");
         Optional<User> customer = userRepository.findById(user.getId());
         work.setUserCustomerId(customer.get());
 
         Optional<User> provider = userRepository.findById(idProvider);
         work.setUserProviderId(provider.get());
-        
+
         workService.createWork(work);
-        
+
         return "redirect:/home";
     }
 
-    @GetMapping("/works") // mostrar el trabajo
-    public String showWorks(@RequestParam(value = "id", required = false) String id, ModelMap model) {
-        //model.addAttribute("work", workService.getById(id));
-        return "worksUser"; 
+    @GetMapping("/works")
+    public String showWorks(HttpSession session, ModelMap model) {
+
+        User user = (User) session.getAttribute("userSession");
+        Optional<User> userSearch = userRepository.findById(user.getId());
+
+        if (user.getRole().toString().equals("PROVIDER")) {
+        List<Work> providersWorkList = workRepository.getWorkByUserProvider(userSearch.get());
+        model.addAttribute("providerWorkList", providersWorkList);
+        return "worksUser";
+        } else if (user.getRole().toString().equals("CUSTOMER")) {
+
+        List<Work> customersWorkList = workRepository.getWorkByUserCustomer(userSearch.get());
+        model.addAttribute("customerWorkList", customersWorkList);
+        return "worksUser";
+        }
+        return null;
     }
 
     @PostMapping("/work/mod") // editarlo

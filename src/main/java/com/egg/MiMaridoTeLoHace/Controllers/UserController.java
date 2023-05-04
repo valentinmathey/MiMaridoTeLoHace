@@ -97,7 +97,18 @@ public class UserController {
         }
         return "redirect:/#";
     }
-
+    
+    @Transactional
+    @PostMapping("/perfil/{id}/role")
+    public String editRole(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
+        User user = userService.getById(id);
+        User sessionUser = (User) session.getAttribute("userSession");
+        if (sessionUser != null && sessionUser.getRole().equals(Roles.ADMIN)) {
+                userService.updateRole(user);
+        }
+        return "redirect:/admin/dashboard";
+    }
+    
     @Transactional
     @PostMapping("/perfil/{id}/del")
     public String delete(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {

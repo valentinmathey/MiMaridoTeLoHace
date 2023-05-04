@@ -116,6 +116,16 @@ public class UserService implements UserDetailsService {
             throw new MiException("ERROR al borrar USUARIO!");
         }
     }
+    
+    @Transactional
+    public void updateRole(User user) throws MiException {
+        if (user != null && user.getRole().equals("PROVIDER")) {
+            user.setRole(Roles.CUSTOMER);
+        } else if (user != null && user.getRole().equals("CUSTOMER")){
+            user.setRole(Roles.PROVIDER);
+        }
+        userRepository.save(user);
+    }
 
     public User getById(String id) throws MiException {
         try {
