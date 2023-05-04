@@ -4,6 +4,8 @@ import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +60,5 @@ public class WorkService {
     public Work getById(String id) {
         return workRepository.findById(id).get();
     }
+
 }
