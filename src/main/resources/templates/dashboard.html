@@ -58,7 +58,7 @@
       </thead>
       <tbody th:each="se : ${se}">
         <tr>
-          <td><img class="profilePic" th:src="@{'/image/DB/' + ${se.image}}"></td>
+          <td><img class="profilePic img-fluid rounded" th:src="@{'/image/DB/' + ${se.image}}"></td>
           <td th:text="${se.name}"></td>
           <td th:text="${se.lastname}"></td>
           <td th:text="${se.email}"></td>
@@ -89,7 +89,7 @@
       </thead>
       <tbody th:each="u : ${users}">
         <tr>
-          <td><img class="profilePic" th:src="@{'/image/DB/' + ${u.image}}"></td>
+          <td><img class="profilePic img-fluid rounded" th:src="@{'/image/DB/' + ${u.image}}"></td>
           <td th:text="${u.name}"></td>
           <td th:text="${u.lastname}"></td>
           <td th:text="${u.email}"></td>

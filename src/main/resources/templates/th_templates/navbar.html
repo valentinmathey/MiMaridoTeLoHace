@@ -19,13 +19,24 @@
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"
-            sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROL_PROVIDER') OR hasRole('ROL_NULL')">
+            sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER') OR hasRole('ROLE_NULL')">
             <a class="nav-link" href="#">¿Quiénes somos?</a>
           </li>
 
-          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-              th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">🧰 Servicios</a>
+          <li class="nav-item" sec:authorize="hasRole('ROLE_PROVIDER')">
+            <a href="/work/works" class="nav-link" role="button" aria-expanded="false">
+              Mis Trabajos 🛠️
+            </a>
+          </li>
+
+          <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <a href="/work/works" class="nav-link" role="button" aria-expanded="false">
+              Mis Solicitudes 📝
+            </a>
+          </li>
+
+          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER')">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">🧰 Servicios</a>
             <ul class="dropdown-menu">
 
               <li><a class="dropdown-item" href="/search?profession=ALBAÑIL">🧱
@@ -107,7 +118,7 @@
               <span class="user-name" th:text="${session.userSession.name}"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" th:href="@{/user/perfil/{id}(id=${session.userSession.id})}">Editar
+              <li><a class="dropdown-item" th:href="@{/user/perfil/{id}(id=${session.userSession.id})}">Mi
                   Perfil</a></li>
               <li>
                 <hr class="dropdown-divider">

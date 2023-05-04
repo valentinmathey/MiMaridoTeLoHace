@@ -36,10 +36,10 @@ public class WorkController {
         return "redirec:/home";
     }
 
-    @GetMapping("/work") // mostrar el trabajo
-    public String showWork(@RequestParam("id") String id, ModelMap model) {
-        model.addAttribute("work", workService.getById(id));
-        return "work.html"; // el html todavio no existe?
+    @GetMapping("/works") // mostrar el trabajo
+    public String showWorks(@RequestParam(value = "id", required = false) String id, ModelMap model) {
+        //model.addAttribute("work", workService.getById(id));
+        return "worksUser"; 
     }
 
     @PostMapping("/work/mod") // editarlo

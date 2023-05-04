@@ -121,3 +121,9 @@
 .highlight {
   background-color: #f1c057;
 }
+
+/* large Card */
+.large-card {
+  width: 100%;
+  height: 200px;
+}
