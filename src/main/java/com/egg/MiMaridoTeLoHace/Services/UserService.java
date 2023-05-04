@@ -119,9 +119,17 @@ public class UserService implements UserDetailsService {
     
     @Transactional
     public void updateRole(User user) throws MiException {
-        if (user != null && user.getRole().equals("PROVIDER")) {
+        if (user != null && user.getRole().name().equals("ADMIN")) {
+            user.setRole(Roles.ADMIN);
+            
+        } else if (user != null && user.getRole().name().equals("PROVIDER")) {
+            user.setProfession(null);
+            user.setPhone("");
+            user.setRating(0);
+            user.setDescription("");
             user.setRole(Roles.CUSTOMER);
-        } else if (user != null && user.getRole().equals("CUSTOMER")){
+            
+        } else if (user != null && user.getRole().name().equals("CUSTOMER")){
             user.setRole(Roles.PROVIDER);
         }
         userRepository.save(user);
