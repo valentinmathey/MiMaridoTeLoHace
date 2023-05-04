@@ -18,14 +18,18 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findByRole(@Param("role") Roles role);
 
     // provider
-    @Query("SELECT u FROM User u WHERE u.profession = :profession AND  u.role = 'PROVIDER' AND u.alta = true ORDER BY u.rating ASC")
+    @Query("SELECT u FROM User u WHERE u.role = 'PROVIDER' AND u.alta = true ORDER BY u.rating DESC")
+    List<User> AllProviderAlta();
+
+    @Query("SELECT u FROM User u WHERE u.role = 'PROVIDER' AND u.alta = true AND  u.profession = :profession ORDER BY u.rating DESC")
     List<User> searchByProfessionAlta(@Param("profession") Professions profession);
 
-    @Query("SELECT u FROM User u WHERE u.role = 'PROVIDER' AND u.alta = true ORDER BY u.rating ASC")
-    List<User> searchByAllProfessionAlta();
+    @Query("SELECT u FROM User u WHERE u.role = 'PROVIDER' AND u.alta = TRUE AND (u.name LIKE %:search% OR u.lastname LIKE %:search% OR u.profession LIKE %:search% OR u.email LIKE %:search%) ORDER BY u.rating DESC")
+    List<User> searchByAllAltaFiltro(@Param("search") String search);
 
-    @Query("SELECT u FROM User u WHERE u.name LIKE %:search% OR u.lastname LIKE %:search% OR u.profession LIKE %:search% OR u.email LIKE %:search% AND u.role = 'PROVIDER' AND u.alta = true ORDER BY u.rating ASC")
-    List<User> searchByAllProfessionAltaFiltro(@Param("search") String search);
+    @Query("SELECT u FROM User u WHERE u.role = 'PROVIDER' AND u.alta = TRUE AND u.profession = :profession AND (u.name LIKE %:search% OR u.lastname LIKE %:search% OR u.profession LIKE %:search% OR u.email LIKE %:search%) ORDER BY u.rating DESC")
+    List<User> searchByAllProfessionAltaFiltro(@Param("profession") Professions profession,
+            @Param("search") String search);
 
     // end provider
     @Query("SELECT u FROM User u WHERE u.name = :name")

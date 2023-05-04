@@ -150,14 +150,47 @@ public class UserService implements UserDetailsService {
         return providersList;
     }
 
-    public List<User> searchByProfessionAlta(Professions professions) throws MiException {
-
-        return userRepository.searchByProfessionAlta(professions);
+    public List<User> AllProviderAlta() throws MiException {
+        try {
+            return userRepository.AllProviderAlta();
+        } catch (Exception e) {
+            throw new MiException("ERROR AL CARGAR LOS PROVIDERS");
+        }
     }
 
-    public List<User> searchByAllProfessionAlta() throws MiException {
+    public List<User> ProfessionAlta(Professions professions) throws MiException {
+        try {
+            List<User> searchItems = null;
 
-        return userRepository.searchByAllProfessionAlta();
+            searchItems = userRepository.searchByProfessionAlta(professions);
+            
+            return searchItems;
+        } catch (Exception e) {
+            throw new MiException("ERROR AL CARGAR LOS PROVIDERS DE LA PROFESION: " + professions.name());
+        }
+    }
+
+    public List<User> AllProfessionAltaFiltro(Professions professions, String search) throws MiException {
+        try {
+            List<User> searchItems = null;
+            for (Professions profession : Professions.values()) {
+                searchItems = userRepository.searchByAllProfessionAltaFiltro(profession, search);
+            }
+            return searchItems;
+        } catch (Exception e) {
+            throw new MiException("ERROR AL CARGAR LOS PROVIDERS DE LA PROFESION: " + professions.name()
+                    + ", CON EL FILTRO: " + search);
+        }
+    }
+
+    public List<User> AllAltaFiltro(String search) throws MiException {
+        try {
+            List<User> searchItems = null;
+                searchItems = userRepository.searchByAllAltaFiltro(search);
+            return searchItems;
+        } catch (Exception e) {
+            throw new MiException("ERROR AL CARGAR LOS PROVIDERS CON EL FILTRO: " + search);
+        }
     }
 
     @Transactional

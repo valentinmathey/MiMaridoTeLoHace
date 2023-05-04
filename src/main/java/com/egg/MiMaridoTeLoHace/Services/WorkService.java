@@ -1,8 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Services;
 
 import com.egg.MiMaridoTeLoHace.Entities.Work;
-import com.egg.MiMaridoTeLoHace.Entities.User;
-import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 
 import javax.transaction.Transactional;

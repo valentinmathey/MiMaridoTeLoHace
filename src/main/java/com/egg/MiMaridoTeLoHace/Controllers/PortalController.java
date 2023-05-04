@@ -59,18 +59,35 @@ public class PortalController {
     }
 
     @GetMapping("/search")
-    public String showProviders(@RequestParam("profession") String profession, ModelMap model)
+    public String showProviders(@RequestParam("profession") String profession,
+            @RequestParam(name = "st", required = false) String search, ModelMap model)
             throws MiException {
+
         List<User> searchReturn = null;
-        if (profession == "") {
-            searchReturn = userService.searchByAllProfessionAlta();
-        } else {
+        if (profession == "" && search == "") {
+            searchReturn = userService.AllProviderAlta();
+
+        } else if (profession == "" && search != "") {
+            searchReturn = userService.AllAltaFiltro(search);
+
+        } else if (profession != "" && search == "") {
             for (Professions professions : Professions.values()) {
                 if (professions.name().equals(profession)) {
-                    searchReturn = userService.searchByProfessionAlta(professions);
+                    System.out.println("hubo coincidencias con la profecion: " + professions.name());
+                    searchReturn = userService.ProfessionAlta(professions);
+                    break;
+                }
+            }
+
+        } else if (profession != "" && search != "") {
+            for (Professions professions : Professions.values()) {
+                if (professions.name().equals(profession)) {
+                    searchReturn = userService.AllProfessionAltaFiltro(professions, search);
+                    break;
                 }
             }
         }
+        model.addAttribute("professions", Professions.values());
         model.addAttribute("searchReturn", searchReturn);
         return "provider";
     }
