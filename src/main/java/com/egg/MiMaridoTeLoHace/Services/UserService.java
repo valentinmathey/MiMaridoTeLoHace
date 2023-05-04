@@ -38,7 +38,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     ImageService imageService;
 
-    // ---- Service USER ------ (Se usara para crear, modificar y borrar Customers y Providers)
+    // ---- Service USER ------ (Se usara para crear, modificar y borrar Customers y
+    // Providers)
     @Transactional
     public void createUser(User user) throws MiException {
 
@@ -52,7 +53,7 @@ public class UserService implements UserDetailsService {
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);
-                //agregado el raiting temporal
+                // agregado el raiting temporal
                 user.setRating((int) Math.round(Math.random() * 5)); // uso hasta tener reviews
                 image = imageService.GetByName("provider-avatar.png");
             }
@@ -60,12 +61,11 @@ public class UserService implements UserDetailsService {
             imageService.Save(image);
             user.setImage(image.getId());
             user.setAlta(true);
-            //eric: agregada Subscription date de forma global
+            // eric: agregada Subscription date de forma global
             user.setSubscription(new Date(System.currentTimeMillis()));
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
             userRepository.save(user);
-
 
         } catch (Exception e) {
             throw new MiException("Error al crear USER!");
@@ -74,11 +74,11 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User modifyUser(String id, User user, Image image) throws MiException {
-        //eric: metodo reecho
+        // eric: metodo reecho
         try {
             User originalUser = userRepository.findById(id).get();
 
-            if (image != null){
+            if (image != null) {
                 imageService.Delete(originalUser.getImage());
                 imageService.Save(image);
                 originalUser.setImage(image.getId());
@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
             originalUser.setName(user.getName());
             originalUser.setLastname(user.getLastname());
 
-            if(user.getPassword() != null){
+            if (user.getPassword() != null) {
                 originalUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             }
 
@@ -100,13 +100,14 @@ public class UserService implements UserDetailsService {
             return originalUser;
 
         } catch (Exception e) {
-            throw new MiException("ERROR al modificar USUARIO " + user.getName() + " " + user.getLastname() + ". \n error: " + e.getMessage());
+            throw new MiException("ERROR al modificar USUARIO " + user.getName() + " " + user.getLastname()
+                    + ". \n error: " + e.getMessage());
         }
     }
 
     @Transactional
     public void deleteUser(String id) throws MiException {
-        //eric: metodo reecho
+        // eric: metodo reecho
         try {
             User originalUser = userRepository.findById(id).get();
             originalUser.setAlta(false);
@@ -115,6 +116,7 @@ public class UserService implements UserDetailsService {
             throw new MiException("ERROR al borrar USUARIO!");
         }
     }
+
     public User getById(String id) throws MiException {
         try {
             return userRepository.findById(id).get();
@@ -122,6 +124,7 @@ public class UserService implements UserDetailsService {
             throw new MiException("Usuario no encontrado");
         }
     }
+
     public User getByEmail(String email) throws MiException {
         try {
             return userRepository.searchByEmail(email);
@@ -147,14 +150,14 @@ public class UserService implements UserDetailsService {
         return providersList;
     }
 
-    @Transactional
-    public List<User> searchByProfessionAlta(String professions) throws MiException {
-        for (Professions pr : Professions.values()) {
-            if (pr.name().equals(professions)) {
-                return userRepository.searchByProfessionAlta(pr);
-            }
-        }
-        return null;
+    public List<User> searchByProfessionAlta(Professions professions) throws MiException {
+
+        return userRepository.searchByProfessionAlta(professions);
+    }
+
+    public List<User> searchByAllProfessionAlta() throws MiException {
+
+        return userRepository.searchByAllProfessionAlta();
     }
 
     @Transactional

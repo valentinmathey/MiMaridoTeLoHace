@@ -59,18 +59,19 @@ public class PortalController {
     }
 
     @GetMapping("/search")
-    public String showProviders(@RequestParam("profession") String profession, ModelMap model) throws MiException {
+    public String showProviders(@RequestParam("profession") String profession, ModelMap model)
+            throws MiException {
         List<User> searchReturn = null;
-        for (Professions professions : Professions.values()) {
-            if (professions.name().equals(profession)) {
-                searchReturn = userService.searchByProfessionAlta(professions.name());
+        if (profession == "") {
+            searchReturn = userService.searchByAllProfessionAlta();
+        } else {
+            for (Professions professions : Professions.values()) {
+                if (professions.name().equals(profession)) {
+                    searchReturn = userService.searchByProfessionAlta(professions);
+                }
             }
         }
-        if (!searchReturn.isEmpty()) {
-            model.addAttribute("searchReturn", searchReturn);
-            return "provider";
-        } else {
-            return "redirect:/home";
-        }
+        model.addAttribute("searchReturn", searchReturn);
+        return "provider";
     }
 }
