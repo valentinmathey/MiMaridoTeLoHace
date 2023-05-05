@@ -53,7 +53,7 @@ public class PortalController {
         return "index";
     }
 
-    @GetMapping("about")
+    @GetMapping("/about")
     public String about() {
         return "about";
     }
