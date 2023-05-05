@@ -4,7 +4,7 @@ import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -15,7 +15,6 @@ import com.egg.MiMaridoTeLoHace.Repositories.WorkRepository;
 @Service
 public class WorkService {
     // pruebas con reviews
-
     @Autowired
     WorkRepository workRepository;
 
@@ -29,28 +28,29 @@ public class WorkService {
 
             work.setWorkStatus(WorkStatus.REQUIRED);
             workRepository.save(work);
-            
+
         } catch (Exception e) {
             throw new MiException("ERROR al generar solicitud de trabajo");
         }
     }
 
-    @Transactional
-    public void editReview(Work work) {
-        Work original = getById(work.getId());
+    //--------------------------------- EVALUAR SI LO VAMOS A USAR DESDE ADMIN ---------------------------------
+    // @Transactional
+    // public void editReview(Work work) {
+    //     Work original = getById(work.getId());
 
-        if (original.getWorkStatus().name().equals("DONE")) {
-            original.setRatingWork(work.getRatingWork());
-            original.setReview(work.getReview());
-        } else {
-            if (work.getWorkStatus().name().equals("DONE")) {
-                original.setWorkStatus(WorkStatus.DONE);
-            } else if (work.getWorkStatus().name().equals("ACCEPTED")) {
-                original.setWorkStatus(WorkStatus.ACCEPTED);
-            }
-        }
-        workRepository.save(original);
-    }
+    //     if (original.getWorkStatus().name().equals("REVIEWD")) {
+    //         original.setRatingWork(work.getRatingWork());
+    //         original.setReview(work.getReview());
+    //     } else {
+    //         if (work.getWorkStatus().name().equals("REVIEWD")) {
+    //             original.setWorkStatus(WorkStatus.DONE);
+    //         } else if (work.getWorkStatus().name().equals("DONE")) {
+    //             original.setWorkStatus(WorkStatus.ACCEPTED);
+    //         }
+    //     }
+    //     workRepository.save(original);
+    // }
 
     @Transactional
     public void delete(String id) {
@@ -59,6 +59,23 @@ public class WorkService {
 
     public Work getById(String id) {
         return workRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void changeWorkStatus(String id, String wStat) throws MiException{
+        
+        try {
+            
+            Optional<Work> work = workRepository.findById(id);
+            if (work.isPresent() && wStat.equals("REVERT") || wStat.equals("ACCEPTED") || wStat.equals("DONE")) {
+                Work newWorkStatus = work.get();
+                newWorkStatus.setWorkStatus(WorkStatus.valueOf(wStat)); 
+            }
+
+        } catch (Exception e) {
+            throw new MiException("ERROR AL MODIFICAR WORK STATUS");
+        }
+
     }
 
 }
