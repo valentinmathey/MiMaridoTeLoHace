@@ -31,9 +31,11 @@
           <h4>Busqueda: </h4>
         </div>
         <div class="col">
-          <input oninput="validateInput()" type="text" name="search" id="search" placeholder="nombre, apellido, email, profesión">
+          <input oninput="validateInput()" type="text" name="search" id="search"
+            placeholder="nombre, apellido, email, profesión">
         </div>
-        <div id="search-button" class="col"><button type="submit" class="btn btn-warning button" disabled>🔎 BUSCAR</button>
+        <div id="search-button" class="col"><button type="submit" class="btn btn-warning button" disabled>🔎
+            BUSCAR</button>
         </div>
       </div>
     </form>
@@ -95,7 +97,11 @@
           <td th:text="${u.email}"></td>
           <td th:text="${u.profession}"></td>
           <td th:text="${u.role}" class="td-role"></td>
-          <td><a th:href="@{/user/perfil/__${u.id}__/role}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <form method="POST" th:action="@{/user/perfil/__${u.id}__/role}">
+            <td>
+              <button type="submit"><i class="bi bi-person-circle"></i> Cambiar Rol</button>
+            </td>
+          </form>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
         </tr>

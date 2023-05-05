@@ -18,9 +18,8 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"
-            sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER') OR hasRole('ROLE_NULL')">
-            <a class="nav-link" href="#">¿Quiénes somos?</a>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">¿Quiénes somos?</a>
           </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_PROVIDER')">
