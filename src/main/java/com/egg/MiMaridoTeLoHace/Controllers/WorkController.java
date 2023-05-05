@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Entities.Work;
+import com.egg.MiMaridoTeLoHace.Enums.WorkStatus;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.UserRepository;
 import com.egg.MiMaridoTeLoHace.Repositories.WorkRepository;
@@ -35,61 +36,80 @@ public class WorkController {
     WorkRepository workRepository;
 
     @GetMapping("/create")
-    public String create(@RequestParam(value = "applicationType", required = false) String applicationType,
-            @RequestParam(value = "idProvider") String idProvider, User user, ModelMap model) {
-        model.addAttribute("applicationType", applicationType);
-        model.addAttribute("idProvider", idProvider);
-        model.addAttribute("work", new Work());
-        return "registerWork";
+    public String create(@RequestParam("applicationType") String applicationType,
+            @RequestParam(value = "idProvider", required = false) String idProvider,
+            @RequestParam(value = "idWork", required = false) String idWork, User user, ModelMap model) {
+
+        if (applicationType.equals("review")) {
+            Optional<Work> work = workRepository.findById(idWork);
+            if (work.isPresent()) {
+                Work workReview = work.get();
+                model.addAttribute("workReview", workReview);
+                model.addAttribute("applicationType", applicationType);
+                model.addAttribute("idWork", workReview.getId());
+                return "registerWork";
+            }
+        } else if (applicationType.equals("work")) {
+            model.addAttribute("applicationType", applicationType);
+            model.addAttribute("idProvider", idProvider);
+            model.addAttribute("work", new Work());
+            return "registerWork";
+        }
+        return null;
     }
 
     @PostMapping("/create")
-    public String createCheck(@ModelAttribute Work work, @RequestParam("idProvider") String idProvider,
+    public String createCheck(@ModelAttribute Work work,
+            @RequestParam(value = "idProvider", required = false) String idProvider,
+            @RequestParam(value = "idWork", required = false) String idWork,
             HttpSession customerSession) throws MiException {
 
-        User user = (User) customerSession.getAttribute("userSession");
-        Optional<User> customer = userRepository.findById(user.getId());
-        work.setUserCustomerId(customer.get());
+        if (idProvider == null && idWork != null) {
+            Optional<Work> workConsult = workRepository.findById(idWork);
+            if (workConsult.isPresent()) {
+                Work workUpdate = workConsult.get();
+                workUpdate.setReview(work.getReview());
+                workUpdate.setRatingWork(work.getRatingWork());
+                workUpdate.setWorkStatus(WorkStatus.REVIEWD);
 
-        Optional<User> provider = userRepository.findById(idProvider);
-        work.setUserProviderId(provider.get());
+                workRepository.save(workUpdate);
+            }
 
-        workService.createWork(work);
+            return "redirect:/home";
+        } else {
+            User user = (User) customerSession.getAttribute("userSession");
+            Optional<User> customer = userRepository.findById(user.getId());
+            work.setUserCustomerId(customer.get());
 
-        return "redirect:/home";
+            Optional<User> provider = userRepository.findById(idProvider);
+            work.setUserProviderId(provider.get());
+
+            workService.createWork(work);
+
+            return "redirect:/home";
+        }
+
     }
 
-    @GetMapping("/works")
-    public String showWorks(HttpSession session, ModelMap model) {
+    @GetMapping("/worksList")
+    public String worksList(@RequestParam(value="idWork", required=false) String id, @RequestParam(value="wStat", required=false) String wStat, HttpSession session, ModelMap model) throws MiException {
+
+        if (id != null && wStat != null) {
+            workService.changeWorkStatus(id, wStat);
+        }
 
         User user = (User) session.getAttribute("userSession");
         Optional<User> userSearch = userRepository.findById(user.getId());
 
         if (user.getRole().toString().equals("PROVIDER")) {
-        List<Work> providersWorkList = workRepository.getWorkByUserProvider(userSearch.get());
-        model.addAttribute("providerWorkList", providersWorkList);
-        return "worksUser";
+            List<Work> providersWorkList = workRepository.getWorkByUserProvider(userSearch.get());
+            model.addAttribute("providerWorkList", providersWorkList);
+            return "worksUser";
         } else if (user.getRole().toString().equals("CUSTOMER")) {
-
-        List<Work> customersWorkList = workRepository.getWorkByUserCustomer(userSearch.get());
-        model.addAttribute("customerWorkList", customersWorkList);
-        return "worksUser";
+            List<Work> customersWorkList = workRepository.getWorkByUserCustomer(userSearch.get());
+            model.addAttribute("customerWorkList", customersWorkList);
+            return "worksUser";
         }
-        return null;
-    }
-
-    @PostMapping("/work/mod") // editarlo
-    public String editWorkReview(@RequestParam("id") String id, ModelMap model) {
-        // tanto los cambios realizados por el provider(start, finish) como los del
-        // customer(rating, review) son realizados en editReview
-        // seguramente se ajuste al traer datos del front
-        workService.editReview(workService.getById(id));
-        return "redirect:/home"; // el html todavio no existe?
-    }
-
-    @PostMapping("/work/del") // borrarlo
-    public String deleteWorkReview(@RequestParam("id") String id) {
-        workService.delete(id);
         return "redirect:/home";
     }
 }

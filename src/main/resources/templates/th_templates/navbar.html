@@ -23,18 +23,18 @@
           </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_PROVIDER')">
-            <a href="/work/works" class="nav-link" role="button" aria-expanded="false">
+            <a href="/work/worksList" class="nav-link" role="button" aria-expanded="false">
               Mis Trabajos 🛠️
             </a>
           </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <a href="/work/works" class="nav-link" role="button" aria-expanded="false">
+            <a href="/work/worksList" class="nav-link" role="button" aria-expanded="false">
               Mis Solicitudes 📝
             </a>
           </li>
 
-          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER')">
+          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER')">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">🧰 Servicios</a>
             <ul class="dropdown-menu">
 
