@@ -22,48 +22,61 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <h1 class="big-title">Solicita un trabajo!</h1>
+                    <h1 th:if="${#strings.contains(applicationType, 'work')}" class="big-title">Solicita un trabajo!
+                    </h1>
+                    <h1 th:if="${#strings.contains(applicationType, 'review')}" class="big-title">Deja tu calificación!
+                    </h1>
                 </div>
             </div>
         </div>
 
         <!-- FORMS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
         <div id="form-container" class="form-display">
-            <form id="work-form" method="post" th:action="@{/work/create(idProvider=${idProvider})}" th:object="${work}"
-                th:if="${#strings.equals(applicationType, 'work')}">
+            <div th:if="${#strings.equals(applicationType, 'work')}">
+                <form id="work-form" method="post" th:action="@{/work/create(idProvider=${{idProvider}})}"
+                    th:object="${work}">
 
-                <div>
-                    <label class="label" for="workName">Resumí en una frase tu solicitud</label>
-                    <input type="text" id="workName" name="workName" maxlength="30" placeholder="..."
-                        th:field="*{workName}" required />
-                </div>
-                <p></p><br>
-                <div id="description-group">
-                    <label class="label" for="description">Describe con detalle el problema</label>
-                    <textarea classs="workDescription" maxlength="500" id="workDescription" name="workDescription"
-                        placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
-                </div>
-                <button id="work-apply" name="workCreate" class="btn btn-warning button btn-form" type="submit">Enviar
-                    Solicitud 📝</button>
-            </form>
+                    <div>
+                        <label class="label" for="workName">Resumí en una frase tu solicitud</label>
+                        <input type="text" id="workName" name="workName" maxlength="30" placeholder="..."
+                            th:field="*{workName}" required />
+                    </div>
+                    <p></p><br>
+                    <div id="description-group">
+                        <label class="label" for="description">Describe con detalle el problema</label>
+                        <textarea class="workDescription" maxlength="500" id="workDescription" name="workDescription"
+                            placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
+                    </div>
+                    <button id="work-apply" name="workCreate" class="btn btn-warning button btn-form"
+                        type="submit">Enviar
+                        Solicitud 📝</button>
+                </form>
+            </div>
 
-            <form id="review-form" action="post" th:object="${work}"
-                th:if="${#strings.equals(applicationType, 'review')}">
-                <div id="review-group">
-                    <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio brindado
-                        por parte del proveedor</label>
-                    <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
-                        th:field="*{review}"></textarea>
-                </div>
-                <p></p><br>
-                <div id="rating-group">
-                    <p>Calificación</p>
-                    <input type="range" id="range-slider" min="1" max="5" value="1" th:field="*{ratingWork}" required>
-                    <p id="range-value"></p>
-                </div>
+            <div th:if="${#strings.equals(applicationType, 'review')}">
+                <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}" th:object="${workReview}">
+                    <div id="review-group">
+                        <p th:text="${idWork}"></p>
+                        <p th:text="${workReview.ratingWork}"></p>
+                        <p th:text="${idProvider}"></p>
+                        <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio
+                            brindado
+                            por parte del proveedor</label>
+                        <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
+                            th:field="*{review}"></textarea>
+                    </div>
+                    <p></p><br>
+                    <div id="rating-group">
+                        <p>Calificación</p>
+                        <input type="range" id="range-slider" min="1" max="5" value="1" th:field="*{ratingWork}"
+                            required>
+                        <p id="range-value"></p>
+                    </div>
 
-                <button id="work-apply" type="" class="btn btn-warning button btn-form">Enviar Calificación📝</button>
-            </form>
+                    <button id="review-apply" type="submit" class="btn btn-warning button btn-form">Enviar
+                        Calificación📝</button>
+                </form>
+            </div>
         </div>
     </main>
 
@@ -91,14 +104,6 @@
                 rangeValue.textContent = ("EXCELENTE ⭐⭐⭐⭐⭐");
         });
     </script>
-
-    <!-- Script for catch the value of the Provider ID and assign it to the submit button of the form  -->
-    <!-- <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const idProvider = urlParams.get('idProvider');
-
-        document.getElementById('work-apply').setAttribute('data-value', idProvider);
-    </script> -->
 
     <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <footer th:replace="th_templates/footer :: footer"></footer>
