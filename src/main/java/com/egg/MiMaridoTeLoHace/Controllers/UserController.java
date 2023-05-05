@@ -87,9 +87,42 @@ public class UserController {
                 }
 
                 if (user.getId().equals(sessionUser.getId())) {
-                    session.setAttribute("userSession", userService.modifyUser(id, user, image));
+                    session.setAttribute("userSession", userService.modifyUser(id, user, image, false));
                 } else { // eric: solo modifica el user
-                    userService.modifyUser(id, user, image);
+                    userService.modifyUser(id, user, image, false);
+                }
+            }
+        } catch (MiException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/#";
+    }
+
+    @Transactional
+    @PostMapping(value = "/perfil/{id}/change", consumes = "multipart/form-data")
+    public String editModify(@PathVariable("id") String id, @ModelAttribute User user,
+            @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
+
+        try {
+            User sessionUser = (User) session.getAttribute("userSession");
+            if (user != null && sessionUser != null
+                    && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
+
+                Image image = null;
+                if (!archivo.isEmpty()) {
+                    image = imageConverter.convert(archivo);
+                }
+
+                if (user.getId().equals(sessionUser.getId())) {
+                    if (sessionUser.getRole().name().equals("CUSTOMER")) {
+                        user.setRating(0);
+                        user.setRole(Roles.PROVIDER);
+                    } else if (sessionUser.getRole().name().equals("PROVIDER")) {
+                        user.setRole(Roles.CUSTOMER);
+                    }
+                    session.setAttribute("userSession", userService.modifyUser(id, user, image, true));
+                } else { 
+                    userService.modifyUser(id, user, image, true);
                 }
             }
         } catch (MiException e) {

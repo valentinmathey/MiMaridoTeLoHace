@@ -73,10 +73,19 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User modifyUser(String id, User user, Image image) throws MiException {
-        // eric: metodo reecho
+    public User modifyUser(String id, User user, Image image, boolean change) throws MiException {
         try {
             User originalUser = userRepository.findById(id).get();
+
+            if(originalUser.getRole() != user.getRole() && change){
+                originalUser.setRole(user.getRole());
+
+                if(originalUser.getRole().equals(Roles.CUSTOMER)){
+                    originalUser.setDescription(null);
+                    originalUser.setProfession(null);
+                    originalUser.setPhone(null);
+                }
+            }
 
             if (image != null) {
                 imageService.Delete(originalUser.getImage());
@@ -84,8 +93,10 @@ public class UserService implements UserDetailsService {
                 originalUser.setImage(image.getId());
             }
             if (originalUser.getRole().equals(Roles.PROVIDER)) {
-                originalUser.setDescription(user.getDescription());
+                if(!user.getDescription().isEmpty()){
+                    originalUser.setDescription(user.getDescription());}
                 originalUser.setProfession(user.getProfession());
+                originalUser.setPhone(user.getPhone());
             }
             originalUser.setName(user.getName());
             originalUser.setLastname(user.getLastname());
@@ -93,9 +104,6 @@ public class UserService implements UserDetailsService {
             if (user.getPassword() != null) {
                 originalUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             }
-
-            originalUser.setPhone(user.getPhone());
-
             userRepository.save(originalUser);
             return originalUser;
 
@@ -181,7 +189,7 @@ public class UserService implements UserDetailsService {
             List<User> searchItems = null;
 
             searchItems = userRepository.searchByProfessionAlta(professions);
-            
+
             return searchItems;
         } catch (Exception e) {
             throw new MiException("ERROR AL CARGAR LOS PROVIDERS DE LA PROFESION: " + professions.name());
@@ -204,7 +212,7 @@ public class UserService implements UserDetailsService {
     public List<User> AllAltaFiltro(String search) throws MiException {
         try {
             List<User> searchItems = null;
-                searchItems = userRepository.searchByAllAltaFiltro(search);
+            searchItems = userRepository.searchByAllAltaFiltro(search);
             return searchItems;
         } catch (Exception e) {
             throw new MiException("ERROR AL CARGAR LOS PROVIDERS CON EL FILTRO: " + search);
