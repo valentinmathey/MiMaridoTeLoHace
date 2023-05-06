@@ -26,17 +26,20 @@
     <!-- FORM SEARCH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
     <form method="post" id="search-form" action="/admin/search">
-      <div class="row">
-        <div class="col">
+      <div class="row align-items-center">
+        <div class="col-2 order-first">
           <h4>Busqueda: </h4>
         </div>
-        <div class="col">
+        <div class="col-6">
           <input oninput="validateInput()" type="text" name="search" id="search"
             placeholder="nombre, apellido, email, profesión">
         </div>
-        <div id="search-button" class="col"><button type="submit" class="btn btn-warning button" disabled>🔎
+        <div id="search-button" class="col-2"><button type="submit" class="btn btn-warning button" disabled>🔎
             BUSCAR</button>
         </div>
+        <div class="col-2 order-last">
+          <a type="submit" href="/admin/dashboard" class="btn btn-warning button" disabled>LIMPIAR BUSQUEDA</a>
+      </div>
       </div>
     </form>
 
@@ -44,29 +47,32 @@
     <table class="table table-dark table-striped" id="table-se">
       <thead>
         <tr>
-          <th colspan="9">
+          <th colspan="11" class="text-center">
             <h4>Resultado de búsqueda</h4>
           </th>
         </tr>
         <tr>
           <th>Foto</th>
+          <th>Alta</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
           <th>Profesión</th>
           <th>Rol</th>
-          <th colspan="3">Acciones</th>
+          <th colspan="4" class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody th:each="se : ${se}">
         <tr>
           <td><img class="profilePic img-fluid rounded" th:src="@{'/image/DB/' + ${se.image}}"></td>
+          <td th:text="${se.alta}"></td>
           <td th:text="${se.name}"></td>
           <td th:text="${se.lastname}"></td>
           <td th:text="${se.email}"></td>
           <td th:text="${se.profession}"></td>
           <td th:text="${se.role}" class="td-role"></td>
-          <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__/role}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__/alta}"><i class="bi bi-pencil-square"></i> Cambiar Alta</a></td>
           <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
         </tr>
@@ -75,33 +81,32 @@
     <table class="table table-dark table-striped" id="table" style="display: none">
       <thead>
         <tr>
-          <th colspan="9">
+          <th colspan="11" class="text-center">
             <h4>Todos los registros</h4>
           </th>
         </tr>
         <tr>
           <th>Foto</th>
+          <th>Alta</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
           <th>Profesión</th>
           <th>Rol</th>
-          <th colspan="3">Acciones</th>
+          <th colspan="4" class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody th:each="u : ${users}">
         <tr>
           <td><img class="profilePic img-fluid rounded" th:src="@{'/image/DB/' + ${u.image}}"></td>
+          <td th:text="${u.alta}" ></td>
           <td th:text="${u.name}"></td>
           <td th:text="${u.lastname}"></td>
           <td th:text="${u.email}"></td>
           <td th:text="${u.profession}"></td>
           <td th:text="${u.role}" class="td-role"></td>
-          <form method="POST" th:action="@{/user/perfil/__${u.id}__/role}">
-            <td>
-              <button type="submit"><i class="bi bi-person-circle"></i> Cambiar Rol</button>
-            </td>
-          </form>
+          <td><a th:href="@{/user/perfil/__${u.id}__/role}"><i class="bi bi-pen"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__/alta}"><i class="bi bi-pen"></i> Cambiar Alta</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
         </tr>
