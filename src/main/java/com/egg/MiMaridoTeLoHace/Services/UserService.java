@@ -142,6 +142,16 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void updateaAlta(User user) throws MiException {
+        if (user.getAlta()) {
+            user.setAlta(false);
+        }else{
+            user.setAlta(true);
+        }
+        userRepository.save(user);
+    }
+
     public User getById(String id) throws MiException {
         try {
             return userRepository.findById(id).get();
