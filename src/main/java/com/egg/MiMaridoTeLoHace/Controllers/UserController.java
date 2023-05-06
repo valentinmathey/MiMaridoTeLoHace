@@ -1,5 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
+import com.egg.MiMaridoTeLoHace.Converters.ImageConverter;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
@@ -7,7 +8,6 @@ import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
-import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,11 +91,14 @@ public class UserController {
                 } else { // eric: solo modifica el user
                     userService.modifyUser(id, user, image, false);
                 }
+                if(sessionUser.getRole().equals(Roles.ADMIN)){
+                    return "redirect:/admin/dashboard";
+                }
             }
         } catch (MiException e) {
             e.printStackTrace();
         }
-        return "redirect:/#";
+       return "redirect:/home";
     }
 
     @Transactional
@@ -105,30 +108,18 @@ public class UserController {
 
         try {
             User sessionUser = (User) session.getAttribute("userSession");
-            if (user != null && sessionUser != null
-                    && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
-
+            if (user != null && sessionUser != null && (user.getId().equals(sessionUser.getId()))) {
                 Image image = null;
                 if (!archivo.isEmpty()) {
                     image = imageConverter.convert(archivo);
                 }
-
-                if (user.getId().equals(sessionUser.getId())) {
-                    if (sessionUser.getRole().name().equals("CUSTOMER")) {
-                        user.setRating(0);
-                        user.setRole(Roles.PROVIDER);
-                    } else if (sessionUser.getRole().name().equals("PROVIDER")) {
-                        user.setRole(Roles.CUSTOMER);
-                    }
-                    session.setAttribute("userSession", userService.modifyUser(id, user, image, true));
-                } else { 
-                    userService.modifyUser(id, user, image, true);
-                }
+                sessionUser = userService.modifyUser(id, user, image, true);
+                session.setAttribute("userSession", sessionUser);
             }
         } catch (MiException e) {
             e.printStackTrace();
         }
-        return "redirect:/#";
+        return "redirect:/home";
     }
     
     @Transactional

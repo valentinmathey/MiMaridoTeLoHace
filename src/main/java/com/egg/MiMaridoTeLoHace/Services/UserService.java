@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 
             if (user.getProfession() == null) {
                 user.setRole(Roles.CUSTOMER);
-                user.setRating(1);
+                user.setRating(0);
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);
@@ -66,7 +66,6 @@ public class UserService implements UserDetailsService {
             imageService.Save(image);
             user.setImage(image.getId());
             user.setAlta(true);
-            // eric: agregada Subscription date de forma global
             user.setSubscription(new Date(System.currentTimeMillis()));
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
@@ -81,27 +80,35 @@ public class UserService implements UserDetailsService {
     public User modifyUser(String id, User user, Image image, boolean change) throws MiException {
         try {
             User originalUser = userRepository.findById(id).get();
-
-            if(originalUser.getRole() != user.getRole() && change){
-                originalUser.setRole(user.getRole());
-
-                if(originalUser.getRole().equals(Roles.CUSTOMER)){
+            
+            if(change){
+                if (originalUser.getRole().name().equals("CUSTOMER")) {
+                    originalUser.setRating(0);
+                    //eric: asignar nuevo rol
+                    originalUser.setRole(Roles.PROVIDER);
+                    //eric: la descripcion, profession, telefono estan en la linea 100
+                } else if (originalUser.getRole().name().equals("PROVIDER")) { 
                     originalUser.setDescription(null);
                     originalUser.setProfession(null);
                     originalUser.setPhone(null);
+                    originalUser.setRating(0);
+                    //eric: asignar nuevo rol
+                    originalUser.setRole(Roles.CUSTOMER);
                 }
+            }
+
+            if (originalUser.getRole().equals(Roles.PROVIDER)) {
+                if(!user.getDescription().isEmpty()){
+                    originalUser.setDescription(user.getDescription());
+                }
+                originalUser.setProfession(user.getProfession());
+                originalUser.setPhone(user.getPhone());
             }
 
             if (image != null) {
                 imageService.Delete(originalUser.getImage());
                 imageService.Save(image);
                 originalUser.setImage(image.getId());
-            }
-            if (originalUser.getRole().equals(Roles.PROVIDER)) {
-                if(!user.getDescription().isEmpty()){
-                    originalUser.setDescription(user.getDescription());}
-                originalUser.setProfession(user.getProfession());
-                originalUser.setPhone(user.getPhone());
             }
             originalUser.setName(user.getName());
             originalUser.setLastname(user.getLastname());
@@ -213,10 +220,9 @@ public class UserService implements UserDetailsService {
 
     public List<User> AllProfessionAltaFiltro(Professions professions, String search) throws MiException {
         try {
-            List<User> searchItems = null;
-            for (Professions profession : Professions.values()) {
-                searchItems = userRepository.searchByAllProfessionAltaFiltro(profession, search);
-            }
+            
+            List<User> searchItems = userRepository.searchByAllProfessionAltaFiltro(professions, search);
+            
             return searchItems;
         } catch (Exception e) {
             throw new MiException("ERROR AL CARGAR LOS PROVIDERS DE LA PROFESION: " + professions.name()

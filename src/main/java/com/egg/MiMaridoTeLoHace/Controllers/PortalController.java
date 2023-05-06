@@ -83,6 +83,7 @@ public class PortalController {
             for (Professions professions : Professions.values()) {
                 if (professions.name().equals(profession)) {
                     searchReturn = userService.AllProfessionAltaFiltro(professions, search);
+                    System.out.println("profession: " + professions + "\nsearch: " + search);
                     break;
                 }
             }
