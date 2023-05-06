@@ -14,10 +14,8 @@
       <div class="row">
         <div class="col left-col">
 
-          <div id="image-div" class="form-container" th:object="${usuarioActual}">
-            <div class="profile-picture">
-              <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
-            </div>
+          <div id="image-div" th:object="${usuarioActual}">
+            <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
           </div>
 
           <h1 class="big-title">Mi perfil</h1>

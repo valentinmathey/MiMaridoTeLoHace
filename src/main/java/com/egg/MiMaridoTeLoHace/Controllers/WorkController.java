@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.egg.MiMaridoTeLoHace.Services.UserService;
 import com.egg.MiMaridoTeLoHace.Services.WorkService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ public class WorkController {
     UserRepository userRepository;
     @Autowired
     WorkRepository workRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/create")
     public String create(@RequestParam("applicationType") String applicationType,
@@ -73,6 +76,8 @@ public class WorkController {
                 workUpdate.setWorkStatus(WorkStatus.REVIEWD);
 
                 workRepository.save(workUpdate);
+
+                userService.updateRating(workUpdate.getUserProviderId());
             }
 
             return "redirect:/home";

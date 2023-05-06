@@ -41,7 +41,7 @@ public class PortalController {
     public String login(@RequestParam(required = false) String error, Model model) {
 
         if (error != null) {
-            String mssg = "USUARIO O CONTRASEÑA INVALIDOS";
+            String mssg = "Usuario o contraseña invalidos 🚫";
             model.addAttribute("mssg", mssg);
         }
 
