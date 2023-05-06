@@ -47,7 +47,7 @@ public class UserController {
             userService.createUser(user);
             return "redirect:/login";
         } else {
-            model.addAttribute("mssg", "EL EMAIL INGRESADO YA SE ENCUENTRA REGISTRADO");
+            model.addAttribute("mssg", "El email ingresado ya se encuentra registrado!");
             model.addAttribute("professions", Professions.values());
 
             return "registerUser";

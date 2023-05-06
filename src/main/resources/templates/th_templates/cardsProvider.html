@@ -4,8 +4,8 @@
       <div class="card h-100" th:id="'provider-' + ${provider.id}" th:data-id="${provider.id}">
         <img th:src="@{'/image/DB/' + ${provider.image}}" class="card-img-top" alt="profile-provider">
           <div class="card-body">
-              <h5 class="card-title" th:text="${provider.name}"></h5>
-              <p class="card-text" th:text="${provider.description}"></p>
+              <h5 class="card-title" th:text="${provider.name+' '+provider.lastname}"></h5>
+              <p class="card-text" th:text="${provider.profession}"></p>
           </div>
           <div class="card-footer">
               <div th:switch="${provider.rating}">
@@ -14,7 +14,7 @@
                   <small th:case="3" class="text-body-secondary">⭐⭐⭐️️️</small>
                   <small th:case="4" class="text-body-secondary">⭐⭐⭐️⭐️️</small>
                   <small th:case="5" class="text-body-secondary">⭐⭐⭐️⭐️⭐️️</small>
-                  <small th:case="0" class="text-body-secondary">"Todavia sin contratar"️</small>
+                  <small th:case="0" class="text-body-secondary">"Sin Puntuaciones"️</small>
               </div>
           </div>
       </div>

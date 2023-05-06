@@ -14,14 +14,17 @@
         <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
         <div class="container text-center">
-            <!-------------------------------------- ACORDARSE DE REEMPLAZAR IMAGENES -------------------------------->
             <div class="row">
                 <div class="col">
-                    <img class="image3" src="../img/ranking.svg" alt="ranking">
+                    <img th:if="${#strings.contains(applicationType, 'work')}" class="image3"
+                        src="../img/repairHouse.svg" alt="home repair">
+                    <img th:if="${#strings.contains(applicationType, 'review')}" class="image3" src="../img/ranking.svg"
+                        alt="ranking">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
+                    <br>
                     <h1 th:if="${#strings.contains(applicationType, 'work')}" class="big-title">Solicita un trabajo!
                     </h1>
                     <h1 th:if="${#strings.contains(applicationType, 'review')}" class="big-title">Deja tu calificación!
@@ -53,7 +56,8 @@
             </div>
 
             <div th:if="${#strings.equals(applicationType, 'review')}">
-                <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}" th:object="${workReview}">
+                <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}"
+                    th:object="${workReview}">
                     <div id="review-group">
                         <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio
                             brindado
