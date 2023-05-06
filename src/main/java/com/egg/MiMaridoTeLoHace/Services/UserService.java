@@ -53,8 +53,7 @@ public class UserService implements UserDetailsService {
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);
-                // agregado el raiting temporal
-                user.setRating((int) Math.round(Math.random() * 5)); // uso hasta tener reviews
+                user.setRating(0);
                 image = imageService.GetByName("provider-avatar.png");
             }
 

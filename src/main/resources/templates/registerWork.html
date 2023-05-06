@@ -35,7 +35,6 @@
             <div th:if="${#strings.equals(applicationType, 'work')}">
                 <form id="work-form" method="post" th:action="@{/work/create(idProvider=${{idProvider}})}"
                     th:object="${work}">
-
                     <div>
                         <label class="label" for="workName">Resumí en una frase tu solicitud</label>
                         <input type="text" id="workName" name="workName" maxlength="30" placeholder="..."
@@ -56,9 +55,6 @@
             <div th:if="${#strings.equals(applicationType, 'review')}">
                 <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}" th:object="${workReview}">
                     <div id="review-group">
-                        <p th:text="${idWork}"></p>
-                        <p th:text="${workReview.ratingWork}"></p>
-                        <p th:text="${idProvider}"></p>
                         <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio
                             brindado
                             por parte del proveedor</label>
