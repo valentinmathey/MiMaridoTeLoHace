@@ -5,7 +5,7 @@
 
 .image4 {
   margin: 7em 0 0 0;
-  width: 450px;
+  width: 350px;
 }
 
 .image2,
@@ -21,8 +21,8 @@
 }
 
 .image3 {
-  width: 120%;
-  margin: 5em 0 0 0;
+  width: 110%;
+  margin: 8em 0 0 0;
 }
 
 .container {
@@ -34,8 +34,10 @@
 /* IMG PROFILE */
 .image-profile {
   width: 220px;
+  height: 220px;
   opacity: 1;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .container {
@@ -47,8 +49,3 @@
 .row-image {
   margin: -100px 0 0 0;
 }
-/* 
-.col,
-.left-col {
-  margin: 150px 0 0 0;
-} */

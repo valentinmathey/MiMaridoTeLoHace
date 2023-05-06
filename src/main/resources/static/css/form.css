@@ -43,6 +43,7 @@ textarea:focus-visible {
 ::placeholder{
   color: #c63f81;
   opacity: 0.7;
+  text-align: center;
 }
 
 textarea {

@@ -3,6 +3,7 @@ package com.egg.MiMaridoTeLoHace.Services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,10 +22,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
+import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Repositories.ImageRepository;
 import com.egg.MiMaridoTeLoHace.Repositories.UserRepository;
+import com.egg.MiMaridoTeLoHace.Repositories.WorkRepository;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -37,6 +40,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     ImageService imageService;
+
+    @Autowired
+    WorkRepository workRepository;
 
     // ---- Service USER ------ (Se usara para crear, modificar y borrar Customers y
     // Providers)
@@ -258,6 +264,34 @@ public class UserService implements UserDetailsService {
         }
         // si el validador se vuelve verdadero, es porque hay coincidencia de emails.
         return validator;
+
+    }
+
+    @Transactional
+    public void updateRating(User Provider){
+
+        int totalWorksReviewd = 0;
+        double sumWorksReviewd = 0;
+
+        List<Work> totalWorks = workRepository.getWorkByUserProvider(Provider);
+
+        for (int i = 0; i < totalWorks.size() ; i++) {
+            if (totalWorks.get(i).getWorkStatus().toString().equals("REVIEWD")) {
+                totalWorksReviewd ++;
+                sumWorksReviewd = sumWorksReviewd + totalWorks.get(i).getRatingWork();
+            }
+        }
+
+        double prom = sumWorksReviewd/totalWorksReviewd;
+        int roundedProm = (int) Math.round(prom);
+
+        Optional <User> consultUser = userRepository.findById(Provider.getId());
+
+        if (consultUser.isPresent()) {
+            User updateUserRating = consultUser.get();
+            updateUserRating.setRating(roundedProm);
+            userRepository.save(updateUserRating);
+        }
 
     }
 

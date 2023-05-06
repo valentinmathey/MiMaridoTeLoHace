@@ -5,71 +5,74 @@
 <head th:replace="th_templates/head :: head"></head>
 
 <body>
-<!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<header th:replace="th_templates/navbar :: navbar"></header>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
 
-<main class="main-providers">
+  <main class="main-providers">
 
-  <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <div class="container">
-    <img class="image4" src="/img/provider.svg" alt="providers">
-    <h1 class="big-title2">Encontrá los mejores profesionales de la zona</h1>
-  </div>
-
-
-  <!-- aqui ira el motor de busquedas -->
-  <div class="text-center">
-    <h2 class="subtittle">Que estas buscando?</h2>
-    <div class="d-flex justify-content-cente">
-      <select id="profession" class="inputs">
-        <option type="text" name="profession" value="">profesiones</option>
-        <option type="text" name="profession" th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
-      </select>
-      <input type="text" name="st" id="st" placeholder="Busca por: nombre, apellido y email">
+    <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="container">
+      <img class="image4" src="/img/provider.svg" alt="providers">
+      <h1 class="big-title2">Encontrá los mejores profesionales de la zona</h1>
     </div>
-    <button id="sendQueryProviders" class="btn" type="button">ENVIAR</button>
-  </div>
 
-  <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-  <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
+    <!-- SEARCH ENGINE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="text-center">
+      <h2 class="subtittle">Que estas buscando?</h2>
+      <br>
+      <div class="d-flex justify-content-cente">
+        <select id="profession" class="inputs">
+          <option type="text" name="profession" value="">Profesiones</option>
+          <option type="text" name="profession" th:each="profession : ${professions}" th:text="${profession.name}"
+            th:value="${profession}">
+        </select>
+        <input type="text" name="st" id="st" placeholder="nombre, apellido y email">
+      </div>
+      <button id="sendQueryProviders" class="btn" type="button">BUSCAR</button>
+    </div>
 
-</main>
+    <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div th:replace="th_templates/cardsProvider :: cardProvider"></div>
 
-<!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
-<footer th:replace="th_templates/footer :: footer"></footer>
+  </main>
 
-<!-- Script / Bootstrap -->
-<div th:replace="th_templates/bootstrap :: bootstrap"></div>
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
 
-<script> 
-  // <!----------- Script to redirectCards ----------->
-  const providerCards = document.querySelectorAll('[id^="provider-"]');
-  providerCards.forEach(providerCard => {
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+  <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <script>
+    // <!---------------- Script to redirectCards ---------------->
+    const providerCards = document.querySelectorAll('[id^="provider-"]');
+    providerCards.forEach(providerCard => {
       providerCard.addEventListener('click', () => {
-          const providerId = providerCard.dataset.id;
-          const url = `/user/perfil/${providerId}`;
-          window.location.href = url;
+        const providerId = providerCard.dataset.id;
+        const url = `/user/perfil/${providerId}`;
+        window.location.href = url;
       });
-  });
+    });
 
-  // <!----------- Script to search ----------->
-  const profession = document.getElementById("profession");
-  const search = document.getElementById("st");
+    // <!---------------- Script to search ---------------->
+    const profession = document.getElementById("profession");
+    const search = document.getElementById("st");
 
-const button = document.getElementById("sendQueryProviders");
-button.addEventListener("click", () => {
-  const professionValue = profession.value;
-  const searchValue = search.value;
-  
-  window.location.href="/search?profession=" + professionValue + "&st=" + searchValue;
-});
+    const button = document.getElementById("sendQueryProviders");
+    button.addEventListener("click", () => {
+      const professionValue = profession.value;
+      const searchValue = search.value;
 
-// <!----------- Script to LowerCase Enum ----------->
+      window.location.href = "/search?profession=" + professionValue + "&st=" + searchValue;
+    });
+
+    // <!---------------- Script to LowerCase Enum ---------------->
     for (let i = 1; i < profession.options.length; i++) {
-        const lowercaseProfession = profession.options[i].text.toLowerCase();
-        const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
-        profession.options[i].text = capitalizedProfession;
+      const lowercaseProfession = profession.options[i].text.toLowerCase();
+      const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
+      profession.options[i].text = capitalizedProfession;
     }
-</script>
+  </script>
 </body>
+
 </html>

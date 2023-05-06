@@ -10,17 +10,12 @@
   <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <header th:replace="th_templates/navbar :: navbar"></header>
 
-  <!--    eric: agregado por que el navbar se come esta parte-->
   <br><br><br>
-  <!-- form -->
-  <!--    eric:  th:object para trae el usuario-->
-  <!--    falta crear una vista aparte para la edicion-->
 
   <main class="main-index">
 
     <form class="profile-form" th:object="${usuarioActual}">
-      <!-- PROFILE IMG.
-        eric: traje la imajen para que desaparesca junto al form-->
+     
       <div class="container text-center">
         <div id="rolStore" th:data-rol="*{role}"></div>
         <div class="row">
@@ -31,12 +26,11 @@
             <div class="console text-center">
               <h1 class="big-title" th:text="*{name} + ' ' + *{lastname}"></h1>
             </div>
-            <h4 class="subtitle" th:text="*{role}"></h4>
+            <h4 class="subtitle" th:text="*{profession}"></h4>
 
             <div class="providerOnly text-center" style="display: none">
-              <h4><i>Oficio:‎ </i> <span th:text="*{profession}"></h4>
-              <h4><i>Contacto:‎ </i><span th:text="*{phone}"></h4>
-              <h4><i>Descripcion:‎ </i> <span th:text="*{description}"></h4>
+              <h4><i>Teléfono 📞‎ </i><span th:text="*{phone}"></h4>
+              <h4><i>Servicios: ‎ </i> <span th:text="*{description}"></h4>
             </div>
 
             <!------------ BOTON AGREGADO POR FACU, CONTIENE ID DEL PROVIDER Y VALUE PARA INDICAR QUE ES SOLICITUD DE TRABAJO ------------>
