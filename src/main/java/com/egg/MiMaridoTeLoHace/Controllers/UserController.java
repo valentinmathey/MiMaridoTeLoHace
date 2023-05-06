@@ -91,11 +91,14 @@ public class UserController {
                 } else { // eric: solo modifica el user
                     userService.modifyUser(id, user, image, false);
                 }
+                if(sessionUser.getRole().equals(Roles.ADMIN)){
+                    return "redirect:/admin/dashboard";
+                }
             }
         } catch (MiException e) {
             e.printStackTrace();
         }
-        return "redirect:/#";
+       return "redirect:/home";
     }
 
     @Transactional
@@ -114,12 +117,6 @@ public class UserController {
                 }
 
                 if (user.getId().equals(sessionUser.getId())) {
-                    if (sessionUser.getRole().name().equals("CUSTOMER")) {
-                        user.setRating(0);
-                        user.setRole(Roles.PROVIDER);
-                    } else if (sessionUser.getRole().name().equals("PROVIDER")) {
-                        user.setRole(Roles.CUSTOMER);
-                    }
                     session.setAttribute("userSession", userService.modifyUser(id, user, image, true));
                 } else { 
                     userService.modifyUser(id, user, image, true);
@@ -128,7 +125,7 @@ public class UserController {
         } catch (MiException e) {
             e.printStackTrace();
         }
-        return "redirect:/#";
+        return "redirect:/home";
     }
     
     @Transactional

@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-6 col-md-4">
-          <button id="change-perfil" class="btn btn-warning button" type="button">🔄 Cambiar rol</button>
+          <button id="change-perfil" sec:authorize="hasRole('ROLE_CUSTOMER')" class="btn btn-warning button" type="button">🔄 Cambiar rol</button>
         </div>
 
         <div class="col-6 col-md-4">
