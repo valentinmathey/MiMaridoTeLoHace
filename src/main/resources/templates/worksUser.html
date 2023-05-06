@@ -7,9 +7,9 @@
 <body>
     <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <header th:replace="th_templates/navbar :: navbar"></header>
-
     <main class="main-index">
         <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <br><br><br><br>
         <div class="container text-center">
             <div class="row">
                 <div class="col left-col">
@@ -63,8 +63,12 @@
                     <br th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}"><br th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}">
                     <h5 th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}" class="card-title">Ya dejaste una calificación! 📝</h5>
                 </div>
+                <div th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">
+                    <h5 th:text="${'------------- ⏳ Trabajo en curso ⏳ -------------'}"></h5>
+                </div>
                 <a th:href="@{/work/worksList(wStat='REVERT', idWork=${cwl.id})}" class="btn btn-warning" th:if="${#strings.contains(cwl.workStatus, 'REQUIRED')}">Cancelar Solicitud ❌</a>
                 <a th:href="@{/work/worksList(wStat='REVERT', idWork=${cwl.id})}" class="btn btn-warning" th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">Cancelar Trabajo ❌</a>
+                <a th:href="@{/work/worksList(wStat='DONE', idWork=${cwl.id})}" class="btn btn-warning" th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">Finalizar Trabajo ✅</a>
                 <a th:href="@{/work/create(applicationType='review', idWork=${cwl.id})}" class="btn btn-warning" th:if="${#strings.contains(cwl.workStatus, 'DONE')}">Dejar Calificación ⭐</a>
                 <div>
                     <h5 th:if="${#strings.contains(cwl.workStatus, 'REVERT')}" th:text="${'------------- 🚫 Trabajo cancelado 🚫 -------------'}"></h5>
