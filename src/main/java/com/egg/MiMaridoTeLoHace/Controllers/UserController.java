@@ -132,12 +132,22 @@ public class UserController {
     }
     
     @Transactional
-    @PostMapping("/perfil/{id}/role")
+    @GetMapping("/perfil/{id}/role")
     public String editRole(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         User user = userService.getById(id);
         User sessionUser = (User) session.getAttribute("userSession");
         if (sessionUser != null && sessionUser.getRole().equals(Roles.ADMIN)) {
                 userService.updateRole(user);
+        }
+        return "redirect:/admin/dashboard";
+    }
+    @Transactional
+    @GetMapping("/perfil/{id}/alta")
+    public String editAlta(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
+        User user = userService.getById(id);
+        User sessionUser = (User) session.getAttribute("userSession");
+        if (sessionUser != null && sessionUser.getRole().equals(Roles.ADMIN)) {
+                userService.updateaAlta(user);
         }
         return "redirect:/admin/dashboard";
     }
