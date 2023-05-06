@@ -1,4 +1,4 @@
-package com.egg.MiMaridoTeLoHace.converters;
+package com.egg.MiMaridoTeLoHace.Converters;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import org.apache.commons.io.IOUtils;

@@ -1,5 +1,6 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
+import com.egg.MiMaridoTeLoHace.Converters.ImageConverter;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
@@ -7,7 +8,6 @@ import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
-import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

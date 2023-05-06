@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 
             if (user.getProfession() == null) {
                 user.setRole(Roles.CUSTOMER);
-                user.setRating(1);
+                user.setRating(0);
                 image = imageService.GetByName("customer-avatar.png");
             } else {
                 user.setRole(Roles.PROVIDER);
@@ -66,7 +66,6 @@ public class UserService implements UserDetailsService {
             imageService.Save(image);
             user.setImage(image.getId());
             user.setAlta(true);
-            // eric: agregada Subscription date de forma global
             user.setSubscription(new Date(System.currentTimeMillis()));
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
@@ -85,18 +84,17 @@ public class UserService implements UserDetailsService {
             if(change){
                 if (originalUser.getRole().name().equals("CUSTOMER")) {
                     originalUser.setRating(0);
-                    //asignar nuevo rol
+                    //eric: asignar nuevo rol
                     originalUser.setRole(Roles.PROVIDER);
-                    //la descripcion, profession, telefono estan en la linea 95
+                    //eric: la descripcion, profession, telefono estan en la linea 100
                 } else if (originalUser.getRole().name().equals("PROVIDER")) { 
                     originalUser.setDescription(null);
                     originalUser.setProfession(null);
                     originalUser.setPhone(null);
                     originalUser.setRating(0);
-                    //asignar nuevo rol
+                    //eric: asignar nuevo rol
                     originalUser.setRole(Roles.CUSTOMER);
                 }
-
             }
 
             if (originalUser.getRole().equals(Roles.PROVIDER)) {
@@ -106,7 +104,6 @@ public class UserService implements UserDetailsService {
                 originalUser.setProfession(user.getProfession());
                 originalUser.setPhone(user.getPhone());
             }
-            
 
             if (image != null) {
                 imageService.Delete(originalUser.getImage());
