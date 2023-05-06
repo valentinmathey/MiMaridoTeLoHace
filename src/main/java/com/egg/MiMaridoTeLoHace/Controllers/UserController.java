@@ -108,19 +108,13 @@ public class UserController {
 
         try {
             User sessionUser = (User) session.getAttribute("userSession");
-            if (user != null && sessionUser != null
-                    && (user.getId().equals(sessionUser.getId()) || sessionUser.getRole().equals(Roles.ADMIN))) {
-
+            if (user != null && sessionUser != null && (user.getId().equals(sessionUser.getId()))) {
                 Image image = null;
                 if (!archivo.isEmpty()) {
                     image = imageConverter.convert(archivo);
                 }
-
-                if (user.getId().equals(sessionUser.getId())) {
-                    session.setAttribute("userSession", userService.modifyUser(id, user, image, true));
-                } else { 
-                    userService.modifyUser(id, user, image, true);
-                }
+                sessionUser = userService.modifyUser(id, user, image, true);
+                session.setAttribute("userSession", sessionUser);
             }
         } catch (MiException e) {
             e.printStackTrace();
