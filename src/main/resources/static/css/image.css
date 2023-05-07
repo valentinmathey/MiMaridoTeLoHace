@@ -54,3 +54,11 @@
 .row-image {
   margin: -100px 0 0 0;
 }
+
+/* IMG PROFILE NAVBAR */
+.image-profile-navbar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+}

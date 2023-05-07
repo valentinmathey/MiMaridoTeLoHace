@@ -10,12 +10,12 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-index">
-
+    <br><br><br>
     <!-- ERROR ALERT -->
     <!------------ Para reutilizar esta card con mensaje de EXITO, cambiar "danger" por "success" en la clase ------------>
     <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(mssg)}">
       <p th:text="${mssg}" class="text-center"></p>
-</div> 
+    </div>
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
@@ -200,7 +200,7 @@
   <!----------- Script to LowerCase Enum ----------->
 
   <script>
-    
+
     for (let i = 1; i < professionSelect.options.length; i++) {
       const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
       const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);
