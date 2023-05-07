@@ -67,9 +67,14 @@ public class UserController {
             model.addAttribute("professions", Professions.values());
             return "myProfile";
 
-        } else {
+        } else if (sessionUser != null && sessionUser.getRole().equals(Roles.CUSTOMER)) {
             return "otherProfile";
+        } else if (sessionUser != null && sessionUser.getRole().equals(Roles.PROVIDER)) {
+            return "redirect:/home";
+        } else {
+            return "redirect:/user/register";
         }
+        
     }
 
     @Transactional

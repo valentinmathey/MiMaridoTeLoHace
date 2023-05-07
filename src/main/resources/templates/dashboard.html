@@ -105,16 +105,15 @@
           <td th:text="${u.email}"></td>
           <td th:text="${u.profession}"></td>
           <td th:text="${u.role}" class="td-role"></td>
-          <td><a th:href="@{/user/perfil/__${u.id}__/role}"><i class="bi bi-pen"></i> Cambiar Rol</a></td>
-          <td><a th:href="@{/user/perfil/__${u.id}__/alta}"><i class="bi bi-pen"></i> Cambiar Alta</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__/role}"><i class="bi bi-person-circle"></i> Cambiar Rol</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__/alta}"><i class="bi bi-pencil-square"></i> Cambiar Alta</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
         </tr>
       </tbody>
     </table>
+    <br><br><br><br><br><br><br><br><br><br><br>
   </main>
-
-  <br><br><br>
 
   <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <!----------- Script for show Tables ----------->
