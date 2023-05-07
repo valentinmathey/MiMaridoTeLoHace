@@ -8,6 +8,11 @@
   width: 350px;
 }
 
+.image5 {
+  margin: 10em 0 0 0;
+  width: 450px;
+}
+
 .image2,
 .image3{
   display: flex;

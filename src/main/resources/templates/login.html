@@ -13,9 +13,9 @@
 
     <!-- ERROR ALERT -->
     <!------------ Para reutilizar esta card con mensaje de EXITO, cambiar "danger" por "success" en la clase ------------>
-    <div class="alert alert-danger " role="alert" th:if="${not #strings.isEmpty(mssg)}">
-      <p th:text="${mssg}"></p>
-    </div>
+    <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(mssg)}">
+      <p th:text="${mssg}" class="text-center"></p>
+</div> 
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div class="container text-center">
