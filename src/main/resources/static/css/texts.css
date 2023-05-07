@@ -20,8 +20,7 @@
   margin: -2em 0 1em 0;
 }
 
-.subtitle2,
-.subtitle2{
+.subtitle{
   font-size: 23px;
 }
 
@@ -33,6 +32,13 @@
 .subtitle2 {
   text-align: center;
   margin: -100px 0 2em 0;
+}
+
+.subtitle3 {
+  font-size: 15px;
+
+  text-align: center;
+  /* margin: -100px 0 2em 0; */
 }
 
 .title {

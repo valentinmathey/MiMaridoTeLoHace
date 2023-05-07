@@ -14,49 +14,44 @@
 
   <main class="main-index">
 
-    <form class="profile-form" th:object="${usuarioActual}">
-     
-      <div class="container text-center">
-        <div id="rolStore" th:data-rol="*{role}"></div>
-        <div class="row">
-          <div class="col left-col">
-            <div class="profile-picture">
-              <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
-            </div>
-            <div class="console text-center">
-              <h1 class="big-title" th:text="*{name} + ' ' + *{lastname}"></h1>
-            </div>
-            <h4 class="subtitle" th:text="*{profession}"></h4>
+    <!-- CARD PROFILE PROVIDER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="card text-center big-card-profile" th:object="${usuarioActual}">
+      <div class="card-body">
+        <div class="profile-picture">
+          <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+        </div>
 
-            <div class="providerOnly text-center" style="display: none">
-              <h4><i>Oficio:‎ </i> <span th:text="*{profession}"></h4>
-              <h4><i>Contacto:‎ </i><span th:text="*{phone}"></h4>
-              <h4><i>Descripcion:‎ </i> <span th:text="*{description}"></h4>
-              <h4><i>Descripcion:‎ </i> <span th:text="*{email}"></h4>
-              <h4><i>Teléfono 📞‎ </i><span th:text="*{phone}"></h4>
-              <h4><i>Servicios: ‎ </i> <span th:text="*{description}"></h4>
-            </div>
+        <h1 class="title" th:text="*{name} + ' ' + *{lastname}"></h1>
+        <!-- <h5 class="subtitle3" th:text="*{profession}"></h5> -->
 
-            <!------------ BOTON AGREGADO POR FACU, CONTIENE ID DEL PROVIDER Y VALUE PARA INDICAR QUE ES SOLICITUD DE TRABAJO ------------>
-            <div sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER')">
-              <a class="btn btn-warning button btn-form"
-                th:href="@{/work/create(applicationType='work', idProvider=${usuarioActual.id})}">Solicitar Servicio
-                🔨</a>
-            </div>
-          </div>
+        <div class="profession-container">
+          <h4 class="subtitle3">Profesión: <span th:text=" *{profession}"></span></h4>
+          <h4 class="subtitle3">Contacto: <span th:text=" *{phone}"></span></h4>
+          <h4 class="subtitle3">Descripción: <span th:text=" *{description}"></span></h4>
+          <h4 class="subtitle3">E-mail: <span th:text=" *{email}"></span></h4>
+          <h4 class="subtitle3">Teléfono: <span th:text=" *{phone}"></span></h4>
+          <h4 class="subtitle3">Servicios: <span th:text=" *{description}"></span></h4>
+      </div>
+      
+
+        <div sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_PROVIDER')">
+          <a class="btn btn-warning button btn-form"
+            th:href="@{/work/create(applicationType='work', idProvider=${usuarioActual.id})}">🔨 Solicitar Servicio
+            </a>
         </div>
       </div>
-
-      <br><br><br><br><br><br>
-    </form>
+    </div>
   </main>
+
+  <br><br>
+
   <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
   <footer th:replace="th_templates/footer :: footer"></footer>
 
   <!-- Script / Bootstrap -->
   <div th:replace="th_templates/bootstrap :: bootstrap"></div>
 
-  <script>
+  <!-- <script>
     //gestion de rol
     const divProviders = document.querySelectorAll(".providerOnly")
     var rolUser = document.getElementById("rolStore");
@@ -67,7 +62,7 @@
         divProviders[i].style.display = "block";
       }
     }
-  </script>
+  </script> -->
 
 </body>
 

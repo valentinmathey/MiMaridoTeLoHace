@@ -16,8 +16,8 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <img th:if="${#strings.contains(applicationType, 'work')}" class="image3"
-                        src="../img/repairHouse.svg" alt="home repair">
+                    <img th:if="${#strings.contains(applicationType, 'work')}" class="image5"
+                        src="../img/providers.svg" alt="providers">
                     <img th:if="${#strings.contains(applicationType, 'review')}" class="image3" src="../img/ranking.svg"
                         alt="ranking">
                 </div>
@@ -25,9 +25,9 @@
             <div class="row">
                 <div class="col">
                     <br>
-                    <h1 th:if="${#strings.contains(applicationType, 'work')}" class="big-title">Solicita un trabajo!
+                    <h1 th:if="${#strings.contains(applicationType, 'work')}" class="big-title">Solicitá un trabajo!
                     </h1>
-                    <h1 th:if="${#strings.contains(applicationType, 'review')}" class="big-title">Deja tu calificación!
+                    <h1 th:if="${#strings.contains(applicationType, 'review')}" class="big-title">Dejá tu calificación!
                     </h1>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     </div>
                     <p></p><br>
                     <div id="description-group">
-                        <label class="label" for="description">Describe con detalle el problema</label>
+                        <label class="label" for="description">Describí con detalle el problema...</label>
                         <textarea class="workDescription" maxlength="500" id="workDescription" name="workDescription"
                             placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
                     </div>
@@ -59,9 +59,8 @@
                 <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}"
                     th:object="${workReview}">
                     <div id="review-group">
-                        <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio
-                            brindado
-                            por parte del proveedor</label>
+                        <label class="label" for="review">Dejá una revisión pública sobre la calidad del servicio
+                            brindado por parte del proveedor</label>
                         <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
                             th:field="*{review}"></textarea>
                     </div>
