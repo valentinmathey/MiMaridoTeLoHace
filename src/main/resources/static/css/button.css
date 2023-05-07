@@ -51,6 +51,24 @@
   margin-top: -70px;
 }
 
+.container-profession-btn {
+  text-align: center;
+}
+
+.btn-upload-photo2{
+  position: relative;
+  left: -70px;
+  top: -3px
+}
+
+/* GITHUB BUTTONS */
+
+.github-btn-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
 .boton-github {
   display: inline-block;
   margin: 0 5px;
@@ -61,7 +79,7 @@
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   border-radius: 7px;
 }
