@@ -59,9 +59,8 @@
                 <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}"
                     th:object="${workReview}">
                     <div id="review-group">
-                        <label class="label" for="review">Deja una revisión publica sobre la calidad del servicio
-                            brindado
-                            por parte del proveedor</label>
+                        <label class="label" for="review">Dejá una revisión pública sobre la calidad del servicio
+                            brindado por parte del proveedor</label>
                         <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
                             th:field="*{review}"></textarea>
                     </div>
