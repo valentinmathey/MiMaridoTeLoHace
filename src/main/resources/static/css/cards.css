@@ -38,6 +38,7 @@
   margin-bottom: 0.5em;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
 }
 
 .card-title {
@@ -79,11 +80,11 @@
   flex-wrap: wrap;
 }
 
-.card-text{
+.card-text {
   text-transform: lowercase;
 }
 
-.card-footer{
+.card-footer {
   width: 100%;
 }
 
@@ -118,5 +119,5 @@
 /* BIG CARD PROVIDER PROFILE */
 .big-card-profile {
   width: 100%;
-height: auto;
+  height: auto;
 }
