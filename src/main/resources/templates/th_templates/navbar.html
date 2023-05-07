@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+          <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER') || hasRole('ROLE_PROVIDER')">
             <a class="nav-link" href="/about">¿Quiénes somos?</a>
           </li>
 
@@ -96,7 +96,7 @@
             <a class="nav-link" href="/login">Ingresar ✅</a>
           </li>
 
-          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" th:if="${#httpServletRequest.getRequestURI() == '/admin/dashboard' || #httpServletRequest.getRequestURI() == '/admin/search'}">
             <a class="nav-link" onclick="toggleTable()" role="button" aria-expanded="false">
               Ver/Ocultar Registros 📅 
             </a>
@@ -113,8 +113,7 @@
           <li class="nav-item dropdown" th:if="${session.userSession != null}">
             <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <img th:src="@{'/image/DB/' + ${session.userSession.image}}" alt="Foto de perfil" width="25" height="25"
-                class="rounded-circle">
+              <img th:src="@{'/image/DB/' + ${session.userSession.image}}" alt="Foto de perfil" class="image-profile-navbar">
               <span class="user-name" th:text="${session.userSession.name}"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

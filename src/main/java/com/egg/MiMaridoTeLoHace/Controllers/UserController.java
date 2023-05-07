@@ -1,6 +1,5 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
-
 import com.egg.MiMaridoTeLoHace.Converters.ImageConverter;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
@@ -48,7 +47,7 @@ public class UserController {
             userService.createUser(user);
             return "redirect:/login";
         } else {
-            model.addAttribute("mssg", "El email ingresado ya se encuentra registrado!");
+            model.addAttribute("mssg", "El email ingresado ya se encuentra registrado 🚫");
             model.addAttribute("professions", Professions.values());
 
             return "registerUser";
@@ -74,7 +73,7 @@ public class UserController {
         } else {
             return "redirect:/user/register";
         }
-        
+
     }
 
     @Transactional
@@ -97,14 +96,14 @@ public class UserController {
                 } else { // eric: solo modifica el user
                     userService.modifyUser(id, user, image, false);
                 }
-                if(sessionUser.getRole().equals(Roles.ADMIN)){
+                if (sessionUser.getRole().equals(Roles.ADMIN)) {
                     return "redirect:/admin/dashboard";
                 }
             }
         } catch (MiException e) {
             e.printStackTrace();
         }
-       return "redirect:/home";
+        return "redirect:/home";
     }
 
     @Transactional
@@ -125,30 +124,31 @@ public class UserController {
         } catch (MiException e) {
             e.printStackTrace();
         }
-        return "redirect:/home";
+        return "redirect:/logout";
     }
-    
+
     @Transactional
     @GetMapping("/perfil/{id}/role")
     public String editRole(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         User user = userService.getById(id);
         User sessionUser = (User) session.getAttribute("userSession");
         if (sessionUser != null && sessionUser.getRole().equals(Roles.ADMIN)) {
-                userService.updateRole(user);
+            userService.updateRole(user);
         }
         return "redirect:/admin/dashboard";
     }
+
     @Transactional
     @GetMapping("/perfil/{id}/alta")
     public String editAlta(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
         User user = userService.getById(id);
         User sessionUser = (User) session.getAttribute("userSession");
         if (sessionUser != null && sessionUser.getRole().equals(Roles.ADMIN)) {
-                userService.updateaAlta(user);
+            userService.updateaAlta(user);
         }
         return "redirect:/admin/dashboard";
     }
-    
+
     @Transactional
     @PostMapping("/perfil/{id}/del")
     public String delete(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
