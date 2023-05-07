@@ -51,6 +51,20 @@
   margin-top: -70px;
 }
 
+.container-profession-btn {
+  text-align: center;
+}
+
+
+
+/* .btn-upload-photo1{
+  transform: translate(-40%, 13px);
+} */
+
+/* .btn-upload-photo2{
+  transform: translate(-7%, 8px);
+} */
+
 .boton-github {
   display: inline-block;
   margin: 0 5px;

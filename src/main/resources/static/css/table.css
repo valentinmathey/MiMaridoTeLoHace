@@ -1,9 +1,12 @@
 table {
   table-layout: auto;
+  width: 100%;
 }
 
 td {
   white-space: nowrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .profilePic {
@@ -23,11 +26,12 @@ th[colspan="3"] {
   text-align: center;
 }
 
-.td-role {
+.td-role,
+.td-profession {
   text-transform: lowercase;
 }
 
-.td a {
+td a {
   text-decoration: none;
   color: #f1c057;
 }

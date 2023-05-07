@@ -28,7 +28,7 @@
       </div>
     </div>
 
-
+<!-- FORM 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <form class="profile-form" id="get-perfil-form" th:object="${usuarioActual}" method="post"
       th:action="@{'/user/perfil/' + ${id} +'/mod'}" enctype="multipart/form-data">
       <div id="rolStore" th:data-rol="*{role}"></div>
@@ -39,22 +39,26 @@
       <label class="label" for="lastname">Apellido</label>
       <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:value="*{lastname}" required />
         <div class="providerOnly" style="display: none">
-            <label class="label" for="phone">N° de Telefono</label>
-            <input type="number" id="phone" name="phone" placeholder="Telefono" th:value="*{phone}"/>
+            <label class="label" for="phone">N° de Teléfono</label>
+            <input type="tel" id="phone" name="phone" placeholder="Telefono" th:value="*{phone}"/>
         </div>
-      <div class="container-profession-btn">
-        <div class="d-flex justify-content-center btn-upload-photo">
-          <!-- este div solo afecta a la profession-->
-          <div class="providerOnly" style="display: none">
-            <label class="label" for="profession"></label>
-            <select id="" class="inputs profession" th:field="*{profession}">
-              <option th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
-            </select>
+
+        <!-- SELECT + BUTTON >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="container-profession-btn">
+          <div class="d-flex justify-content-center align-items-center btn-upload-photo">
+            <!-- este div solo afecta a la profession-->
+            <div class="providerOnly" style="display: none">
+              <label class="label" for="profession"></label>
+              <select id="" class="inputs profession" th:field="*{profession}">
+                <option th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
+              </select>
+            </div>
+            <button type="button" class="btn btn-warning button btn-upload-photo1" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
+            <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
           </div>
-          <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
-          <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
         </div>
-      </div>
+
+
 
       <div class="providerOnly" style="display: none">
         <label class="label" for="description"></label>
@@ -62,20 +66,18 @@
           th:value="*{description}"></textarea>
       </div>
 
-      <div class="row justify-content-center">
-        <!-- <button id="edit-password" class="btn btn-warning button" type="button">Cambiar contraseña</button> -->
+      <div class="row justify-content-center text-center">
         <div class="col-6 col-md-4">
-          <button id="edit-perfil" class="btn btn-warning button" type="submit">🔄 Actualizar</button>
+          <button id="edit-perfil" class="btn btn-warning button btn-update" type="submit">🔄 Actualizar</button>
         </div>
-
         <div class="col-6 col-md-4">
           <button id="change-perfil" sec:authorize="hasRole('ROLE_CUSTOMER')" class="btn btn-warning button" type="button">🔄 Cambiar rol</button>
         </div>
-
         <div class="col-6 col-md-4">
-          <button id="delete-perfil" class="btn btn-warning button" type="button">🗑 Eliminar cuenta</button>
+          <button id="delete-perfil" class="btn btn-warning button btn-delete" type="button">🗑 Eliminar cuenta</button>
         </div>
       </div>
+      
     </form>
 
 
@@ -95,6 +97,8 @@
       </div>
     </form>
 
+
+    <!-- FORM 2 PROVIDER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <form class="profile-form" id="change-perfil-form" th:object="${usuarioActual}" method="post"
       th:action="@{'/user/perfil/' + ${id} +'/change'}" enctype="multipart/form-data" style="display: none;">
 
@@ -105,7 +109,7 @@
       <input type="text" id="lastname" name="lastname" placeholder="Apellido" th:value="*{lastname}" required />
         <div class="providerOnly" style="display: none">
             <label class="label" for="phone">N° de Telefono</label>
-            <input type="number" id="phone" name="phone" placeholder="Telefono" th:value="*{phone}"/>
+            <input type="tel" id="phone" name="phone" placeholder="Telefono" th:value="*{phone}"/>
         </div>
       <div class="container-profession-btn">
         <div class="d-flex justify-content-center btn-upload-photo">
@@ -113,11 +117,11 @@
           <div class="providerOnly" style="display: none">
             <label class="label" for="profession"></label>
             <select id="" class="inputs profession" th:field="*{profession}">
-              <option value="">Elije una profecion profecion</option>
+              <option value="">Elije una profesión</option>
               <option th:each="profession : ${professions}" th:text="${profession.name}" th:value="${profession}">
             </select>
           </div>
-          <button type="button" class="btn btn-warning button" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
+          <button type="button" class="btn btn-warning button btn-upload-photo2" onclick="document.getElementById('img').click();">📸 Subir foto de perfil</button>
           <input type="file" id="img" name="img" accept=".png, .jpeg, .jpg" capture="user" style="display:none;" />
         </div>
       </div>
