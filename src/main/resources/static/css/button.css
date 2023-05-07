@@ -55,15 +55,19 @@
   text-align: center;
 }
 
+.btn-upload-photo2{
+  position: relative;
+  left: -70px;
+  top: -3px
+}
 
+/* GITHUB BUTTONS */
 
-/* .btn-upload-photo1{
-  transform: translate(-40%, 13px);
-} */
-
-/* .btn-upload-photo2{
-  transform: translate(-7%, 8px);
-} */
+.github-btn-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
 
 .boton-github {
   display: inline-block;
@@ -75,7 +79,7 @@
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   border-radius: 7px;
 }
