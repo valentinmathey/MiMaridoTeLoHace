@@ -136,10 +136,10 @@ public class WarningController implements ErrorController {
             case 511: {
                 errorMsg = "Network Authentication Required: El cliente debe autenticarse para obtener acceso a la red.";
                 break;
+            } default: {
+                errorMsg = "Null: La página solicitada no existe";
             }
-
         }
-
         errorPage.addObject("codigo", httpErrorCode);
         errorPage.addObject("mensaje", errorMsg);
         return errorPage;
