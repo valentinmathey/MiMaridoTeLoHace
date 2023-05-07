@@ -20,15 +20,15 @@
     <div class="text-center">
       <h2 class="subtittle">¿Qué estás buscando?</h2>
       <br>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex align-items-center justify-content-center">
         <select id="profession" class="inputs">
           <option type="text" name="profession" value="">Profesiones</option>
           <option type="text" name="profession" th:each="profession : ${professions}" th:text="${profession.name}"
             th:value="${profession}">
         </select>
         <input type="text" name="st" id="st" placeholder="nombre, apellido y email">
+        <button id="sendQueryProviders" class="btn" type="button">🔎 Buscar</button>
       </div>
-      <button id="sendQueryProviders" class="btn" type="button">🔎 Buscar</button>
     </div>
 
     <!-- CARDS / CUSTOMERS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->

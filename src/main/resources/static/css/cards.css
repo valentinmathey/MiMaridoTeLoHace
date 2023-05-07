@@ -79,6 +79,9 @@
   flex-wrap: wrap;
 }
 
+.card-footer{
+  width: 100%;
+}
 
 /* ERROR CARD */
 .container-error-card {
