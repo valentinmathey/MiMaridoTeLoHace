@@ -20,8 +20,13 @@
           <h1 class="big-title">Mi marido<br>
             te lo hace</h1>
 
-          <button type="button" class="btn btn-warning button btn-index-home"
-            onclick="window.location.href='/search?profession=&st='">🧰 Buscar Servicios</button>
+          <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <button type="button" class="btn btn-warning button btn-index-home"
+              onclick="window.location.href='/search?profession=&st='">🧰 Buscar Servicios</button>
+          </div>
+          <div sec:authorize="hasRole('ROLE_PROVIDER')">
+            <button type="button" class="btn btn-warning button btn-index-home" onclick="window.location.href='/work/worksList'">🛠️ Mis trabajos</button>
+          </div>
         </div>
 
         <div class="col">
