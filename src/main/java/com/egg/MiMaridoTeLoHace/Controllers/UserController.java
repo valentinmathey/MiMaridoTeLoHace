@@ -1,6 +1,5 @@
 package com.egg.MiMaridoTeLoHace.Controllers;
 
-import com.egg.MiMaridoTeLoHace.Converters.ImageConverter;
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
@@ -8,6 +7,7 @@ import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
+import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -109,15 +111,21 @@ public class UserController {
     @Transactional
     @PostMapping(value = "/perfil/{id}/change", consumes = "multipart/form-data")
     public String editModify(@PathVariable("id") String id, @ModelAttribute User user,
-            @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException {
+            @RequestParam("img") MultipartFile archivo, ModelMap model, HttpSession session) throws MiException, IOException {
 
         try {
+            Image defaultImage = imageService.GetByName("customer-avatar.png");
             User sessionUser = (User) session.getAttribute("userSession");
             if (user != null && sessionUser != null && (user.getId().equals(sessionUser.getId()))) {
                 Image image = null;
                 if (!archivo.isEmpty()) {
                     image = imageConverter.convert(archivo);
                 }
+
+                if(imageService.GetById(sessionUser.getImage()).getName().equals(defaultImage.getName())){
+                    image = imageService.GetByName("provider-avatar.png");
+                }
+                
                 sessionUser = userService.modifyUser(id, user, image, true);
                 session.setAttribute("userSession", sessionUser);
             }
