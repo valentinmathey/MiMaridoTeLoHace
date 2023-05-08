@@ -51,7 +51,7 @@
     <table class="table table-dark table-striped" id="table-se">
       <thead>
         <tr>
-          <th colspan="11" class="text-center">
+          <th colspan="12" class="text-center">
             <h4>Resultado de búsqueda</h4>
           </th>
         </tr>
@@ -63,7 +63,7 @@
           <th>Email</th>
           <th>Profesión</th>
           <th>Rol</th>
-          <th colspan="4" class="text-center">Acciones</th>
+          <th colspan="5" class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody th:each="se : ${se}">
@@ -79,13 +79,14 @@
           <td><a th:href="@{/user/perfil/__${se.id}__/alta}"><i class="bi bi-pencil-square"></i> Cambiar alta</a></td>
           <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${se.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+          <td><a th:href="@{/user/perfil/__${se.id}__/review}"><i class="bi bi-pen"></i> Trabajos</a></td>
         </tr>
       </tbody>
     </table>
     <table class="table table-dark table-striped" id="table" style="display: none">
       <thead>
         <tr>
-          <th colspan="11" class="text-center">
+          <th colspan="12" class="text-center">
             <h4>Todos los registros</h4>
           </th>
         </tr>
@@ -97,7 +98,7 @@
           <th>Email</th>
           <th>Profesión</th>
           <th>Rol</th>
-          <th colspan="4" class="text-center">Acciones</th>
+          <th colspan="5" class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody th:each="u : ${users}">
@@ -113,6 +114,7 @@
           <td><a th:href="@{/user/perfil/__${u.id}__/alta}"><i class="bi bi-pencil-square"></i> Cambiar alta</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-pen"></i> Modificar</a></td>
           <td><a th:href="@{/user/perfil/__${u.id}__}"><i class="bi bi-trash"></i> Eliminar</a></td>
+          <td><a th:href="@{/user/perfil/__${u.id}__/review}"><i class="bi bi-pen"></i> Trabajos</a></td>
         </tr>
       </tbody>
     </table>

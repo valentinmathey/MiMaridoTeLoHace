@@ -2,9 +2,11 @@ package com.egg.MiMaridoTeLoHace.Controllers;
 
 import com.egg.MiMaridoTeLoHace.Entities.Image;
 import com.egg.MiMaridoTeLoHace.Entities.User;
+import com.egg.MiMaridoTeLoHace.Entities.Work;
 import com.egg.MiMaridoTeLoHace.Enums.Professions;
 import com.egg.MiMaridoTeLoHace.Enums.Roles;
 import com.egg.MiMaridoTeLoHace.Exceptions.MiException;
+import com.egg.MiMaridoTeLoHace.Repositories.WorkRepository;
 import com.egg.MiMaridoTeLoHace.Services.ImageService;
 import com.egg.MiMaridoTeLoHace.Services.UserService;
 import com.egg.MiMaridoTeLoHace.converters.ImageConverter;
@@ -32,6 +34,8 @@ public class UserController {
     ImageService imageService;
     @Autowired
     ImageConverter imageConverter;
+    @Autowired
+    WorkRepository workRepository;
 
     @GetMapping("/register")
     public String user(Model model) {
@@ -59,8 +63,17 @@ public class UserController {
 
     @GetMapping("/perfil/{id}")
     public String user(@PathVariable("id") String id, ModelMap model, HttpSession session) throws MiException {
+        
         User user = userService.getById(id);
-        model.addAttribute("usuarioActual", user);
+        model.addAttribute("user", user);
+
+        String check = "";
+        List<Work> listReviews = workRepository.getWorkByUserProvider(user);
+        if (listReviews.size() == 0) {
+            check = "false";
+        }
+        model.addAttribute("check", check);
+        model.addAttribute("listReviews", listReviews);
 
         User sessionUser = (User) session.getAttribute("userSession");
         if (user != null && sessionUser != null
@@ -76,6 +89,24 @@ public class UserController {
             return "redirect:/user/register";
         }
 
+    }
+
+    @Transactional
+    @GetMapping(value = "/perfil/{id}/review")
+    public String deleteReview(@PathVariable("id") String id, Model model) throws MiException{
+
+        User user = userService.getById(id);
+        model.addAttribute("user", user);
+
+        String check = "";
+        List<Work> listReviews = workRepository.getWorkByUserProvider(user);
+        if (listReviews.size() == 0) {
+            check = "false";
+        }
+        model.addAttribute("check", check);
+        model.addAttribute("listReviews", listReviews);
+
+        return "otherProfile";
     }
 
     @Transactional

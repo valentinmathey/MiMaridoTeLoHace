@@ -117,4 +117,17 @@ public class WorkController {
         }
         return "redirect:/home";
     }
+
+    @GetMapping("/deteComment")
+    public String deleteComment(@RequestParam (value = "idWork", required = false) String idWork) throws MiException {
+
+        Optional<Work> consult = workRepository.findById(idWork);
+        if (consult.isPresent()) {
+            Work work = consult.get();
+            work.setReview("🚫 Comentario censurado 🚫");
+            workRepository.save(work);
+        }
+
+        return "dashboard";
+    }
 }
