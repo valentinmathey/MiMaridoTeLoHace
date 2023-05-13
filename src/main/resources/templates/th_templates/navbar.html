@@ -21,6 +21,10 @@
           <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER') || hasRole('ROLE_PROVIDER')">
             <a class="nav-link" href="/about">¿Quiénes somos?</a>
           </li>
+          
+          <li class="nav-item" th:if="${session.userSession == null}">
+            <a class="nav-link" href="/about">¿Quiénes somos?</a>
+          </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_PROVIDER')">
             <a href="/work/worksList" class="nav-link" role="button" aria-expanded="false">
