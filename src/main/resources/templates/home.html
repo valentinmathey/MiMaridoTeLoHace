@@ -10,23 +10,29 @@
 
   <main class="main-index">
     <br><br><br>
-    
+
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
     <div class="container text-center">
       <div class="row">
         <div class="col left-col">
 
-          <!-- Fede: Arreglé q muestre el nombre de usuario -->
           <h4>Hola <span th:text="${session.userSession.name}"></span>, te damos la bienvenida a:</h4>
           <h1 class="big-title">Mi marido<br>
             te lo hace</h1>
 
-          <button type="button" class="btn btn-warning button btn-index-home">🧰 Ir a Servicios</button>
+          <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <button type="button" class="btn btn-warning button btn-index-home"
+              onclick="window.location.href='/search?profession=&st='">🧰 Buscar Servicios</button>
+          </div>
+          <div sec:authorize="hasRole('ROLE_PROVIDER')">
+            <button type="button" class="btn btn-warning button btn-index-home" onclick="window.location.href='/work/worksList'">🛠️ Mis trabajos</button>
+          </div>
         </div>
 
         <div class="col">
           <img class="image3" src="../img/repairHouse.svg" alt="home repair">
         </div>
+
       </div>
     </div>
 

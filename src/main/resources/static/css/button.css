@@ -20,7 +20,8 @@
 
 .btn:hover,
 .btn-warning:hover,
-.button:hover {
+.button:hover,
+.boton-github:hover {
   transform: scale(1.1);
   transition: 1s;
 }
@@ -48,4 +49,37 @@
 
 .btn-index-home {
   margin-top: -70px;
+}
+
+.container-profession-btn {
+  text-align: center;
+}
+
+.btn-upload-photo2{
+  position: relative;
+  left: -70px;
+  top: -3px
+}
+
+/* GITHUB BUTTONS */
+
+.github-btn-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.boton-github {
+  display: inline-block;
+  margin: 0 5px;
+
+  background-color: #24292e;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 7px;
 }

@@ -10,7 +10,12 @@
   <header th:replace="th_templates/navbar :: navbar"></header>
 
   <main class="main-index">
-    <br><br>
+    <br><br><br>
+    <!-- ERROR ALERT -->
+    <!------------ Para reutilizar esta card con mensaje de EXITO, cambiar "danger" por "success" en la clase ------------>
+    <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(mssg)}">
+      <p th:text="${mssg}" class="text-center"></p>
+    </div>
 
     <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
@@ -23,7 +28,7 @@
       <div class="row">
         <div class="col">
           <h1 class="big-title2">Registrate! 📝</h1>
-          <h4 class="subtitle2">pero antes contanos...</h4>
+          <h3 class="subtitle2">pero antes contanos...</h3>
         </div>
       </div>
     </div>
@@ -55,59 +60,47 @@
       </div>
     </div>
 
-    <!-- ERROR CARD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-    <div class="container-error-card" th:if="${not #strings.isEmpty(mssg)}">
-      <div class="row-error-card">
-        <div class="col-md-6 mx-auto error-card">
-          <div class="card text-white bg-danger mb-3">
-            <div class="card-body">
-              <p class="card-text" th:text="${mssg}"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- FORM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
 
     <div id="form-container" style="display: none" class="form-display">
       <form id="register-form" method="post" th:object="${user}" th:action="@{/user/register}">
 
         <div>
-          <label class="label" for="name"></label>
+          <label class="label" for="name">Nombre</label>
           <input type="text" id="name" name="name" placeholder="Tu nombre" th:field="*{name}" required />
         </div>
 
         <div>
-          <label class="label" for="lastname"></label>
+          <label class="label" for="lastname">Apellido</label>
           <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" th:field="*{lastname}" required />
         </div>
 
         <div>
-          <label class="label" for="email"></label>
+          <label class="label" for="email">E-Mail</label>
           <input type="email" id="email" name="email" placeholder="email@email.com" th:field="*{email}" required />
         </div>
 
         <div id="phone-group">
-          <label class="label" for="phone"></label>
+          <label class="label" for="phone">Teléfono</label>
           <input type="text" id="phone" name="phone" placeholder="Numero de teléfono"
             onkeypress="return validateNumbers(event)" th:field="*{phone}" required />
         </div>
 
         <div>
-          <label class="label" for="password"></label>
+          <label class="label" for="password">Contraseña</label>
           <input type="password" id="password" name="password" placeholder="Contraseña" th:field="*{password}"
             required />
         </div>
 
         <div>
-          <label class="label" for="password2"></label>
-          <input type="password" id="password2" name="password2" placeholder="Repetí tu contraseña" required />
+          <label class="label" for="password2">Repíte tu contraseña</label>
+          <input type="password" id="password2" name="password2" placeholder="Repíte tu contraseña" required />
         </div>
 
         <p></p><br>
 
         <div id="profession-group">
+          <label class="label" for="profession">Profesión</label>
           <select id="profession" class="inputs" th:field="*{profession}" required>
             <option value="" selected>Elegí tu profesión</option>
             <option th:each="professions : ${professions}" th:text="${professions.name}" th:value="${professions}">
@@ -116,7 +109,7 @@
         </div>
 
         <div id="description-group">
-          <label class="label" for="description"></label>
+          <label class="label" for="description">Descripción</label>
           <textarea classs="description" maxlength="500" id="description" name="description"
             placeholder="Describí tu actividad" th:field="*{description}"></textarea>
         </div>
@@ -207,7 +200,7 @@
   <!----------- Script to LowerCase Enum ----------->
 
   <script>
-    
+
     for (let i = 1; i < professionSelect.options.length; i++) {
       const lowercaseProfession = professionSelect.options[i].text.toLowerCase();
       const capitalizedProfession = lowercaseProfession.charAt(0).toUpperCase() + lowercaseProfession.slice(1);

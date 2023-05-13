@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<link rel="stylesheet" href="/src/main/resources/static/css/MyProfile.css" />
+<link rel="stylesheet" href="/src/main/resources/static/css/form.css" />
+
+<body>
+  <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <header th:replace="th_templates/navbar :: navbar"></header>
+
+  <br><br><br>
+
+  <main class="main-index">
+
+    <!-- CARD PROFILE PROVIDER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div class="card text-center big-card-profile" th:object="${user}">
+      <div class="card-body">
+        <div class="profile-picture">
+          <img class="image-profile" th:src="@{'/image/DB/' + *{image}}" />
+        </div>
+
+        <h1 class="title" th:text="*{name} + ' ' + *{lastname}"></h1>
+        <!-- <h5 class="subtitle3" th:text="*{profession}"></h5> -->
+
+        <div class="profession-container">
+          <h4 class="subtitle3">Profesión: <span th:text=" *{profession}"></span></h4>
+          <h4 class="subtitle3">Contacto: <span th:text=" *{phone}"></span></h4>
+          <h4 class="subtitle3">Descripción: <span th:text=" *{description}"></span></h4>
+          <h4 class="subtitle3">E-mail: <span th:text=" *{email}"></span></h4>
+          <h4 class="subtitle3">Teléfono: <span th:text=" *{phone}"></span></h4>
+          <h4 class="subtitle3">Servicios: <span th:text=" *{description}"></span></h4>
+        </div>
+
+
+        <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+          <a class="btn btn-warning button btn-form"
+            th:href="@{/work/create(applicationType='work', idProvider=${user.id})}">🔨 Solicitar Servicio
+          </a>
+        </div>
+        <div sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROLE_ADMIN')" th:if="${check!='false'}">
+          <button onclick="toggleReviews()" role="button" class="btn btn-warning button btn-form">Comentarios
+            📝</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARDS REVIEWS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <div id="cards-review" style="display: none" sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ADMIN')">
+      <div th:each="lr : ${listReviews}">
+        <div class="card text-center large-card" th:if="${lr.review!=null}">
+          <div class="card-body">
+            <br>
+            <h3 class="card-title">
+              <img th:src="@{'/image/DB/' + *{lr.userCustomerId.image}}" alt="Imagen del cliente"
+                class="imagen-customer">
+              <span th:text="${lr.userCustomerId.name+' '+lr.userCustomerId.lastname}"></span>
+            </h3>
+            <br><br>
+            <h4>📝</h4>
+            <h5 class="" >
+                <span th:text="${lr.review}"></span>
+                <a th:href="@{/work/deteComment(idWork=${lr.id})}" class="btn btn-warning button btn-form" sec:authorize="hasRole('ADMIN')">Eliminar 🚫</a>
+            </h5>
+            <br>
+            <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+              <h4>Puntuación</h4>
+              <div th:switch="${lr.ratingWork}">
+                <small th:case="1" class="text-body-secondary">⭐️</small>
+                <small th:case="2" class="text-body-secondary">⭐⭐️</small>
+                <small th:case="3" class="text-body-secondary">⭐⭐⭐️️️</small>
+                <small th:case="4" class="text-body-secondary">⭐⭐⭐️⭐️️</small>
+                <small th:case="5" class="text-body-secondary">⭐⭐⭐️⭐️⭐️️</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <br><br>
+
+  <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <footer th:replace="th_templates/footer :: footer"></footer>
+
+  <!-- Script / Bootstrap -->
+  <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+  <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+  <!----------- Script for show Tables ----------->
+  <script>
+
+    function toggleReviews() {
+      var cards = document.getElementById("cards-review");
+      if (cards.style.display === "none") {
+        cards.style.display = "block";
+      } else {
+        cards.style.display = "none";
+      }
+    }
+
+  </script>
+
+  <!-- <script>
+    //gestion de rol
+    const divProviders = document.querySelectorAll(".providerOnly")
+    var rolUser = document.getElementById("rolStore");
+    var rolInfo = rolUser.getAttribute("data-rol");
+    console.log(rolInfo);
+    if (rolInfo === 'PROVIDER') {
+      for (let i = 0; i < divProviders.length; i++) {
+        divProviders[i].style.display = "block";
+      }
+    }
+  </script> -->
+
+</body>
+
+</html>

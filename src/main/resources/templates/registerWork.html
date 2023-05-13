@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+
+    <main class="main-index">
+        <br><br>
+
+        <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <img th:if="${#strings.contains(applicationType, 'work')}" class="image5"
+                        src="../img/providers.svg" alt="providers">
+                    <img th:if="${#strings.contains(applicationType, 'review')}" class="image3" src="../img/ranking.svg"
+                        alt="ranking">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <h1 th:if="${#strings.contains(applicationType, 'work')}" class="big-title">Solicitá un trabajo!
+                    </h1>
+                    <h1 th:if="${#strings.contains(applicationType, 'review')}" class="big-title">Dejá tu calificación!
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div id="form-container" class="form-display">
+            <div th:if="${#strings.equals(applicationType, 'work')}">
+                <form id="work-form" method="post" th:action="@{/work/create(idProvider=${{idProvider}})}"
+                    th:object="${work}">
+                    <div>
+                        <label class="label" for="workName">Resumí en una frase tu solicitud</label>
+                        <input type="text" id="workName" name="workName" maxlength="30" placeholder="..."
+                            th:field="*{workName}" required />
+                    </div>
+                    <p></p><br>
+                    <div id="description-group">
+                        <label class="label" for="description">Describí con detalle el problema...</label>
+                        <textarea class="workDescription" maxlength="500" id="workDescription" name="workDescription"
+                            placeholder="Ej: necesito reparar .." th:field="*{workDescription}"></textarea>
+                    </div>
+                    <button id="work-apply" name="workCreate" class="btn btn-warning button btn-form"
+                        type="submit">Enviar
+                        Solicitud 📝</button>
+                </form>
+            </div>
+
+            <div th:if="${#strings.equals(applicationType, 'review')}">
+                <form id="review-form" method="post" th:action="@{/work/create(idWork=${{idWork}})}"
+                    th:object="${workReview}">
+                    <div id="review-group">
+                        <label class="label" for="review">Dejá una revisión pública sobre la calidad del servicio
+                            brindado por parte del proveedor</label>
+                        <textarea type="review" id="review" name="review" placeholder="Ej: El trabajo realizado fue .. "
+                            th:field="*{review}"></textarea>
+                    </div>
+                    <p></p><br>
+                    <div id="rating-group">
+                        <p>Calificación</p>
+                        <input type="range" id="range-slider" min="1" max="5" value="1" th:field="*{ratingWork}"
+                            required>
+                        <p id="range-value"></p>
+                    </div>
+
+                    <button id="review-apply" type="submit" class="btn btn-warning button btn-form">Enviar
+                        Calificación📝</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- SCRIPTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <!-- Script for showing stars on slider input >>>>>>>>>>>>>>>>>>>>>>>  -->
+    <script>
+        const rangeSlider = document.querySelector("#range-slider");
+        const rangeValue = document.querySelector("#range-value");
+
+        // eric: verificacion al instanciarse si rangeSlider.value == 1, luego se gestiona con el addeventListener
+        if (rangeSlider.value == 1)
+            rangeValue.textContent = ("MALO ⭐");
+
+        rangeSlider.addEventListener("input", () => {
+            if (rangeSlider.value == 1)
+                rangeValue.textContent = ("MALO ⭐");
+            if (rangeSlider.value == 2)
+                rangeValue.textContent = ("REGULAR ⭐⭐");
+            else if (rangeSlider.value == 3)
+                rangeValue.textContent = ("BUENO ⭐⭐⭐");
+            else if (rangeSlider.value == 4)
+                rangeValue.textContent = ("MUY BUENO ⭐⭐⭐⭐");
+            else if (rangeSlider.value == 5)
+                rangeValue.textContent = ("EXCELENTE ⭐⭐⭐⭐⭐");
+        });
+    </script>
+
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>

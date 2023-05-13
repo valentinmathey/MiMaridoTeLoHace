@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="th_templates/head :: head"></head>
+
+<body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+    <main class="main-index">
+        <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <br>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col left-col">
+                    <h4 sec:authorize="hasRole('ROLE_PROVIDER')" class="big-title">Tus Trabajos</h4>
+                    <h4 sec:authorize="hasRole('ROLE_CUSTOMER')" class="big-title">Mis Solicitudes</h4>
+                </div>
+
+                <div class="col">
+                    <img class="image3" src="../img/request.svg" alt="home repair">
+                </div>
+            </div>
+        </div>
+
+        <!-- CARDS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <!-- CARD LIST of PROVIDER WORKS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="card text-center large-card" th:each="pwl : ${providerWorkList}">
+            <div class="card-body">
+                <br>
+                <h3 class="card-title">
+                    <img th:src="@{'/image/DB/' + *{pwl.userCustomerId.image}}" alt="Imagen del cliente" class="imagen-customer">
+                    <span th:text="${pwl.userCustomerId.name+' '+pwl.userCustomerId.lastname}"></span>
+                </h3>
+                <p class="card-text" th:text="${'('+pwl.workName+')'}"></p>
+                <p th:text="${'Problema: '+pwl.workDescription}"></p>
+                <a th:href="@{/work/worksList(wStat='ACCEPTED', idWork=${pwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(pwl.workStatus, 'REQUIRED')}">Aceptar Trabajo ✅</a>
+                <a th:href="@{/work/worksList(wStat='REVERT', idWork=${pwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(pwl.workStatus, 'REQUIRED')}">Cancelar Solicitud ❌</a>
+                <a th:href="@{/work/worksList(wStat='REVERT', idWork=${pwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(pwl.workStatus, 'ACCEPTED')}">Cancelar Trabajo ❌</a>
+                <a th:href="@{/work/worksList(wStat='DONE', idWork=${pwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(pwl.workStatus, 'ACCEPTED')}">Finalizar Trabajo ✅</a>
+                <div
+                    th:if="${#strings.contains(pwl.workStatus, 'REVIEWD') || #strings.contains(pwl.workStatus, 'DONE')}">
+                    <p th:text="${'------------- ✅ trabajo terminado ✅ -------------'}"></p>
+                    <br>
+                    <h5 th:if="${#strings.contains(pwl.workStatus, 'REVIEWD')}" class="card-title">El usuario dejó una
+                        calificación 📝</h5>
+                    <h5 th:if="${#strings.contains(pwl.workStatus, 'DONE')}" class="card-title">Aun no te califican por
+                        este trabajo!</h5>
+                </div>
+                <div th:if="${#strings.contains(pwl.workStatus, 'REVERT')}">
+                    <br>
+                    <h5 th:text="${'------------- 🚫 Trabajo cancelado 🚫 -------------'}"></h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD LIST of CUSTOMER WORKS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+        <div class="card text-center large-card" th:each="cwl : ${customerWorkList}">
+            <div class="card-body">
+                <br>
+                <h3 class="card-title">
+                    <img th:src="@{'/image/DB/' + *{cwl.userProviderId.image}}" alt="Imagen del cliente" class="imagen-customer">
+                    <span th:text="${cwl.userProviderId.name+' '+cwl.userProviderId.lastname}"></span>
+                </h3>
+                <br th:if="${#strings.contains(cwl.workStatus, 'REQUIRED')}">
+                <p class="card-text" th:text="${'('+cwl.workName+')'}"></p>
+                <p th:if="${#strings.contains(cwl.workStatus, 'REVERT')}" class="card-text"
+                    th:text="${cwl.workDescription}"></p>
+                <div
+                    th:if="${#strings.contains(cwl.workStatus, 'REVIEWD') || #strings.contains(cwl.workStatus, 'DONE')}">
+                    <br th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}">
+                    <h5 th:text="${'------------- ✅ Trabajo terminado ✅ -------------'}"></h5>
+                    <br th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}"><br
+                        th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}">
+                    <h5 th:if="${#strings.contains(cwl.workStatus, 'REVIEWD')}" class="card-title">Ya dejaste una
+                        calificación! 📝</h5>
+                </div>
+                <div th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">
+                    <h5 th:text="${'------------- ⏳ Trabajo en curso ⏳ -------------'}"></h5>
+                </div>
+                <a th:href="@{/work/worksList(wStat='REVERT', idWork=${cwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(cwl.workStatus, 'REQUIRED')}">Cancelar Solicitud ❌</a>
+                <a th:href="@{/work/worksList(wStat='REVERT', idWork=${cwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">Cancelar Trabajo ❌</a>
+                <a th:href="@{/work/worksList(wStat='DONE', idWork=${cwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(cwl.workStatus, 'ACCEPTED')}">Finalizar Trabajo ✅</a>
+                <a th:href="@{/work/create(applicationType='review', idWork=${cwl.id})}" class="btn btn-warning"
+                    th:if="${#strings.contains(cwl.workStatus, 'DONE')}">Dejar Calificación ⭐</a>
+                <div>
+                    <h5 th:if="${#strings.contains(cwl.workStatus, 'REVERT')}"
+                        th:text="${'------------- 🚫 Trabajo cancelado 🚫 -------------'}"></h5>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <br><br><br><br><br><br>
+
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+
+</body>
+
+</html>

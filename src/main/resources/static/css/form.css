@@ -43,6 +43,7 @@ textarea:focus-visible {
 ::placeholder{
   color: #c63f81;
   opacity: 0.7;
+  text-align: left;
 }
 
 textarea {
@@ -52,7 +53,6 @@ textarea {
   resize: none;
 }
 
-<<<<<<< HEAD
 /* .fieldset {
   display: flex;
   align-content: center;
@@ -62,15 +62,6 @@ textarea {
   border-radius: 30px;
 } */
 
-=======
-.button {
-  background-color: #c63f81;
-  border: #954090;
-  
-  color: #fff;
-  width: 15em;
-  height: 3em;
->>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
 
 
 input[type="radio"] {
@@ -89,10 +80,6 @@ input[type="radio"]:checked + label {
 }
 
 select{
-<<<<<<< HEAD
   text-transform: capitalize;
-=======
-  text-transform: lowercase and capitalize;
->>>>>>> 5e733617db67692b2b928b644a6ccb1f379cfbb1
 }
 

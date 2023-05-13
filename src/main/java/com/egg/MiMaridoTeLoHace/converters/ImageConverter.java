@@ -32,7 +32,7 @@ public class ImageConverter implements Converter<MultipartFile, Image>, Property
     public Image ResourcetoImage(Resource resource) throws IOException {
         Image image = new Image();
         image.setMime(getMimeType(resource.getFilename()));
-        if(!image.getMime().isEmpty()){
+        if (!image.getMime().isEmpty()) {
             image.setName(resource.getFilename());
             image.setContent(IOUtils.toByteArray(resource.getInputStream()));
         } else {
@@ -40,6 +40,7 @@ public class ImageConverter implements Converter<MultipartFile, Image>, Property
         }
         return image;
     }
+
     private String getMimeType(String filename) {
         if (filename == null) {
             return null;

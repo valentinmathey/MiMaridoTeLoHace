@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- html xmlns:th="http://www.thymeleaf.org" = Para evitar que HTML arroje errores por trabajar con elementos de thymeleaf -->
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="th_templates/head :: head"></head>
+
+  <body>
+    <!-- NAVBAR >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <header th:replace="th_templates/navbar :: navbar"></header>
+
+    <main>
+      <!-- IMG OF THE HANDYMAN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            <img class="image5" src="../img/about.svg" alt="about" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col"></div>
+        </div>
+      </div>
+
+      <h2 class="big-title3">¿Quiénes Somos?</h2>
+      <h4 class="subtittle text-center">
+        Somos una plataforma líder como proveedor de contacto para servicios del
+        hogar, conectando a los usuarios con profesionales confiables como
+        gasistas, plomeros, electricistas, etc. Los usuarios pueden buscar y
+        contactar a proveedores con perfiles verificados, dejar comentarios y
+        puntajes para ayudar a construir una red confiable. Nuestra plataforma
+        es fácil de usar y nos esforzamos por garantizar que los usuarios
+        encuentren a los mejores profesionales para sus necesidades del hogar.
+      </h4>
+
+      <h1 class="title">Integrantes</h1>
+
+      <div class="github-btn-container">
+        <a href="https://github.com/truquinio" target="_blank" class="boton-github">
+          <i class="bi bi-github"></i> Federico Trucco
+        </a>
+        <a href="https://github.com/ErosGael" target="_blank" class="boton-github">
+          <i class="bi bi-github"></i> Eric Lemos
+        </a>
+        <a href="https://github.com/fnedic" target="_blank" class="boton-github">
+          <i class="bi bi-github"></i> Facundo Nedic
+        </a>
+        <a href="https://github.com/FabrizioContreras" target="_blank" class="boton-github">
+          <i class="bi bi-github"></i> Fabrizio Contreras
+        </a>
+        <a href="https://github.com/valentinmathey" target="_blank" class="boton-github">
+          <i class="bi bi-github"></i> Valentín Mathey
+        </a>
+      </div>
+    </main>
+
+    <br><br><br>
+
+    <!-- FOOTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  -->
+    <footer th:replace="th_templates/footer :: footer"></footer>
+
+    <!-- Script / Bootstrap -->
+    <div th:replace="th_templates/bootstrap :: bootstrap"></div>
+  </body>
+</html>

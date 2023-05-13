@@ -18,59 +18,74 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"
-            sec:authorize="hasRole('ROLE_CUSTOMER') OR hasRole('ROL_PROVIDER') OR hasRole('ROL_NULL')">
-            <a class="nav-link" href="#">¿Quiénes somos?</a>
+          <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER') || hasRole('ROLE_PROVIDER')">
+            <a class="nav-link" href="/about">¿Quiénes somos?</a>
+          </li>
+          
+          <li class="nav-item" th:if="${session.userSession == null}">
+            <a class="nav-link" href="/about">¿Quiénes somos?</a>
+          </li>
+
+          <li class="nav-item" sec:authorize="hasRole('ROLE_PROVIDER')">
+            <a href="/work/worksList" class="nav-link" role="button" aria-expanded="false">
+              Mis Trabajos 🛠️
+            </a>
+          </li>
+
+          <li class="nav-item" sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <a href="/work/worksList" class="nav-link" role="button" aria-expanded="false">
+              Mis Solicitudes 📝
+            </a>
           </li>
 
           <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-              th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">🧰 Servicios</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Servicios 🧰</a>
             <ul class="dropdown-menu">
 
-              <li><a class="dropdown-item" href="/search?profession=ALBAÑIL">🧱
+              <li><a class="dropdown-item" href="/search?profession=ALBAÑIL&st=">🧱
                   Albañilería</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=CARPINTERO">🪚
+              <li><a class="dropdown-item" href="/search?profession=CARPINTERO&st=">🪚
                   Carpintería</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=CERRAJERO">🔑
+              <li><a class="dropdown-item" href="/search?profession=CERRAJERO&st=">🔑
                   Cerrajería</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=ELECTRICISTA">💡
+              <li><a class="dropdown-item" href="/search?profession=ELECTRICISTA&st=">💡
                   Electricidad</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=GASISTA">🔥 Gas</a></li>
+              <li><a class="dropdown-item" href="/search?profession=GASISTA&st=">
+                🔥 Gas</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=HERRERO">🔩
+              <li><a class="dropdown-item" href="/search?profession=HERRERO&st=">🔩
                   Herrería</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=CARPINTERO">🪣
+              <li><a class="dropdown-item" href="/search?profession=LIMPIEZA&st=">🪣
                   Limpieza</a></li>
 
               <li>
                 <hr class="dropdown-divider">
               </li>
 
-              <li><a class="dropdown-item" href="/search?profession=PLOMERO">🚽
+              <li><a class="dropdown-item" href="/search?profession=PLOMERO&st=">🚽
                   Plomería</a></li>
             </ul>
           </li>
@@ -85,14 +100,14 @@
             <a class="nav-link" href="/login">Ingresar ✅</a>
           </li>
 
-          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" th:if="${#httpServletRequest.getRequestURI() == '/admin/dashboard' || #httpServletRequest.getRequestURI() == '/admin/search'}">
             <a class="nav-link" onclick="toggleTable()" role="button" aria-expanded="false">
-              Mostrar/Ocultar Registros 🖇
+              Ver/Ocultar Registros 📅 
             </a>
           </li>
 
           <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-            <a class="nav-link" href="/admin/dashboard" role="button" aria-expanded="false">
+            <a href="/admin/dashboard" class="nav-link" role="button" aria-expanded="false">
               Panel Administrativo ⚙️
             </a>
           </li>
@@ -102,12 +117,11 @@
           <li class="nav-item dropdown" th:if="${session.userSession != null}">
             <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <img th:src="@{'/image/DB/' + ${session.userSession.image}}" alt="Foto de perfil" width="25" height="25"
-                class="rounded-circle">
+              <img th:src="@{'/image/DB/' + ${session.userSession.image}}" alt="Foto de perfil" class="image-profile-navbar">
               <span class="user-name" th:text="${session.userSession.name}"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" th:href="@{/user/perfil/{id}(id=${session.userSession.id})}">Editar
+              <li><a class="dropdown-item" th:href="@{/user/perfil/{id}(id=${session.userSession.id})}">Mi
                   Perfil</a></li>
               <li>
                 <hr class="dropdown-divider">

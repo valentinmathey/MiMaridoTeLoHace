@@ -1,6 +1,7 @@
 .big-title, 
-.big-title2 {
-  font-size: 57px;
+.big-title2,
+.big-title3 {
+  font-size: 50px;
   color: #9b3f94;
 }
 
@@ -11,11 +12,15 @@
 
 .big-title2{
   text-align: center;
-  margin: 3em 0;
+  margin: 2em 0;
 }
 
-.subtitle2,
-.subtitle2{
+.big-title3{
+  text-align: center;
+  margin: -2em 0 1em 0;
+}
+
+.subtitle{
   font-size: 23px;
 }
 
@@ -29,6 +34,13 @@
   margin: -100px 0 2em 0;
 }
 
+.subtitle3 {
+  font-size: 15px;
+
+  text-align: center;
+  /* margin: -100px 0 2em 0; */
+}
+
 .title {
   font-size: 30px;
   text-align: center;
@@ -36,3 +48,8 @@
 
   color: #9b3f94;
 }
+
+/* .h4{
+  text-align: justify;
+  margin: -100px 0 2em 0;
+} */
