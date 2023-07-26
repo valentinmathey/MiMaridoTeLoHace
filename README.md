@@ -1,7 +1,8 @@
 # 🏠 Proyecto MiMaridoTeLoHace - Web App de Servicios
 ¡Bienvenido al repositorio de MiMaridoTeLoHace! Este proyecto es una emocionante y ambiciosa web app que busca solucionar la dificultad de encontrar proveedores de servicios confiables y de forma inmediata para los residentes de tres barrios cerrados en Chacras de Coria, Mendoza. La aplicación permitirá contactar a proveedores de servicios (gasistas, plomeros, electricistas, etc.) que carguen su perfil con lo que ofrecen. Además, se podrán dejar comentarios y puntajes para cada perfil, fomentando así una red de proveedores confiables.
 
-## 🎥 Vista Previa [ -> Link Video]([https://undefinedshell.notion.site/Semana-3-73f4277f993c4eb78d0d5aab7be42c94](https://youtu.be/ARXmC18vZOM))
+## 🎥 Vista Previa  
+💾 <a href="https://youtu.be/ARXmC18vZOM">Link Video Funcionalidades de App Web</a>
 
 ![Captura de pantalla 2023-07-25 230609](https://github.com/valentinmathey/MiMaridoTeLoHace/assets/108497495/e46502ef-0d3a-426a-8f76-6bf12f6c0510)
 ![Captura de pantalla 2023-07-25 230625](https://github.com/valentinmathey/MiMaridoTeLoHace/assets/108497495/69910529-1b60-464e-8165-9416229e0c07)
