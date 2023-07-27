@@ -92,54 +92,64 @@ CONTACTAR EL SERVICIO (USER)
 ⭐ Opcionalmente, un USER puede elegir pasar su perfil a PROVEEDOR
   
 
-## 📂Estructura del Proyecto
+## 🗂️ Estructura del Proyecto
 
 El proyecto está organizado de la siguiente manera:
 
-🔧MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace
+📂 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace
     
     📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/controllers: Contiene los controladores de Spring que gestionan las solicitudes HTTP y definen las rutas para acceder a las funcionalidades de la aplicación.
 
     📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/entities: Aquí se definen las entidades JPA que representan las tablas de la base de datos, como la entidad de Proveedor y la entidad de Usuario.
 
-    🔢 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/enums: Contiene clases enum que definen valores constantes utilizados en el proyecto, como roles de usuario.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/enums: Contiene clases enum que definen valores constantes utilizados en el proyecto, como roles de usuario.
 
-    🔥 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/exceptions: En esta carpeta se encuentran las clases personalizadas de excepciones para manejar situaciones excepcionales en la aplicación.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/exceptions: En esta carpeta se encuentran las clases personalizadas de excepciones para manejar situaciones excepcionales en la aplicación.
 
-    💾 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/repositories: Aquí se definen los repositorios JPA que interactúan con la base de datos para realizar operaciones de acceso a datos.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/repositories: Aquí se definen los repositorios JPA que interactúan con la base de datos para realizar operaciones de acceso a datos.
 
-    🌐 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/security: Contiene la configuración de seguridad de Spring para el login y registro de usuarios.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/security: Contiene la configuración de seguridad de Spring para el login y registro de usuarios.
 
-    🛠️ MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/services: Contiene los servicios de Spring que implementan la lógica de negocio relacionada con los proveedores y los usuarios.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/services: Contiene los servicios de Spring que implementan la lógica de negocio relacionada con los proveedores y los usuarios.
 
-    🔧 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/converters: Contiene los conversores utilizados para mapear los datos entre entidades y DTOs.
+    📁 MiMaridoTeLoHace/src/main/java/com/egg/MiMaridoTeLoHace/converters: Contiene los conversores utilizados para mapear los datos entre entidades y DTOs.
     
-💼 MiMaridoTeLoHace/src/main/resources/
+📂 MiMaridoTeLoHace/src/main/resources/
 
-    🌐 MiMaridoTeLoHace/src/main/resources/static: Aquí se encuentran los recursos estáticos, como archivos CSS o JavaScript, utilizados en el frontend de la aplicación.
+    📁 MiMaridoTeLoHace/src/main/resources/static: Aquí se encuentran los recursos estáticos, como archivos CSS o JavaScript, utilizados en el frontend de la aplicación.
 
-    📃 MiMaridoTeLoHace/src/main/resources/templates: Contiene las plantillas HTML que utilizan Thymeleaf para integrar el backend de Spring con el frontend, permitiendo la visualización dinámica de los datos.
+    📁 MiMaridoTeLoHace/src/main/resources/templates: Contiene las plantillas HTML que utilizan Thymeleaf para integrar el backend de Spring con el frontend, permitiendo la visualización dinámica de los datos.
 
 # 💻 Tech Stack:
-
-🔹 Java: Lenguaje de programación para el desarrollo del backend.
-
-🔹 Spring Boot: Framework que facilita el desarrollo de aplicaciones web con Spring.
-
-🔹 Thymeleaf: Motor de plantillas para integrar el backend de Spring con el frontend en HTML.
-
-🔹 Bootstrap: Framework de CSS y JavaScript para el diseño y maquetación de páginas web.
-
-🔹 HTML: Lenguaje de marcado para la estructura de las páginas web.
-
-🔹 CSS: Lenguaje de estilos para el diseño y presentación de las páginas web.
-
-🔹 JavaScript: Lenguaje de programación para implementar interacciones en la parte frontend.
-
-🔹 MySQL: Sistema de gestión de bases de datos para almacenar la información de los usuarios y proveedores.
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css3 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" height="40" alt="bootstrap logo"  />
+  <img width="12" />
+  <img src="https://www.thymeleaf.org/images/thymeleaf.png" height="40" alt="materialui logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" height="40" alt="spring logo"  />
+  <img width="12" />
+  <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" height="40" alt="postman"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" height="40" alt="mysql logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" height="40" alt="git logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" height="40" alt="visualstudio logo"  />
+  <img width="12" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Apache_NetBeans_Logo.svg/1200px-Apache_NetBeans_Logo.svg.png" height="40" alt="visualstudio logo"  />
+  <img width="12" />
+</div>
 
 # 🧑🏻‍💻 Autor:
 
-<b>Valentin Mathey</b> | @valentinmathey
+Valentin Mathey | <a href="https://github.com/valentinmathey">@valentinmathey</a>
 
 [![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/valentinmathey) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/https://www.facebook.com/ValentinEzequielMathey) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/https://www.instagram.com/valen.mathey/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/https://www.linkedin.com/in/valentin-mathey/) [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/https://twitter.com/valen_mathey)
