@@ -31,65 +31,65 @@ La audiencia principal de la aplicación son los proveedores de servicios, así 
 
 ## 🔧 Requerimientos
 
-Obligatorios:
+🔷 Obligatorios:
 
-📝 Registro y Login con Spring Security
+• Registro y Login con Spring Security
 
-🔐 Dos o más roles distintos para los usuarios
+• Dos o más roles distintos para los usuarios
 
-📊 Tabla HTML en alguna vista
+• Tabla HTML en alguna vista
 
-🖼️ Carga y actualización de imagen
+•️ Carga y actualización de imagen
 
-🔍 Query de búsqueda personalizada
+• Query de búsqueda personalizada
 
-📝 CRUD (Crear, Leer, Actualizar, Eliminar)
+• CRUD (Crear, Leer, Actualizar, Eliminar)
 
-📝 Uno o más formularios
+• Uno o más formularios
 
-📝 Tres o más vistas distintas
+• Tres o más vistas distintas
 
-📊 Diagrama UML de entidades
+• Diagrama UML de entidades
 
-Optativos:
+🔷 Optativos:
 
-🔍 Motor de búsqueda
+• Motor de búsqueda
 
-📝 Tabla de agregar/modificar y eliminar registros
+• Tabla de agregar/modificar y eliminar registros
 
-✅ Atributos booleanos de alta y baja de usuarios (y poder modificarlos)
+• Atributos booleanos de alta y baja de usuarios (y poder modificarlos)
 
-🔍 Listado en tabla por filtro (nombre, fechas, altas o bajas, etc)
+• Listado en tabla por filtro (nombre, fechas, altas o bajas, etc)
 
-📄 Implementen th:fragments en al menos cinco vistas distintas
+• Implementen th:fragments en al menos cinco vistas distintas
 
-📊 Dashboard de administración de la app (el rol Administrador tendrá acceso a información que un rol User o 
+• Dashboard de administración de la app (el rol Administrador tendrá acceso a información que un rol User o 
 Guest no tiene)
 
-🧼 Aplicar principios de código limpio y buenas prácticas
+• Aplicar principios de código limpio y buenas prácticas
 
-📊 Añadir diagrama de casos de uso en UML
+• Añadir diagrama de casos de uso en UML
 
-Específicos:
+🔷 Específicos:
 
-👥 La app permite crear un perfil de USUARIO QUE OFRECE SERVICIOS (PROVEEDOR) o un perfil de USUARIO QUE QUIERE 
+• La app permite crear un perfil de USUARIO QUE OFRECE SERVICIOS (PROVEEDOR) o un perfil de USUARIO QUE QUIERE 
 CONTACTAR EL SERVICIO (USER)
 
-🌟 La app muestra cada perfil con la cantidad de usuarios que lo contactaron y la cantidad de reseñas/puntaje/calificación que corresponde (sólo pueden calificar a un PROVEEDOR aquellos USER que ya contactaron/contrataron el servicio de este perfil)
+• La app muestra cada perfil con la cantidad de usuarios que lo contactaron y la cantidad de reseñas/puntaje/calificación que corresponde (sólo pueden calificar a un PROVEEDOR aquellos USER que ya contactaron/contrataron el servicio de este perfil)
 
-⭐ Cada PROVEEDOR puede ser calificado por quienes hayan utilizado su servicio (esto lo decide el equipo, si con promedio entre 1/5 o con estrellas, etcétera)
+• Cada PROVEEDOR puede ser calificado por quienes hayan utilizado su servicio (esto lo decide el equipo, si con promedio entre 1/5 o con estrellas, etcétera)
 
-📞 Un PROVEEDOR (gasista, plomero, etc.) genera un perfil propio, con foto, contacto y descripción del servicio que ofrece
+• Un PROVEEDOR (gasista, plomero, etc.) genera un perfil propio, con foto, contacto y descripción del servicio que ofrece
 
-👤 Un USER puede acceder a la app, navegar en los servicios que quiera y seleccionar a un proveedor de servicios para contactarlo o para calificarlo
+• Un USER puede acceder a la app, navegar en los servicios que quiera y seleccionar a un proveedor de servicios para contactarlo o para calificarlo
 
-👁️ Un GUEST puede ver los servicios, pero no puede ver la información de contacto
+•️ Un GUEST puede ver los servicios, pero no puede ver la información de contacto
 
-🛠️ Un ADMIN puede otorgar permisos, cambiar roles, eliminar comentarios y crear nuevos servicios
+•️ Un ADMIN puede otorgar permisos, cambiar roles, eliminar comentarios y crear nuevos servicios
 
-🔍 Los USERS deben poder encontrar fácilmente a un proveedor por rubro y ordenarlo bajo distintos criterios
+• Los USERS deben poder encontrar fácilmente a un proveedor por rubro y ordenarlo bajo distintos criterios
 
-⭐ Opcionalmente, un USER puede elegir pasar su perfil a PROVEEDOR
+• Opcionalmente, un USER puede elegir pasar su perfil a PROVEEDOR
   
 
 ## 🗂️ Estructura del Proyecto
@@ -148,8 +148,9 @@ El proyecto está organizado de la siguiente manera:
   <img width="12" />
 </div>
 
-# 🧑🏻‍💻 Autor:
+# 🧑🏻‍💻 Autores:
 
-Valentin Mathey | <a href="https://github.com/valentinmathey">@valentinmathey</a>
-
-[![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/valentinmathey) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/https://www.facebook.com/ValentinEzequielMathey) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/https://www.instagram.com/valen.mathey/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/https://www.linkedin.com/in/valentin-mathey/) [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/https://twitter.com/valen_mathey)
+Valentin Mathey | <a href="https://github.com/valentinmathey">@valentinmathey</a><br>
+Eric Lemos      | <a href="https://github.com/ErosGael">@ErosGael</a><br>
+Facundo Nedic   | <a href="https://github.com/fnedic">@fnedic</a><br>
+Federico Trucco | <a href="https://github.com/truquinio">@truquinio</a>
