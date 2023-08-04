@@ -91,6 +91,9 @@ CONTACTAR EL SERVICIO (USER)
 
 • Opcionalmente, un USER puede elegir pasar su perfil a PROVEEDOR
   
+## 🛠️ Instalación
+• Java: 17 <br>
+• Spring Boot: 2.7.10
 
 ## 🗂️ Estructura del Proyecto
 
